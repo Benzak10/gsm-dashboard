@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSM Capital — Portefeuilles</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f172a; --bg2: #1e293b; --bg3: #111827;
+    --border: #1e293b; --border2: #334155;
+    --text: #e2e8f0; --text2: #94a3b8; --text3: #64748b;
+    --blue: #3b82f6; --purple: #8b5cf6; --cyan: #06b6d4;
+    --green: #16a34a; --red: #dc2626; --amber: #f59e0b;
+    --val-color: #1d4ed8; --red-color: #991b1b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, #1e293b, #0f172a); border-bottom: 1px solid var(--border2); padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10; }
+  .header-left .sub { font-size: 10px; letter-spacing: 3px; color: var(--text3); text-transform: uppercase; font-weight: 600; }
+  .header-left .title { font-size: 20px; font-weight: 700; color: #f8fafc; margin-top: 2px; }
+  .header-right { text-align: right; }
+  .header-right .label { font-size: 11px; color: var(--text3); }
+  .header-right .date { font-size: 13px; color: var(--text2); font-family: 'JetBrains Mono', monospace; }
+
+  /* KPI */
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; padding: 14px 24px; }
+  .kpi { background: var(--bg2); border-radius: 10px; padding: 14px 16px; }
+  .kpi-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .kpi-value { font-size: 20px; font-weight: 700; margin-top: 4px; font-family: 'JetBrains Mono', monospace; }
+  .kpi-sub { font-size: 10px; color: var(--text3); margin-top: 1px; }
+
+  /* CONTROLS */
+  .controls { padding: 0 24px 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .tabs, .filters { display: flex; gap: 3px; background: var(--bg2); border-radius: 8px; padding: 3px; }
+  .tab-btn, .filter-btn { padding: 7px 16px; border-radius: 6px; border: none; cursor: pointer; font-size: 12px; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: all 0.2s; background: transparent; color: var(--text3); }
+  .tab-btn.active { background: var(--blue); color: white; }
+  .filter-btn.active-all { background: #334155; color: white; }
+  .filter-btn.active-val { background: #1e3a5f; color: #60a5fa; }
+  .filter-btn.active-red { background: #7f1d1d; color: #fca5a5; }
+
+  /* CONTENT */
+  .content { padding: 0 24px 24px; }
+
+  /* TABLE COMMON */
+  table { border-collapse: collapse; width: 100%; font-size: 12px; }
+  thead tr { border-bottom: 2px solid var(--border2); }
+  tbody tr { border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; }
+  tbody tr:hover { background: var(--bg2) !important; }
+  th { padding: 8px 10px; color: var(--text3); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; white-space: nowrap; }
+  td { padding: 8px 10px; vertical-align: middle; }
+  .text-right { text-align: right; }
+  .text-center { text-align: center; }
+
+  /* BADGE */
+  .badge { font-size: 9px; padding: 2px 7px; border-radius: 4px; font-weight: 700; display: inline-block; }
+  .badge-val { background: #1e3a5f; color: #60a5fa; }
+  .badge-red { background: #7f1d1d; color: #fca5a5; }
+
+  /* BAR */
+  .bar-wrap { display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+  .bar-bg { width: 50px; height: 5px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--blue); border-radius: 3px; }
+
+  /* FOOTER TABLE */
+  tfoot tr { border-top: 2px solid var(--blue); }
+  tfoot td { font-weight: 700; padding: 10px; }
+
+  /* MATRICE */
+  .matrice-wrap { overflow-x: auto; }
+  .sticky-col { position: sticky; left: 0; z-index: 2; }
+
+  /* DETAIL */
+  .back-btn { background: var(--bg2); border: none; color: var(--text2); padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; margin-bottom: 12px; font-family: 'DM Sans', sans-serif; }
+  .detail-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+  .mini-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+  .mini-kpi { background: var(--bg2); border-radius: 8px; padding: 10px; text-align: center; }
+
+  /* GRID CLIENTS */
+  .client-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .client-card { background: var(--bg2); border-radius: 10px; padding: 14px; cursor: pointer; transition: transform 0.15s; }
+  .client-card:hover { transform: translateY(-2px); }
+
+  /* LOADING */
+  #loading { display: flex; align-items: center; justify-content: center; height: 200px; color: var(--text3); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="sub">GSM Capital</div>
+    <div class="title">Portefeuilles Consolidés</div>
+  </div>
+  <div class="header-right">
+    <div class="label">Dernière extraction</div>
+    <div class="date" id="dateExtraction">—</div>
+  </div>
+</div>
+
+<!-- KPIs -->
+<div class="kpis" id="kpis"></div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('resume')">Résumé</button>
+    <button class="tab-btn" onclick="switchTab('matrice')">Matrice Valeurs</button>
+    <button class="tab-btn" onclick="switchTab('detail')">Détail</button>
+  </div>
+  <div class="filters">
+    <button class="filter-btn active-all" onclick="setFilter('Tous')">Tous</button>
+    <button class="filter-btn" onclick="setFilter('Valoris')">Valoris</button>
+    <button class="filter-btn" onclick="setFilter('Redmed')">Redmed</button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content" id="content"><div id="loading">Chargement...</div></div>
+
+<script>
+const GITHUB_USER = 'Benzak10';
+const REPO = 'gsm-dashboard';
+const JSON_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO}/main/data.json`;
+
+let DATA = null;
+let currentTab = 'resume';
+let currentFilter = 'Tous';
+let selectedClient = null;
+
+const fmt = n => isNaN(n) ? '—' : new Intl.NumberFormat('fr-MA', {minimumFractionDigits:0,maximumFractionDigits:0}).format(n);
+const fmtPct = n => n === 0 ? '' : n.toFixed(1) + '%';
+const pvColor = v => v > 0 ? '#16a34a' : v < 0 ? '#dc2626' : '#94a3b8';
+const pvSign = v => v > 0 ? '+' : '';
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+async function loadData() {
+  try {
+    const r = await fetch(JSON_URL + '?t=' + Date.now());
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    DATA = await r.json();
+  } catch(e) {
+    // Fallback : données embarquées
+    DATA = EMBEDDED_DATA;
+  }
+  init();
+}
+
+function getFilteredPtfs() {
+  const active = DATA.portefeuilles.filter(p => p.total > 0);
+  if (currentFilter === 'Tous') return active;
+  return active.filter(p => p.plateforme === currentFilter);
+}
+
+function init() {
+  document.getElementById('dateExtraction').textContent = DATA.date_extraction || '—';
+  renderKPIs();
+  renderContent();
+}
+
+function renderKPIs() {
+  const ptfs = getFilteredPtfs();
+  const cash = ptfs.reduce((s,p) => s+p.capacite_achat, 0);
+  const valo = ptfs.reduce((s,p) => s+p.valorisation, 0);
+  const pv = ptfs.reduce((s,p) => s+p.plus_moins_value, 0);
+  const total = ptfs.reduce((s,p) => s+p.total, 0);
+  const kpis = [
+    {label:'Total Global', value:fmt(total)+' MAD', color:'#3b82f6'},
+    {label:'Valorisation', value:fmt(valo)+' MAD', color:'#8b5cf6'},
+    {label:'Cash', value:fmt(cash)+' MAD', color:'#06b6d4'},
+    {label:'+/- Value', value:pvSign(pv)+fmt(pv)+' MAD', color:pvColor(pv)},
+    {label:'Portefeuilles', value:ptfs.length+' actifs', color:'#f59e0b'},
+  ];
+  document.getElementById('kpis').innerHTML = kpis.map(k => `
+    <div class="kpi" style="border-left:3px solid ${k.color}">
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-value mono" style="color:${k.color}">${k.value}</div>
+    </div>`).join('');
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  selectedClient = null;
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    b.classList.toggle('active', ['resume','matrice','detail'][i] === tab);
+  });
+  renderContent();
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.className = 'filter-btn';
+    if (b.textContent === f) {
+      b.className = 'filter-btn ' + (f==='Valoris'?'active-val':f==='Redmed'?'active-red':'active-all');
+    }
+  });
+  renderKPIs();
+  renderContent();
+}
+
+function renderContent() {
+  const c = document.getElementById('content');
+  if (currentTab === 'resume') c.innerHTML = renderResume();
+  else if (currentTab === 'matrice') c.innerHTML = renderMatrice();
+  else if (currentTab === 'detail') c.innerHTML = selectedClient ? renderDetailClient() : renderDetailGrid();
+}
+
+function renderResume() {
+  const ptfs = getFilteredPtfs().sort((a,b) => b.total - a.total);
+  const cash = ptfs.reduce((s,p)=>s+p.capacite_achat,0);
+  const valo = ptfs.reduce((s,p)=>s+p.valorisation,0);
+  const pv = ptfs.reduce((s,p)=>s+p.plus_moins_value,0);
+  const total = ptfs.reduce((s,p)=>s+p.total,0);
+
+  const rows = ptfs.map(p => {
+    const pvC = pvColor(p.plus_moins_value);
+    return `<tr onclick="goDetail('${esc(p.nom)}')">
+      <td style="font-weight:600;color:#f1f5f9">${esc(p.nom)}</td>
+      <td><span class="badge ${p.plateforme==='Valoris'?'badge-val':'badge-red'}">${p.plateforme==='Valoris'?'VAL':'RED'}</span></td>
+      <td class="text-right mono" style="color:#94a3b8;font-size:11px">${fmt(p.capacite_achat)}</td>
+      <td class="text-right mono" style="font-size:11px">${fmt(p.valorisation)}</td>
+      <td class="text-right mono" style="font-weight:600;color:${pvC}">${pvSign(p.plus_moins_value)}${fmt(p.plus_moins_value)}</td>
+      <td class="text-right mono" style="font-weight:700;color:#f1f5f9">${fmt(p.total)}</td>
+      <td class="text-right" style="color:#64748b">${p.positions.filter(x=>x.quantite>0).length}</td>
+    </tr>`;
+  }).join('');
+
+  return `<div style="overflow-x:auto"><table>
+    <thead><tr>
+      <th>Portefeuille</th><th>Ptf</th>
+      <th class="text-right">Cash</th><th class="text-right">Valorisation</th>
+      <th class="text-right">+/- Value</th><th class="text-right">Total</th><th class="text-right">Lignes</th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+    <tfoot><tr>
+      <td colspan="2" style="color:#3b82f6;font-size:13px">TOTAL</td>
+      <td class="text-right mono" style="color:#06b6d4">${fmt(cash)}</td>
+      <td class="text-right mono" style="color:#8b5cf6">${fmt(valo)}</td>
+      <td class="text-right mono" style="color:${pvColor(pv)}">${pvSign(pv)}${fmt(pv)}</td>
+      <td class="text-right mono" style="color:#f1f5f9;font-size:14px">${fmt(total)}</td>
+      <td></td>
+    </tr></tfoot>
+  </table></div>`;
+}
+
+function renderMatrice() {
+  const ptfs = getFilteredPtfs().sort((a,b) => b.total - a.total);
+  const totalGlobalValo = ptfs.reduce((s,p) => s+p.valorisation, 0);
+
+  // Construire la map des tickers
+  const tickerMap = {};
+  ptfs.forEach(p => {
+    p.positions.filter(pos => pos.quantite > 0).forEach(pos => {
+      if (!tickerMap[pos.ticker]) tickerMap[pos.ticker] = {ticker:pos.ticker, valeur:pos.valeur, prix:pos.prix_marche, clients:{}, totalValo:0};
+      tickerMap[pos.ticker].clients[p.nom] = pos;
+      tickerMap[pos.ticker].totalValo += pos.valori_ptf;
+    });
+  });
+  const rows = Object.values(tickerMap).sort((a,b) => b.totalValo - a.totalValo);
+
+  const pctGlobal = t => totalGlobalValo > 0 ? (t.totalValo / totalGlobalValo * 100) : 0;
+
+  // Headers clients
+  const clientHeaders = ptfs.map(p => `
+    <th class="text-center" style="max-width:70px;overflow:hidden;cursor:pointer;font-size:9px" onclick="goDetail('${esc(p.nom)}')" title="${esc(p.nom)}">
+      ${esc(p.nom.substring(0,8))}
+    </th>`).join('');
+
+  // Lignes
+  const dataRows = rows.map((row, ri) => {
+    const bg = ri % 2 === 0 ? '#0f172a' : '#111827';
+    const pctG = pctGlobal(row);
+    const clientCells = ptfs.map(p => {
+      const pos = row.clients[p.nom];
+      if (!pos) return `<td class="text-center" style="background:${bg}"></td>`;
+      const pct = p.total > 0 ? (pos.valori_ptf / p.total * 100) : 0;
+      const intensity = Math.min(pct / 30, 1);
+      return `<td class="text-center mono" style="font-size:10px;background:rgba(59,130,246,${intensity*0.35});color:${pct>15?'#93c5fd':'#64748b'}">${fmtPct(pct)}</td>`;
+    }).join('');
+
+    return `<tr style="border-bottom:1px solid #1e293b">
+      <td class="sticky-col" style="background:${bg};min-width:110px;padding:6px 10px">
+        <div style="font-weight:700;font-size:12px;color:#f1f5f9">${esc(row.ticker)}</div>
+        <div style="font-size:9px;color:#475569">${esc(row.valeur)}</div>
+      </td>
+      <td class="text-right mono sticky-col" style="background:${bg};color:#94a3b8;font-size:11px;padding:6px 10px;left:110px;min-width:70px">${fmt(row.prix)}</td>
+      <td class="text-right mono" style="background:${bg};font-size:10px;color:#f59e0b;padding:6px 10px;font-weight:600">${fmtPct(pctG)}</td>
+      ${clientCells}
+      <td class="text-right mono" style="background:${bg};font-weight:700;color:#f59e0b;padding:6px 10px;font-size:11px">${fmt(row.totalValo)}</td>
+    </tr>`;
+  }).join('');
+
+  // Ligne totaux % par client
+  const totalRow = ptfs.map(p => {
+    const pctSum = rows.reduce((s, row) => {
+      const pos = row.clients[p.nom];
+      return s + (pos ? (p.total > 0 ? pos.valori_ptf/p.total*100 : 0) : 0);
+    }, 0);
+    return `<td class="text-right mono" style="font-size:10px;color:#f1f5f9;font-weight:700;padding:8px 6px">${fmtPct(pctSum)}</td>`;
+  }).join('');
+
+  return `<div style="margin-bottom:8px;font-size:11px;color:#64748b">
+    % = poids de la valeur dans le portefeuille du client &nbsp;|&nbsp; Col. <span style="color:#f59e0b">% Global</span> = poids dans la valo totale
+  </div>
+  <div class="matrice-wrap"><table style="font-size:11px;white-space:nowrap">
+    <thead><tr style="border-bottom:2px solid #334155">
+      <th class="sticky-col" style="left:0;background:#0f172a;min-width:110px;text-align:left">Valeur</th>
+      <th class="sticky-col text-right" style="left:110px;background:#0f172a;min-width:70px">Prix</th>
+      <th class="text-right" style="color:#f59e0b">% Global</th>
+      ${clientHeaders}
+      <th class="text-right" style="color:#f59e0b">Valo Totale</th>
+    </tr></thead>
+    <tbody>${dataRows}</tbody>
+    <tfoot><tr style="border-top:2px solid #334155">
+      <td class="sticky-col" colspan="2" style="left:0;background:#0f172a;font-weight:700;color:#3b82f6;padding:8px 10px">TOTAL</td>
+      <td class="text-right mono" style="font-weight:700;color:#f59e0b;font-size:10px">100%</td>
+      ${totalRow}
+      <td class="text-right mono" style="font-weight:700;color:#f59e0b">${fmt(totalGlobalValo)}</td>
+    </tr></tfoot>
+  </table></div>`;
+}
+
+function renderDetailGrid() {
+  const ptfs = getFilteredPtfs().sort((a,b) => b.total - a.total);
+  const cards = ptfs.map(p => {
+    const pvC = pvColor(p.plus_moins_value);
+    const borderC = p.plateforme === 'Valoris' ? '#3b82f6' : '#ef4444';
+    return `<div class="client-card" style="border-left:3px solid ${borderC}" onclick="goDetail('${esc(p.nom)}')">
+      <div style="font-weight:600;color:#f1f5f9;font-size:13px">${esc(p.nom)}</div>
+      <div style="font-size:10px;color:#64748b;margin-top:2px">${p.plateforme}</div>
+      <div class="mono" style="font-size:17px;font-weight:700;color:#f1f5f9;margin-top:8px">${fmt(p.total)}</div>
+      <div class="mono" style="font-size:11px;font-weight:600;color:${pvC}">${pvSign(p.plus_moins_value)}${fmt(p.plus_moins_value)}</div>
+    </div>`;
+  }).join('');
+  return `<div style="color:#64748b;margin-bottom:12px;font-size:12px">Sélectionnez un portefeuille :</div>
+    <div class="client-grid">${cards}</div>`;
+}
+
+function renderDetailClient() {
+  const p = DATA.portefeuilles.find(x => x.nom === selectedClient);
+  if (!p) return '';
+  const pvC = pvColor(p.plus_moins_value);
+  const positions = p.positions.filter(x => x.quantite > 0).sort((a,b) => b.valori_ptf - a.valori_ptf);
+
+  const rows = positions.map((pos, i) => {
+    const pct = p.total > 0 ? (pos.valori_ptf / p.total * 100) : 0;
+    const pvC2 = pvColor(pos.plus_moins_value);
+    return `<tr style="${i%2===1?'background:#111827':''}">
+      <td style="font-weight:700;color:#f1f5f9">${esc(pos.ticker)}</td>
+      <td style="color:#94a3b8">${esc(pos.valeur)}</td>
+      <td class="text-right mono">${pos.quantite}</td>
+      <td class="text-right mono" style="color:#64748b;font-size:11px">${fmt(pos.cmp)}</td>
+      <td class="text-right mono" style="color:#94a3b8;font-size:11px">${fmt(pos.prix_marche)}</td>
+      <td class="text-right mono" style="font-weight:600">${fmt(pos.valori_ptf)}</td>
+      <td class="text-right mono" style="font-weight:600;color:${pvC2}">${pvSign(pos.plus_moins_value)}${fmt(pos.plus_moins_value)}</td>
+      <td class="text-right">
+        <div class="bar-wrap">
+          <div class="bar-bg"><div class="bar-fill" style="width:${Math.min(pct,100)}%"></div></div>
+          <span class="mono" style="font-size:10px;color:#64748b;min-width:35px">${pct.toFixed(1)}%</span>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+
+  return `<button class="back-btn" onclick="selectedClient=null;renderContent()">← Retour</button>
+  <div class="detail-header">
+    <div>
+      <span class="badge ${p.plateforme==='Valoris'?'badge-val':'badge-red'}">${p.plateforme}</span>
+      <div style="font-size:22px;font-weight:700;color:#f1f5f9;margin-top:4px">${esc(p.nom)}</div>
+    </div>
+    <div style="text-align:right">
+      <div class="mono" style="font-size:22px;font-weight:700;color:#f1f5f9">${fmt(p.total)} <span style="font-size:12px;color:#64748b">MAD</span></div>
+      <div class="mono" style="font-size:13px;font-weight:600;color:${pvC}">${pvSign(p.plus_moins_value)}${fmt(p.plus_moins_value)}</div>
+    </div>
+  </div>
+  <div class="mini-kpis">
+    <div class="mini-kpi"><div style="font-size:10px;color:#64748b;text-transform:uppercase">Valorisation</div><div class="mono" style="font-size:17px;font-weight:700;margin-top:4px">${fmt(p.valorisation)}</div></div>
+    <div class="mini-kpi"><div style="font-size:10px;color:#64748b;text-transform:uppercase">Cash</div><div class="mono" style="font-size:17px;font-weight:700;margin-top:4px">${fmt(p.capacite_achat)}</div></div>
+    <div class="mini-kpi"><div style="font-size:10px;color:#64748b;text-transform:uppercase">Lignes</div><div class="mono" style="font-size:17px;font-weight:700;margin-top:4px">${positions.length}</div></div>
+  </div>
+  <div style="overflow-x:auto"><table>
+    <thead><tr>
+      <th>Ticker</th><th>Valeur</th><th class="text-right">Qté</th>
+      <th class="text-right">CMP</th><th class="text-right">Prix</th>
+      <th class="text-right">Valorisation</th><th class="text-right">+/- Value</th><th class="text-right">% Ptf</th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+    <tfoot><tr>
+      <td colspan="5" style="color:#3b82f6;font-size:12px">TOTAL + CASH</td>
+      <td class="text-right mono" style="color:#f1f5f9;font-size:13px">${fmt(p.total)}</td>
+      <td class="text-right mono" style="color:${pvC}">${pvSign(p.plus_moins_value)}${fmt(p.plus_moins_value)}</td>
+      <td></td>
+    </tr></tfoot>
+  </table></div>`;
+}
+
+function goDetail(nom) {
+  selectedClient = nom;
+  currentTab = 'detail';
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i === 2));
+  renderContent();
+}
+
+// Données embarquées en fallback (mises à jour par le script)
+const EMBEDDED_DATA = {"date_extraction":"18/04/2026 14:21","portefeuilles":[]};
+
+loadData();
+</script>
+</body>
+</html>
