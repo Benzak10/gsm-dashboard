@@ -39,13 +39,15 @@
   .compte-row.sel{border-color:#2E6BE6;background:#F0F5FF}
   .compte-row.warn{border-color:#E8A030;background:#FEF6EC}
   .cchk{width:15px;height:15px;accent-color:#2E6BE6;cursor:pointer;flex-shrink:0}
-  .cnom{font-size:13px;font-weight:500;color:#1B2A4A;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cnom{font-size:13px;font-weight:500;color:#1B2A4A;flex:1;min-width:80px}
   .plat{font-size:10px;padding:2px 7px;border-radius:20px;font-weight:600;flex-shrink:0}
   .pV{background:#E6F0FB;color:#1A5DB5}
   .pR{background:#FDECEA;color:#C0392B}
-  .cash-lbl{font-size:12px;color:#7A8BA8;min-width:105px;text-align:right;flex-shrink:0}
-  .mnt-inp{width:95px;height:32px;font-size:12px;flex-shrink:0}
-  .qte-chip{font-size:11px;min-width:68px;text-align:right;flex-shrink:0;color:#7A8BA8}
+  .cash-lbl{font-size:12px;color:#7A8BA8;width:95px;text-align:right;flex-shrink:0}
+  .mnt-inp{width:80px;height:30px;font-size:12px;flex-shrink:0;text-align:right;padding:0 6px}
+  .qte-chip{font-size:12px;font-weight:600;width:70px;text-align:right;flex-shrink:0;color:#7A8BA8;background:#F4F6FA;border-radius:6px;padding:4px 6px;border:1px solid #E0E5EF}
+  .qte-chip.ok{color:#1E7A35;background:#EAF4EC;border-color:#6EBA7F}
+  .qte-chip.err{color:#C0392B;background:#FDECEA;border-color:#E88A84}
   .qte-chip.ok{color:#1E7A35;font-weight:600}
   .qte-chip.err{color:#C0392B}
   .total-bar{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:#F4F6FA;border-radius:8px;margin-top:8px;font-size:13px}
@@ -150,6 +152,13 @@
       <div class="card">
         <div class="section-label">3 — Comptes &amp; montants</div>
         <div class="divider"></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:0 12px 6px;font-size:11px;color:#7A8BA8;font-weight:500">
+          <span style="width:15px;flex-shrink:0"></span>
+          <span style="flex:1">Client</span>
+          <span style="width:95px;text-align:right;flex-shrink:0">Cash dispo</span>
+          <span style="width:80px;text-align:right;flex-shrink:0">Montant MAD</span>
+          <span style="width:70px;text-align:right;flex-shrink:0">Qté</span>
+        </div>
         <div class="comptes-list" id="comptesList"></div>
         <div class="total-bar">
           <span>Total engagé</span>
@@ -224,12 +233,14 @@ var DATA_JSON = {"date_extraction":"24/04/2026 21:47","portefeuilles":[{"nom":"A
 function renderList(){
   var html='';
   comptes.forEach(function(c,i){
+    var isVal=c.plat==='Valoris';
     html+='<div class="compte-row" id="row'+i+'">'
       +'<input type="checkbox" class="cchk" id="chk'+i+'" onchange="updateQtes()">'
-      +'<span class="cnom">'+c.nom+'</span>'
-      +'<span class="plat '+(c.plat==='Valoris'?'pV':'pR')+'">'+c.plat+'</span>'
+      +'<span class="cnom">'+c.nom
+      +'<span style="margin-left:6px;font-size:10px;padding:1px 6px;border-radius:20px;font-weight:600;background:'+(isVal?'#E6F0FB':'#FDECEA')+';color:'+(isVal?'#1A5DB5':'#C0392B')+'">'+c.plat+'</span>'
+      +'</span>'
       +'<span class="cash-lbl">'+fmt(c.cash)+'</span>'
-      +'<input type="number" class="mnt-inp" id="mnt'+i+'" placeholder="MAD" min="0" step="100" oninput="updateQtes()" disabled>'
+      +'<input type="number" class="mnt-inp" id="mnt'+i+'" placeholder="0" min="0" step="100" oninput="updateQtes()" disabled>'
       +'<span class="qte-chip" id="qte'+i+'">—</span>'
       +'</div>';
   });
