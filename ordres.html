@@ -234,14 +234,14 @@ function renderList(){
   var html='';
   comptes.forEach(function(c,i){
     var isVal=c.plat==='Valoris';
-    html+='<div class="compte-row" id="row'+i+'">'
-      +'<input type="checkbox" class="cchk" id="chk'+i+'" onchange="updateQtes()">'
-      +'<span class="cnom">'+c.nom
-      +'<span style="margin-left:6px;font-size:10px;padding:1px 6px;border-radius:20px;font-weight:600;background:'+(isVal?'#E6F0FB':'#FDECEA')+';color:'+(isVal?'#1A5DB5':'#C0392B')+'">'+c.plat+'</span>'
-      +'</span>'
-      +'<span class="cash-lbl">'+fmt(c.cash)+'</span>'
-      +'<input type="number" class="mnt-inp" id="mnt'+i+'" placeholder="0" min="0" step="100" oninput="updateQtes()" disabled>'
-      +'<span class="qte-chip" id="qte'+i+'">—</span>'
+    var platBadge='<span style="margin-left:5px;font-size:10px;padding:1px 5px;border-radius:10px;font-weight:600;background:'+(isVal?'#E6F0FB':'#FDECEA')+';color:'+(isVal?'#1A5DB5':'#C0392B')+'">'+c.plat+'</span>';
+    html+='<div class="compte-row" id="row'+i+'" style="display:flex;align-items:center;gap:8px;padding:8px 10px">'
+      +'<input type="checkbox" class="cchk" id="chk'+i+'" onchange="updateQtes()" style="width:15px;height:15px;flex-shrink:0">'
+      +'<span style="font-size:13px;font-weight:500;color:#1B2A4A;flex:1;min-width:60px">'+c.nom+platBadge+'</span>'
+      +'<span style="font-size:12px;color:#7A8BA8;width:90px;text-align:right;flex-shrink:0">'+fmt(c.cash)+'</span>'
+      +'<input type="number" id="mnt'+i+'" placeholder="0" min="0" step="100" oninput="updateQtes()" disabled'
+      +' style="width:80px!important;max-width:80px;height:28px;font-size:12px;flex-shrink:0;text-align:right;padding:0 6px;border:1px solid #D5DCE8;border-radius:6px;background:#fff;color:#1B2A4A">'
+      +'<span class="qte-chip" id="qte'+i+'" style="width:65px;text-align:right;flex-shrink:0;font-size:11px;font-weight:600;padding:3px 6px;border-radius:6px;background:#F4F6FA;border:1px solid #E0E5EF;color:#7A8BA8">—</span>'
       +'</div>';
   });
   document.getElementById('comptesList').innerHTML=html;
@@ -284,18 +284,29 @@ function updateQtes(){
     var row=document.getElementById('row'+i);
     var qteEl=document.getElementById('qte'+i);
     inp.disabled=!chk.checked;
-    if(!chk.checked){inp.value='';row.className='compte-row';qteEl.textContent='—';qteEl.className='qte-chip';return;}
+    if(!chk.checked){
+      inp.value='';
+      row.style.borderColor='#E0E5EF';row.style.background='#fff';
+      qteEl.textContent='—';
+      qteEl.style.color='#7A8BA8';qteEl.style.background='#F4F6FA';qteEl.style.borderColor='#E0E5EF';
+      return;
+    }
     var m=parseFloat(inp.value)||0;
     total+=m;
     var qte=calcQte(m,cours);
     if(m>0&&cours>0){
-      qteEl.textContent=qte+' titres';
-      if(sens==='A'&&m>c.cash){row.className='compte-row warn';qteEl.className='qte-chip err';}
-      else{row.className='compte-row sel';qteEl.className='qte-chip ok';}
+      qteEl.textContent=qte+' tit.';
+      if(sens==='A'&&m>c.cash){
+        row.style.borderColor='#E8A030';row.style.background='#FEF6EC';
+        qteEl.style.color='#C0392B';qteEl.style.background='#FDECEA';qteEl.style.borderColor='#E88A84';
+      } else {
+        row.style.borderColor='#2E6BE6';row.style.background='#F0F5FF';
+        qteEl.style.color='#1E7A35';qteEl.style.background='#EAF4EC';qteEl.style.borderColor='#6EBA7F';
+      }
     } else {
-      qteEl.textContent=m>0?'cours ?':'—';
-      qteEl.className='qte-chip';
-      row.className=chk.checked?'compte-row sel':'compte-row';
+      qteEl.textContent=m>0?'cours?':'—';
+      qteEl.style.color='#7A8BA8';qteEl.style.background='#F4F6FA';qteEl.style.borderColor='#E0E5EF';
+      row.style.borderColor='#2E6BE6';row.style.background='#F0F5FF';
     }
   });
   document.getElementById('totalEngage').textContent=fmt(total);
