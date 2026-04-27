@@ -36,13 +36,34 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 .btn-panier:hover{background:var(--accent2);}
 .badge{background:#000;color:var(--accent);border-radius:3px;padding:1px 5px;font-size:11px;min-width:18px;text-align:center;}
 
-/* LAYOUT */
-.main{display:grid;grid-template-columns:1fr 330px;height:calc(100vh - 50px);overflow:hidden;}
-.left{overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:12px;}
-.right{border-left:1px solid var(--border);background:var(--bg2);display:flex;flex-direction:column;overflow:hidden;}
-.right-head{padding:12px 16px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
-.right-body{flex:1;overflow-y:auto;padding:10px;}
-.right-foot{padding:10px 14px;border-top:1px solid var(--border);flex-shrink:0;}
+/* LAYOUT - plus de panneau droit, tout en colonne */
+.main{display:flex;flex-direction:column;height:calc(100vh - 50px);overflow:hidden;}
+.left{overflow-y:auto;padding:14px 20px;display:flex;flex-direction:column;gap:12px;flex:1;}
+/* PANIER EN BAS */
+.right{border-top:1px solid var(--border);background:var(--bg2);display:none;flex-direction:column;max-height:260px;flex-shrink:0;}
+.right.open{display:flex;}
+.right-head{padding:10px 16px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.right-body{flex:1;overflow-y:auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;}
+.right-foot{padding:8px 16px;border-top:1px solid var(--border);flex-shrink:0;display:flex;gap:8px;align-items:center;}
+/* panier items en horizontal */
+.p-item{background:var(--bg3);border:1px solid var(--border);border-radius:5px;overflow:hidden;min-width:260px;max-width:340px;flex:1;}
+.p-head{display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--bg4);border-bottom:1px solid var(--border);}
+.p-tkr{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);}
+.p-nom{font-size:11px;color:var(--text2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.p-sens{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 5px;border-radius:3px;}
+.p-sens.a{background:#052e16;color:var(--green);}
+.p-sens.v{background:#1f0a0a;color:var(--red);}
+.btn-rm{background:none;border:none;color:var(--text3);cursor:pointer;font-size:12px;padding:0 2px;transition:color .15s;}
+.btn-rm:hover{color:var(--red);}
+.p-body{padding:6px 10px;}
+.p-line{display:grid;grid-template-columns:1fr auto auto;gap:6px;padding:2px 0;font-size:11px;border-bottom:1px solid var(--border);}
+.p-line:last-child{border-bottom:none;}
+.pl-c{color:var(--text2);}
+.pl-d{font-family:var(--mono);color:var(--text);}
+.pl-m{font-family:var(--mono);color:var(--text);text-align:right;}
+.p-sub{display:flex;justify-content:space-between;padding:4px 0 0;font-family:var(--mono);font-size:11px;border-top:1px solid var(--border2);margin-top:2px;}
+.p-sub .lbl{color:var(--text2);}
+.p-sub .val{color:var(--accent);font-weight:700;}
 
 /* CARD */
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
@@ -69,7 +90,7 @@ input:disabled{opacity:.4;cursor:not-allowed;background:var(--bg);}
 .row-form-2 .field:last-child{flex:0 0 auto;}
 
 /* Consolidé bar */
-.consol-bar{display:flex;align-items:center;gap:16px;padding:8px 14px;background:var(--bg3);border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-family:var(--mono);font-size:11px;}
+.consol-bar{display:flex;align-items:center;gap:12px;padding:7px 14px;background:var(--bg3);border-radius:6px;border:1px solid var(--border);font-family:var(--mono);font-size:11px;flex-wrap:wrap;}
 .consol-lbl{color:var(--text3);letter-spacing:.06em;}
 .consol-val{color:var(--text);font-weight:600;}
 .consol-val.green{color:var(--green);}
@@ -303,14 +324,16 @@ input:disabled{opacity:.4;cursor:not-allowed;background:var(--bg);}
   </div>
 
   <!-- CONSOLIDÉ GLOBAL (apparait quand ticker sélectionné) -->
-  <div class="consol-bar" id="consolBar" style="display:none;border-radius:6px;border:1px solid var(--border);">
-    <span class="consol-lbl">CONSOLIDÉ</span>
+  <div class="consol-bar" id="consolBar" style="display:none;">
     <span class="consol-val" id="cTitres">—</span>
     <span class="consol-lbl">titres</span>
+    <span style="color:var(--border2)">·</span>
     <span class="consol-val" id="cValo">—</span>
     <span class="consol-lbl">MAD</span>
-    <span class="consol-val" id="cPoids" style="color:var(--accent)">—</span>
+    <span style="color:var(--border2)">·</span>
+    <span class="consol-val" style="color:var(--accent)" id="cPoids">—</span>
     <span class="consol-lbl">% du global</span>
+    <span style="color:var(--border2)">·</span>
     <span class="consol-val" id="cPtfs">—</span>
     <span class="consol-lbl">PTF détenteurs</span>
   </div>
@@ -321,7 +344,7 @@ input:disabled{opacity:.4;cursor:not-allowed;background:var(--bg);}
       <span class="card-lbl">Comptes & Positions</span>
       <span id="cCount" style="font-family:var(--mono);font-size:11px;color:var(--text3)">—</span>
     </div>
-    <div id="posCont" style="max-height:400px;overflow-y:auto;">
+    <div id="posCont" style="max-height:calc(100vh - 420px);min-height:200px;overflow-y:auto;">
       <div class="empty">
         <div class="ico">◈</div>
         <p>Saisis un ticker pour voir les positions</p>
@@ -339,21 +362,24 @@ input:disabled{opacity:.4;cursor:not-allowed;background:var(--bg);}
 
 </div><!-- /left -->
 
-<!-- RIGHT : PANIER -->
+<!-- RIGHT : PANIER EN BAS (toggle) -->
 <div class="right" id="rightPanel">
   <div class="right-head">
-    <span>Panier d'ordres</span>
-    <span id="pTotal" style="color:var(--accent);font-family:var(--mono);">0 MAD</span>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span>Panier d'ordres</span>
+      <span id="pTotal" style="color:var(--accent);font-family:var(--mono);">0 MAD</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="btn-prim" id="bConfirm" onclick="openRecap()" disabled style="width:auto;padding:5px 14px;margin:0;font-size:11px;">▶ CONFIRMER</button>
+      <button class="btn-sec" onclick="clearPanier()" style="width:auto;padding:5px 12px;font-size:11px;">Vider</button>
+      <button class="btn-sm" onclick="toggleRight()" style="padding:4px 10px;">▼ Réduire</button>
+    </div>
   </div>
   <div class="right-body" id="pBody">
-    <div class="empty" style="padding:30px 14px;">
+    <div class="empty" style="padding:20px 14px;width:100%;">
       <div class="ico">◻</div><p>Panier vide</p>
       <small>Ajoute des ordres depuis le formulaire</small>
     </div>
-  </div>
-  <div class="right-foot">
-    <button class="btn-prim" id="bConfirm" onclick="openRecap()" disabled>▶ CONFIRMER LES ORDRES</button>
-    <button class="btn-sec" onclick="clearPanier()">Vider le panier</button>
   </div>
 </div>
 </div><!-- /main -->
@@ -833,17 +859,24 @@ function addPanier() {
   if(ex>=0){panier[ex]=item;showToast(tkSel+' mis à jour');}
   else{panier.push(item);showToast(tkSel+' ajouté au panier','ok');}
   renderPanier();
+  // Ouvrir le panier automatiquement
+  document.getElementById('rightPanel').classList.add('open');
 }
 
 function rmPanier(i){panier.splice(i,1);renderPanier();}
-function clearPanier(){if(!panier.length)return;panier=[];renderPanier();showToast('Panier vidé');}
+function clearPanier(){
+  if(!panier.length)return;
+  panier=[];renderPanier();
+  document.getElementById('rightPanel').classList.remove('open');
+  showToast('Panier vidé');
+}
 
 function renderPanier() {
   const n=panier.length;
   document.getElementById('bCount').textContent=n;
   document.getElementById('bConfirm').disabled=n===0;
   if(!n){
-    document.getElementById('pBody').innerHTML=`<div class="empty" style="padding:30px 14px;"><div class="ico">◻</div><p>Panier vide</p><small>Ajoute des ordres depuis le formulaire</small></div>`;
+    document.getElementById('pBody').innerHTML=`<div class="empty" style="padding:20px 14px;width:100%;"><div class="ico">◻</div><p>Panier vide</p></div>`;
     document.getElementById('pTotal').textContent='0 MAD'; return;
   }
   let total=0,html='';
@@ -866,7 +899,12 @@ function renderPanier() {
   document.getElementById('pTotal').textContent=fmtN(total)+' MAD';
 }
 
-function toggleRight(){const p=document.getElementById('rightPanel');p.style.display=p.style.display==='none'?'flex':'none';if(p.style.display==='flex')p.style.flexDirection='column';}
+function toggleRight(){
+  const p=document.getElementById('rightPanel');
+  p.classList.toggle('open');
+  const btn=p.querySelector('.btn-sm');
+  if(btn) btn.textContent = p.classList.contains('open') ? '▼ Réduire' : '▲ Panier';
+}
 
 // ══════════════════════════════════════════
 // RÉCAP & JSON
