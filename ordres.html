@@ -3,622 +3,1516 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ordres groupés — GSM Dashboard</title>
+<title>OMS — GSM Capital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#F4F6FA;--card:#fff;--border:#E0E5EF;--border2:#EEF1F7;
-  --text:#1B2A4A;--sub:#7A8BA8;--input-bg:#fff;--input-border:#D5DCE8;
-  --topbar:#1B2A4A;--row-bg:#fff;--row-sel:#F0F5FF;--row-sel-border:#2E6BE6;
-  --total-bg:#F4F6FA;--panier-bg:#F8F9FC;--json-bg:#F4F6FA;
-  --btn-sec-bg:#fff;--btn-sec-border:#D5DCE8;
-  --chip-bg:#EEF3FB;--chip-color:#2E5BA8;
-  --green:#1E7A35;--green-bg:#EAF4EC;--green-border:#6EBA7F;
-  --red:#C0392B;--red-bg:#FDECEA;--red-border:#E88A84;
-  --warn-bg:#FEF6EC;--warn-border:#E8A030;
-  --blue:#1A5DB5;--blue-bg:#E6F0FB;
+:root {
+  --bg:        #0a0c0f;
+  --bg2:       #0f1217;
+  --bg3:       #141820;
+  --bg4:       #1a2030;
+  --border:    #1e2535;
+  --border2:   #252d40;
+  --text:      #d4dbe8;
+  --text2:     #7a8ba8;
+  --text3:     #4a5568;
+  --accent:    #f59e0b;
+  --accent2:   #d97706;
+  --green:     #10b981;
+  --green2:    #059669;
+  --red:       #ef4444;
+  --red2:      #dc2626;
+  --blue:      #3b82f6;
+  --blue2:     #2563eb;
+  --val-color: #60a5fa;
+  --red-color: #f87171;
+  --mono:      'IBM Plex Mono', monospace;
+  --sans:      'IBM Plex Sans', sans-serif;
 }
-.dark{
-  --bg:#0F1623;--card:#1A2235;--border:#2A3650;--border2:#243048;
-  --text:#E8EEF8;--sub:#6B7E9E;--input-bg:#131D2E;--input-border:#2A3650;
-  --topbar:#0A1020;--row-bg:#1A2235;--row-sel:#1A2D4A;--row-sel-border:#4A90E2;
-  --total-bg:#131D2E;--panier-bg:#141E30;--json-bg:#0F1623;
-  --btn-sec-bg:#1A2235;--btn-sec-border:#2A3650;
-  --chip-bg:#1A2D4A;--chip-color:#7AAEE8;
-  --green:#2ECC71;--green-bg:#0D2E1A;--green-border:#1A6636;
-  --red:#E74C3C;--red-bg:#2E0D0D;--red-border:#662222;
-  --warn-bg:#2E1E0A;--warn-border:#8B5E1A;
-  --blue:#7AAEE8;--blue-bg:#1A2D4A;
-}
-*{box-sizing:border-box;margin:0;padding:0;transition:background .2s,border-color .2s,color .2s}
-body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
-.topbar{background:var(--topbar);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;box-shadow:0 2px 12px rgba(0,0,0,.15)}
-.topbar-title{color:#fff;font-size:15px;font-weight:700;letter-spacing:.01em}
-.topbar-sub{color:#8CA0BC;font-size:11px;margin-top:1px}
-.topbar-right{display:flex;align-items:center;gap:12px}
-.topbar-link{color:#8CA0BC;font-size:12px;text-decoration:none}
-.topbar-link:hover{color:#fff}
-/* Dark toggle */
-.toggle-dark{width:40px;height:22px;background:var(--border);border-radius:11px;border:none;cursor:pointer;position:relative;flex-shrink:0;transition:background .2s}
-.toggle-dark::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s}
-.dark .toggle-dark{background:#4A90E2}
-.dark .toggle-dark::after{transform:translateX(18px)}
-.toggle-icon{font-size:13px;margin-right:2px}
 
-.container{max-width:820px;margin:20px auto;padding:0 14px}
-.card{background:var(--card);border-radius:14px;border:1px solid var(--border);padding:18px 20px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-.section-label{font-size:10px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-@media(max-width:500px){.g3{grid-template-columns:1fr 1fr}}
-.field-label{font-size:11px;color:var(--sub);font-weight:500;margin-bottom:4px}
-input[type=text],input[type=number],select{
-  width:100%;height:38px;font-size:13px;padding:0 11px;
-  border:1px solid var(--input-border);border-radius:9px;
-  background:var(--input-bg);color:var(--text);outline:none;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+  min-height: 100vh;
+  line-height: 1.5;
 }
-input:focus,select:focus{border-color:#4A90E2;box-shadow:0 0 0 3px rgba(74,144,226,.12)}
-.sens-btns{display:flex;gap:8px}
-.sbtn{flex:1;height:38px;font-size:13px;font-weight:600;border:1px solid var(--input-border);border-radius:9px;background:var(--input-bg);color:var(--sub);cursor:pointer}
-.sbtn.aA{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
-.sbtn.aV{background:var(--red-bg);color:var(--red);border-color:var(--red-border)}
-.cours-chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:5px 11px;background:var(--chip-bg);border-radius:8px;margin-top:6px;color:var(--chip-color);font-weight:500}
-.divider{height:1px;background:var(--border2);margin:6px 0 14px}
-.del-btn{width:28px;height:28px;border:1px solid var(--border);border-radius:7px;background:var(--btn-sec-bg);color:var(--red);cursor:pointer;font-size:15px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.del-btn:hover{background:var(--red-bg)}
-.btn-add{width:100%;height:40px;font-size:13px;font-weight:600;border:1.5px dashed #4A90E2;border-radius:9px;background:var(--blue-bg);color:var(--blue);cursor:pointer;margin-top:10px;letter-spacing:.01em}
-.btn-add:hover{opacity:.85}
-.btn-confirm{width:100%;height:44px;font-size:14px;font-weight:700;background:linear-gradient(135deg,#1B2A4A,#2E4A7A);color:#fff;border:none;border-radius:9px;cursor:pointer;margin-top:4px;letter-spacing:.02em;box-shadow:0 2px 8px rgba(27,42,74,.3)}
-.btn-confirm:hover{opacity:.9}
-.btn-confirm:disabled{background:var(--border);color:var(--sub);cursor:not-allowed;box-shadow:none}
-.total-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 13px;background:var(--total-bg);border-radius:9px;margin-top:8px;font-size:13px;border:1px solid var(--border)}
-.total-bar span{color:var(--sub)}
-.total-bar strong{color:var(--text);font-weight:700;font-size:14px}
-.confirm-header{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
-.confirm-sub{font-size:12px;color:var(--sub);margin-bottom:14px}
-.valeur-block{margin-bottom:12px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.valeur-title{background:var(--total-bg);padding:10px 14px;font-size:13px;font-weight:600;color:var(--text);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.crow{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:1px solid var(--border2);font-size:13px}
-.crow:last-child{border-bottom:none}
-.pill{font-size:11px;padding:2px 8px;border-radius:20px;font-weight:600;display:inline-block;margin-top:2px}
-.pM{background:var(--blue-bg);color:var(--blue)}
-.pL{background:var(--warn-bg);color:#A0610A}
-.json-title{font-size:10px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;margin-top:14px}
-.json-box{background:var(--json-bg);border-radius:9px;border:1px solid var(--border);padding:12px 14px;font-family:'Courier New',monospace;font-size:11px;color:var(--sub);line-height:1.65;word-break:break-all;white-space:pre-wrap;max-height:200px;overflow-y:auto}
-.copy-btn{margin-top:6px;height:32px;padding:0 14px;font-size:12px;border:1px solid var(--border);border-radius:7px;background:var(--btn-sec-bg);color:var(--sub);cursor:pointer;font-weight:500}
-.copy-btn:hover{background:var(--total-bg)}
-.actions{display:flex;gap:10px;margin-top:14px}
-.btn-sec{flex:1;height:40px;font-size:13px;border:1px solid var(--btn-sec-border);border-radius:9px;background:var(--btn-sec-bg);color:var(--text);cursor:pointer;font-weight:500}
-.btn-sec:hover{background:var(--total-bg)}
-.btn-exec{flex:2;height:40px;font-size:13px;font-weight:700;background:linear-gradient(135deg,#1B2A4A,#2E4A7A);color:#fff;border:none;border-radius:9px;cursor:pointer}
-.btn-exec:hover{opacity:.9}
-.success-card{background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:20px;text-align:center}
-.success-card h3{color:var(--green);font-size:16px;margin-bottom:6px}
-.success-card p{color:var(--green);font-size:13px;line-height:1.6;opacity:.85}
-.cmd{display:inline-block;margin-top:10px;background:var(--topbar);color:#A8C8FF;font-family:'Courier New',monospace;font-size:13px;padding:8px 16px;border-radius:8px;letter-spacing:.02em}
-.badge-nb{display:inline-block;background:linear-gradient(135deg,#1B2A4A,#2E4A7A);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:6px}
-#tickerWrapper{position:relative}
-#tickerSuggestions{display:none;position:absolute;top:100%;left:0;right:0;background:var(--card);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:100;margin-top:4px;overflow:hidden;max-height:260px;overflow-y:auto}
-.sugg-item{display:flex;align-items:center;gap:10px;padding:9px 12px;cursor:pointer;font-size:13px;border-bottom:1px solid var(--border2)}
-.sugg-item:last-child{border-bottom:none}
-.sugg-item:hover{background:var(--total-bg)}
+
+/* ── TOPBAR ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 52px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.topbar-left { display: flex; align-items: center; gap: 16px; }
+.topbar-logo {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+.topbar-sep { color: var(--border2); font-size: 18px; }
+.topbar-title { color: var(--text2); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+.btn-back {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  color: var(--text2);
+  font-family: var(--sans);
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.btn-back:hover { border-color: var(--text2); color: var(--text); }
+
+/* ── DATA STATUS ── */
+.data-status {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 10px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text2);
+}
+.data-status .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+/* ── PANIER BADGE ── */
+.basket-btn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 14px;
+  background: var(--accent);
+  border: none;
+  border-radius: 4px;
+  color: #000;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  letter-spacing: 0.05em;
+}
+.basket-btn:hover { background: var(--accent2); }
+.basket-badge {
+  background: #000;
+  color: var(--accent);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 11px;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* ── MAIN LAYOUT ── */
+.main { display: grid; grid-template-columns: 1fr 360px; gap: 0; height: calc(100vh - 52px); overflow: hidden; }
+
+/* ── LEFT PANEL ── */
+.left-panel { overflow-y: auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
+
+/* ── RIGHT PANEL (panier) ── */
+.right-panel {
+  border-left: 1px solid var(--border);
+  background: var(--bg2);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.right-panel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.right-panel-body { flex: 1; overflow-y: auto; padding: 12px; }
+.right-panel-footer { padding: 12px 16px; border-top: 1px solid var(--border); }
+
+/* ── CARD ── */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.card-header {
+  padding: 10px 16px;
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+.card-body { padding: 16px; }
+
+/* ── ORDER FORM ── */
+.order-form { display: flex; flex-direction: column; gap: 16px; }
+
+.form-row { display: grid; gap: 12px; }
+.form-row-2 { grid-template-columns: 1fr 1fr; }
+.form-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+.form-row-4 { grid-template-columns: 2fr 1fr 1fr 1fr; }
+
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+
+input[type=text], input[type=number], select {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 8px 10px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.15s;
+  -moz-appearance: textfield;
+}
+input[type=text]:focus, input[type=number]:focus, select:focus {
+  border-color: var(--accent);
+}
+input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+select { cursor: pointer; }
+select option { background: var(--bg3); }
+
+/* ── TICKER INPUT ZONE ── */
+.ticker-zone { position: relative; }
+.ticker-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.ticker-input-wrap input {
+  padding-right: 100px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  height: 48px;
+}
+.ticker-name-inline {
+  position: absolute;
+  right: 10px;
+  font-size: 11px;
+  color: var(--text2);
+  font-family: var(--sans);
+  max-width: 90px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.autocomplete-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  z-index: 200;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+}
+.autocomplete-list.open { display: block; }
+.ac-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+.ac-item:last-child { border-bottom: none; }
+.ac-item:hover, .ac-item.selected { background: var(--bg4); }
+.ac-ticker { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--accent); min-width: 50px; }
+.ac-nom { font-size: 12px; color: var(--text2); }
+
+/* ── COURS DISPLAY ── */
+.cours-display {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 8px 12px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cours-value { font-family: var(--mono); font-size: 18px; font-weight: 600; color: var(--accent); }
+.cours-unit { font-family: var(--mono); font-size: 11px; color: var(--text3); }
+
+/* ── SENS TOGGLE ── */
+.sens-toggle { display: flex; gap: 0; }
+.sens-btn {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid var(--border2);
+  background: var(--bg3);
+  color: var(--text2);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.08em;
+}
+.sens-btn:first-child { border-radius: 4px 0 0 4px; border-right: none; }
+.sens-btn:last-child { border-radius: 0 4px 4px 0; }
+.sens-btn.active-achat { background: #052e16; border-color: var(--green); color: var(--green); }
+.sens-btn.active-vente { background: #1f0a0a; border-color: var(--red); color: var(--red); }
+
+/* ── POIDS CIBLE ── */
+.poids-zone {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+.poids-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.poids-input-wrap { display: flex; align-items: center; gap: 4px; flex: 1; }
+.poids-input-wrap input { flex: 1; }
+.poids-pct-label { font-family: var(--mono); font-size: 13px; color: var(--text2); }
+.btn-appliquer {
+  padding: 8px 14px;
+  background: var(--bg4);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.btn-appliquer:hover { border-color: var(--accent); color: var(--accent); }
+.poids-hint { font-size: 11px; color: var(--text3); font-family: var(--mono); }
+
+/* ── POSITIONS TABLE ── */
+.positions-section { margin-top: 4px; }
+.positions-header-row {
+  display: grid;
+  grid-template-columns: 28px 160px 52px 100px 90px 100px 100px 90px 90px;
+  gap: 0;
+  padding: 6px 12px;
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+}
+.positions-header-row span {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+.positions-header-row span:not(:first-child) { text-align: right; }
+
+.position-row {
+  display: grid;
+  grid-template-columns: 28px 160px 52px 100px 90px 100px 100px 90px 90px;
+  gap: 0;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  transition: background 0.1s;
+}
+.position-row:hover { background: var(--bg3); }
+.position-row.insufficient { opacity: 0.7; }
+.position-row.insufficient .row-montant { color: var(--red) !important; }
+
+/* checkbox */
+.position-row input[type=checkbox] { width: 14px; height: 14px; accent-color: var(--accent); cursor: pointer; }
+
+.row-compte { font-weight: 500; font-size: 13px; }
+.plt-badge {
+  display: inline-flex; align-items: center;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+}
+.plt-val { background: #1e3a5f; color: var(--val-color); }
+.plt-red { background: #3b0a0a; color: var(--red-color); }
+
+.row-cash { font-family: var(--mono); font-size: 12px; text-align: right; color: var(--text2); }
+.row-poids-actuel { font-family: var(--mono); font-size: 12px; text-align: right; }
+.row-poids-actuel.has-position { color: var(--green); }
+.row-poids-actuel.no-position { color: var(--text3); }
+
+.row-poids-cible-input {
+  display: flex; justify-content: flex-end;
+}
+.row-poids-cible-input input {
+  width: 70px;
+  text-align: right;
+  padding: 4px 6px;
+  font-size: 12px;
+  height: 28px;
+}
+
+.row-qte-input {
+  display: flex; justify-content: flex-end;
+}
+.row-qte-input input {
+  width: 80px;
+  text-align: right;
+  padding: 4px 6px;
+  font-size: 12px;
+  height: 28px;
+}
+
+.row-prix-input {
+  display: flex; justify-content: flex-end;
+}
+.row-prix-input input {
+  width: 80px;
+  text-align: right;
+  padding: 4px 6px;
+  font-size: 12px;
+  height: 28px;
+}
+
+.row-montant {
+  font-family: var(--mono);
+  font-size: 12px;
+  text-align: right;
+  font-weight: 500;
+}
+.row-montant.ok { color: var(--text); }
+.row-montant.insuf { color: var(--red); }
+
+.no-cash-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--red);
+  text-align: right;
+  margin-top: 2px;
+}
+
+/* ── FOOTER POSITIONS ── */
+.positions-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--bg3);
+  border-top: 1px solid var(--border);
+}
+.positions-footer-stats {
+  display: flex; gap: 20px;
+}
+.pf-stat { font-family: var(--mono); font-size: 11px; color: var(--text2); }
+.pf-stat span { color: var(--text); font-weight: 600; }
+.btn-add-panier {
+  padding: 8px 18px;
+  background: var(--accent);
+  border: none;
+  border-radius: 4px;
+  color: #000;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: background 0.15s;
+}
+.btn-add-panier:hover { background: var(--accent2); }
+.btn-add-panier:disabled { background: var(--bg4); color: var(--text3); cursor: not-allowed; }
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  color: var(--text3);
+  gap: 8px;
+  text-align: center;
+}
+.empty-state .icon { font-size: 32px; opacity: 0.4; }
+.empty-state p { font-size: 13px; color: var(--text2); }
+.empty-state small { font-size: 11px; font-family: var(--mono); }
+
+/* ── PANIER ITEMS ── */
+.panier-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.panier-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background: var(--bg4);
+  border-bottom: 1px solid var(--border);
+}
+.panier-ticker {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.panier-sens {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.panier-sens.achat { background: #052e16; color: var(--green); }
+.panier-sens.vente { background: #1f0a0a; color: var(--red); }
+.btn-remove-item {
+  background: none;
+  border: none;
+  color: var(--text3);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 2px;
+  transition: color 0.15s;
+}
+.btn-remove-item:hover { color: var(--red); }
+.panier-item-body { padding: 8px 10px; }
+.panier-ligne {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  font-size: 11px;
+  border-bottom: 1px solid var(--border);
+}
+.panier-ligne:last-child { border-bottom: none; }
+.panier-ligne .compte { color: var(--text2); }
+.panier-ligne .details { font-family: var(--mono); color: var(--text); }
+.panier-ligne .montant { font-family: var(--mono); color: var(--text); text-align: right; }
+
+/* ── PANIER TOTAL ── */
+.panier-total-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  border-top: 1px solid var(--border2);
+  margin-top: 4px;
+}
+.panier-total-row .label { color: var(--text2); }
+.panier-total-row .val { color: var(--accent); font-weight: 600; }
+
+/* ── ACTIONS ── */
+.btn-primary {
+  width: 100%;
+  padding: 10px;
+  background: var(--green);
+  border: none;
+  border-radius: 4px;
+  color: #000;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: background 0.15s;
+  margin-bottom: 6px;
+}
+.btn-primary:hover { background: var(--green2); }
+.btn-primary:disabled { background: var(--bg4); color: var(--text3); cursor: not-allowed; }
+.btn-secondary {
+  width: 100%;
+  padding: 8px;
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  color: var(--text2);
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-secondary:hover { border-color: var(--text2); color: var(--text); }
+
+/* ── RECAP MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  display: none;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  width: 680px;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-title { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: 0.06em; }
+.modal-body { flex: 1; overflow-y: auto; padding: 16px 20px; }
+.modal-footer { padding: 12px 20px; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-end; }
+
+.modal-group { margin-bottom: 16px; }
+.modal-group-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-order-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.modal-order-row:last-child { border-bottom: none; }
+
+.json-block {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text2);
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 8px;
+}
+
+.btn-modal {
+  padding: 8px 18px;
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.05em;
+}
+.btn-modal-confirm { background: var(--green); border: none; color: #000; }
+.btn-modal-confirm:hover { background: var(--green2); }
+.btn-modal-copy { background: var(--bg4); border: 1px solid var(--border2); color: var(--text); }
+.btn-modal-copy:hover { border-color: var(--accent); color: var(--accent); }
+.btn-modal-cancel { background: transparent; border: 1px solid var(--border2); color: var(--text2); }
+.btn-modal-cancel:hover { border-color: var(--red); color: var(--red); }
+
+/* ── ALERTS ── */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 16px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 5px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text);
+  z-index: 2000;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.2s;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { border-color: var(--green); color: var(--green); }
+.toast.error { border-color: var(--red); color: var(--red); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 4px 0; }
+
+/* SELECT ALL ROW */
+.select-all-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 12px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  color: var(--text2);
+  font-size: 12px;
+}
+.select-all-row input { accent-color: var(--accent); cursor: pointer; }
+.select-all-row:hover { background: var(--bg3); }
+
+/* ── SUMMARY BAR ── */
+.summary-bar {
+  display: flex; align-items: center; gap: 20px;
+  padding: 8px 16px;
+  background: var(--bg3);
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 11px;
+}
+.sb-item { display: flex; align-items: center; gap: 5px; }
+.sb-label { color: var(--text3); }
+.sb-val { color: var(--text); font-weight: 600; }
+.sb-val.achat { color: var(--green); }
+.sb-val.vente { color: var(--red); }
 </style>
 </head>
 <body>
 
+<!-- ── TOPBAR ── -->
 <div class="topbar">
-  <div>
-    <div class="topbar-title">Ordres groupés</div>
-    <div class="topbar-sub" id="topDate"></div>
+  <div class="topbar-left">
+    <span class="topbar-logo">GSM</span>
+    <span class="topbar-sep">|</span>
+    <span class="topbar-title">Order Management</span>
   </div>
   <div class="topbar-right">
-    <span class="toggle-icon" id="toggleIcon">🌙</span>
-    <button class="toggle-dark" onclick="toggleDark()" title="Mode sombre"></button>
-    <a href="index.html" class="topbar-link">← Dashboard</a>
-  </div>
-</div>
-
-<div class="container">
-
-  <div id="formView">
-    <!-- Panier -->
-    <div id="panierSection" style="display:none">
-      <div class="card">
-        <div class="section-label">Panier <span class="badge-nb" id="panierCount">0</span></div>
-        <div class="panier" id="panierList"></div>
-      </div>
+    <div class="data-status" id="dataStatus">
+      <div class="dot"></div>
+      <span id="dataDate">—</span>
     </div>
-
-    <!-- Saisie -->
-    <div class="card">
-      <div class="section-label">Valeur</div>
-      <div class="g3" style="margin-bottom:8px">
-        <div id="tickerWrapper">
-          <div class="field-label">Ticker</div>
-          <input type="text" id="ticker" placeholder="ex: RDS, FBR..." oninput="this.value=this.value.toUpperCase();onTickerChange()" autocomplete="off" />
-          <div id="tickerSuggestions"></div>
-        </div>
-        <div>
-          <div class="field-label">Nom</div>
-          <input type="text" id="valnom" placeholder="Nom de la société" />
-        </div>
-        <div>
-          <div class="field-label">Dernier cours (MAD)</div>
-          <input type="number" id="cours" placeholder="0.00" min="0" step="0.01" oninput="updateQtes()" />
-        </div>
-      </div>
-      <div class="cours-chip" id="coursChip" style="display:none">
-        Cours chargé : <strong id="coursChipVal"></strong>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="g2" style="margin-bottom:8px">
-        <div>
-          <div class="field-label">Sens</div>
-          <div class="sens-btns">
-            <button class="sbtn" id="btnA" onclick="setSens('A')">Achat</button>
-            <button class="sbtn" id="btnV" onclick="setSens('V')">Vente</button>
-          </div>
-        </div>
-        <div>
-          <div class="field-label">Type d'ordre</div>
-          <select id="execution" onchange="togglePrix()">
-            <option value="M">Market</option>
-            <option value="L">Limite</option>
-          </select>
-        </div>
-      </div>
-      <div id="prixRow" style="display:none;margin-bottom:10px">
-        <div class="field-label" style="margin-bottom:4px">Prix limite (MAD)</div>
-        <input type="number" id="prixLimite" placeholder="0.00" min="0" step="0.01" style="max-width:200px" />
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="section-label">Comptes &amp; montants</div>
-      <div id="comptesList"></div>
-      <div class="total-bar">
-        <span>Total engagé (cette valeur)</span>
-        <strong id="totalEngage">0,00 MAD</strong>
-      </div>
-      <button class="btn-add" onclick="ajouterAuPanier()">+ Ajouter cette valeur au panier</button>
-    </div>
-
-    <button class="btn-confirm" id="btnValider" onclick="showConfirm()" disabled>
-      Vérifier et confirmer tous les ordres
+    <a href="index.html" class="btn-back">← Dashboard</a>
+    <button class="basket-btn" onclick="togglePanel()">
+      ⬡ PANIER <span class="basket-badge" id="basketCount">0</span>
     </button>
   </div>
-
-  <div id="confirmView" style="display:none">
-    <div class="card">
-      <div class="confirm-header">Récapitulatif des ordres</div>
-      <div class="confirm-sub" id="confirmSub"></div>
-      <div id="confirmRows"></div>
-      <div class="json-title">ordres.json — copiez et collez dans le bloc-notes sur le bureau</div>
-      <div class="json-box" id="jsonBox"></div>
-      <button class="copy-btn" onclick="copyJson()">📋 Copier le JSON</button>
-    </div>
-    <div class="actions">
-      <button class="btn-sec" onclick="backForm()">Modifier</button>
-      <button class="btn-exec" onclick="executer()">Confirmer les ordres</button>
-    </div>
-  </div>
-
-  <div id="successView" style="display:none">
-    <div class="success-card">
-      <h3 id="successTitle"></h3>
-      <p id="successDetail"></p>
-      <div class="cmd">cd Desktop &amp;&amp; python script_ordres.py</div>
-    </div>
-    <div class="actions" style="margin-top:14px">
-      <button class="btn-sec" onclick="reset()">Nouvel ordre</button>
-      <button class="btn-exec" onclick="window.location='index.html'">Retour au dashboard</button>
-    </div>
-  </div>
-
 </div>
 
+<!-- ── MAIN ── -->
+<div class="main">
+
+  <!-- ── LEFT : FORMULAIRE ── -->
+  <div class="left-panel">
+
+    <!-- BLOC VALEUR + SENS + COURS -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-label">Valeur & Paramètres</span>
+        <span id="headerSummary" style="font-family:var(--mono);font-size:11px;color:var(--text3)"></span>
+      </div>
+      <div class="card-body">
+        <div class="order-form">
+
+          <!-- Ligne 1 : Ticker / Cours -->
+          <div class="form-row form-row-4">
+            <div class="field">
+              <label class="field-label">Ticker</label>
+              <div class="ticker-zone">
+                <div class="ticker-input-wrap">
+                  <input type="text" id="tickerInput" placeholder="ex: ATW" autocomplete="off" oninput="onTickerInput()" onkeydown="onTickerKey(event)">
+                  <span class="ticker-name-inline" id="tickerNameInline"></span>
+                </div>
+                <div class="autocomplete-list" id="acList"></div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label">Sens</label>
+              <div class="sens-toggle">
+                <button class="sens-btn active-achat" id="btnAchat" onclick="setSens('A')">ACHAT</button>
+                <button class="sens-btn" id="btnVente" onclick="setSens('V')">VENTE</button>
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label">Type</label>
+              <select id="typeOrdre" onchange="onTypeChange()">
+                <option value="L">Limité</option>
+                <option value="M">Market</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field-label">Validité</label>
+              <select id="validite">
+                <option value="J">Jour</option>
+                <option value="GTC">GTC</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Ligne 2 : Dernier cours / Prix limite global / Poids cible -->
+          <div class="form-row form-row-3">
+            <div class="field">
+              <label class="field-label">Dernier cours (MAD)</label>
+              <div class="cours-display">
+                <span class="cours-value" id="coursDisplay">—</span>
+                <span class="cours-unit">MAD</span>
+              </div>
+            </div>
+            <div class="field" id="prixLimiteField">
+              <label class="field-label">Prix limite global (MAD)</label>
+              <input type="number" id="prixLimiteGlobal" placeholder="0.00" step="0.01" oninput="onPrixGlobalChange()">
+            </div>
+            <div class="field">
+              <label class="field-label">Poids cible global (%)</label>
+              <div class="poids-zone">
+                <div class="poids-top">
+                  <div class="poids-input-wrap">
+                    <input type="number" id="poidsCible" placeholder="0" min="0" max="100" step="0.1" oninput="onPoidsCibleChange()">
+                    <span class="poids-pct-label">%</span>
+                  </div>
+                  <button class="btn-appliquer" onclick="appliquerPoids()">↻ APPLIQUER</button>
+                </div>
+                <div class="poids-hint" id="poidsHint">— Saisis un ticker et un poids cible</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOC COMPTES & POSITIONS -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-label">Comptes & Positions</span>
+        <span id="comptesCount" style="font-family:var(--mono);font-size:11px;color:var(--text3)">—</span>
+      </div>
+
+      <div id="positionsContainer">
+        <div class="empty-state">
+          <div class="icon">◈</div>
+          <p>Saisis un ticker pour voir les positions</p>
+          <small>Les données sont chargées depuis le dernier export</small>
+        </div>
+      </div>
+
+      <div class="summary-bar" id="summaryBar" style="display:none">
+        <div class="sb-item"><span class="sb-label">COMPTES</span><span class="sb-val" id="sbComptes">0</span></div>
+        <div class="sb-item"><span class="sb-label">QTÉS</span><span class="sb-val" id="sbQtes">0</span></div>
+        <div class="sb-item"><span class="sb-label">MONTANT</span><span class="sb-val" id="sbMontant">0 MAD</span></div>
+        <div style="flex:1"></div>
+        <button class="btn-add-panier" id="btnAddPanier" onclick="ajouterPanier()" disabled>+ AJOUTER AU PANIER</button>
+      </div>
+    </div>
+
+  </div><!-- /left-panel -->
+
+  <!-- ── RIGHT : PANIER ── -->
+  <div class="right-panel" id="rightPanel">
+    <div class="right-panel-header">
+      <span>Panier d'ordres</span>
+      <span id="panierTotal" style="color:var(--accent)">0 MAD</span>
+    </div>
+    <div class="right-panel-body" id="panierBody">
+      <div class="empty-state" style="padding:32px 16px">
+        <div class="icon">◻</div>
+        <p>Panier vide</p>
+        <small>Ajoute des ordres depuis le formulaire</small>
+      </div>
+    </div>
+    <div class="right-panel-footer">
+      <button class="btn-primary" id="btnConfirmer" onclick="ouvrirRecap()" disabled>▶ CONFIRMER LES ORDRES</button>
+      <button class="btn-secondary" onclick="viderPanier()">Vider le panier</button>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- ── RECAP MODAL ── -->
+<div class="modal-overlay" id="recapModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">RÉCAPITULATIF DES ORDRES</span>
+      <button class="btn-modal-cancel btn-modal" onclick="fermerRecap()" style="padding:4px 10px">✕</button>
+    </div>
+    <div class="modal-body" id="recapBody"></div>
+    <div class="modal-footer">
+      <button class="btn-modal btn-modal-copy" onclick="copierJSON()">📋 Copier JSON</button>
+      <button class="btn-modal btn-modal-copy" onclick="telechargerJSON()">⬇ Télécharger</button>
+      <button class="btn-modal btn-modal-cancel" onclick="fermerRecap()">Annuler</button>
+      <button class="btn-modal btn-modal-confirm" onclick="confirmerOrdres()">✓ Confirmer & Générer</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
 <script>
-var sens='',comptes=[],coursMap={},panier=[];
+// ══════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════
+var DATA_JSON = {};
+var CSE_VALEURS = {};
 
-// ── Dark mode ──
-function toggleDark(){
-  document.documentElement.classList.toggle('dark');
-  var isDark=document.documentElement.classList.contains('dark');
-  document.getElementById('toggleIcon').textContent=isDark?'☀️':'🌙';
-  localStorage.setItem('darkMode',isDark?'1':'0');
+// Panier
+var panier = [];
+var sensActuel = 'A';
+var positionsActuelles = []; // rows rendus
+var acIndex = -1;
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  chargerData();
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.ticker-zone')) fermerAC();
+  });
+});
+
+function chargerData() {
+  const ts = Date.now();
+  fetch('data.json?t=' + ts)
+    .then(r => r.json())
+    .then(d => {
+      DATA_JSON = d;
+      document.getElementById('dataDate').textContent = d.date_extraction || '—';
+    })
+    .catch(() => {
+      if (DATA_JSON && DATA_JSON.date_extraction) {
+        document.getElementById('dataDate').textContent = DATA_JSON.date_extraction;
+      } else {
+        document.getElementById('dataStatus').innerHTML = '<div class="dot" style="background:var(--red)"></div><span>Données non chargées</span>';
+      }
+    });
 }
-(function(){
-  if(localStorage.getItem('darkMode')==='1'){
-    document.documentElement.classList.add('dark');
-    document.getElementById('toggleIcon').textContent='☀️';
+
+// ══════════════════════════════════════════════
+// AUTOCOMPLETE TICKER
+// ══════════════════════════════════════════════
+function getTickers() {
+  const map = {};
+  // D'abord depuis les positions des PTF
+  if (DATA_JSON && DATA_JSON.portefeuilles) {
+    DATA_JSON.portefeuilles.forEach(p => {
+      (p.positions || []).forEach(pos => {
+        if (!map[pos.ticker]) map[pos.ticker] = pos.valeur || pos.ticker;
+      });
+    });
   }
-})();
+  // Puis depuis CSE_VALEURS (tickers de la cote)
+  Object.entries(CSE_VALEURS).forEach(([t, n]) => { if (!map[t]) map[t] = n; });
+  return map;
+}
 
-var DATA_JSON = {"date_extraction":"24/04/2026 21:47","portefeuilles":[{"nom":"Aniss","plateforme":"Valoris","capacite_achat":3805.45,"positions":[{"ticker":"ADH","valeur":"Groupe Addoha","prix_marche":35.3},{"ticker":"DHO","valeur":"Delta Holding","prix_marche":61.0},{"ticker":"RIS","valeur":"Risma","prix_marche":367.0},{"ticker":"GTM","valeur":"SGTM S.A","prix_marche":785.1},{"ticker":"BCI","valeur":"BMCI","prix_marche":583.0},{"ticker":"CAP","valeur":"Cash Plus","prix_marche":288.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"VCN","valeur":"Vicenne","prix_marche":450.0},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"LBV","valeur":"Label Vie","prix_marche":4150.0}]},{"nom":"Elali Riyad","plateforme":"Valoris","capacite_achat":4926.11,"positions":[{"ticker":"CIH","valeur":"CIH","prix_marche":351.0},{"ticker":"GTM","valeur":"SGTM S.A","prix_marche":785.1},{"ticker":"VCN","valeur":"Vicenne","prix_marche":450.0},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"LBV","valeur":"Label Vie","prix_marche":4150.0}]},{"nom":"ADNANI","plateforme":"Valoris","capacite_achat":80330.25,"positions":[{"ticker":"ADH","valeur":"Groupe Addoha","prix_marche":35.3},{"ticker":"DHO","valeur":"Delta Holding","prix_marche":61.0},{"ticker":"HPS","valeur":"HPS","prix_marche":638.0},{"ticker":"ADI","valeur":"Alliances","prix_marche":450.0},{"ticker":"VCN","valeur":"Vicenne","prix_marche":450.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"TMA","valeur":"Total","prix_marche":1501.0}]},{"nom":"Majid","plateforme":"Valoris","capacite_achat":863.44,"positions":[{"ticker":"DHO","valeur":"Delta Holding","prix_marche":61.0},{"ticker":"ATL","valeur":"Atlanta","prix_marche":131.0},{"ticker":"CFG","valeur":"CFG Bank","prix_marche":219.0},{"ticker":"BCP","valeur":"BCP","prix_marche":245.0},{"ticker":"CIH","valeur":"CIH","prix_marche":351.0},{"ticker":"GTM","valeur":"SGTM S.A","prix_marche":785.1},{"ticker":"VCN","valeur":"Vicenne","prix_marche":450.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"LBV","valeur":"Label Vie","prix_marche":4150.0}]},{"nom":"Larbi","plateforme":"Valoris","capacite_achat":13505.53,"positions":[{"ticker":"DHO","valeur":"Delta Holding","prix_marche":61.0},{"ticker":"CFG","valeur":"CFG Bank","prix_marche":219.0},{"ticker":"BCP","valeur":"BCP","prix_marche":245.0},{"ticker":"VCN","valeur":"Vicenne","prix_marche":450.0},{"ticker":"BOA","valeur":"BMCE Bank","prix_marche":210.2},{"ticker":"BCI","valeur":"BMCI","prix_marche":583.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"TMA","valeur":"Total","prix_marche":1501.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0}]},{"nom":"Hakima","plateforme":"Valoris","capacite_achat":5546.09,"positions":[{"ticker":"DHO","valeur":"Delta Holding","prix_marche":61.0},{"ticker":"CMG","valeur":"CMGP GROUP","prix_marche":360.0},{"ticker":"VCN","valeur":"Vicenne","prix_marche":450.0},{"ticker":"HPS","valeur":"HPS","prix_marche":638.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"TMA","valeur":"Total","prix_marche":1501.0}]},{"nom":"Anass","plateforme":"Valoris","capacite_achat":37301.28,"positions":[{"ticker":"CFG","valeur":"CFG Bank","prix_marche":219.0},{"ticker":"GTM","valeur":"SGTM S.A","prix_marche":785.1},{"ticker":"VCN","valeur":"Vicenne","prix_marche":450.0},{"ticker":"CAP","valeur":"Cash Plus","prix_marche":288.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"ATW","valeur":"Attijariwafa","prix_marche":689.0}]},{"nom":"Brahim","plateforme":"Valoris","capacite_achat":5143.64,"positions":[{"ticker":"VCN","valeur":"Vicenne","prix_marche":450.0},{"ticker":"GTM","valeur":"SGTM S.A","prix_marche":785.1},{"ticker":"BCI","valeur":"BMCI","prix_marche":583.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"LBV","valeur":"Label Vie","prix_marche":4150.0}]},{"nom":"Oumaima","plateforme":"Valoris","capacite_achat":918.52,"positions":[{"ticker":"ADH","valeur":"Groupe Addoha","prix_marche":35.3},{"ticker":"RIS","valeur":"Risma","prix_marche":367.0},{"ticker":"GTM","valeur":"SGTM S.A","prix_marche":785.1},{"ticker":"VCN","valeur":"Vicenne","prix_marche":450.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"LBV","valeur":"Label Vie","prix_marche":4150.0}]},{"nom":"Ghita Berrada","plateforme":"Valoris","capacite_achat":1366.2,"positions":[{"ticker":"RIS","valeur":"Risma","prix_marche":367.0},{"ticker":"GTM","valeur":"SGTM S.A","prix_marche":785.1},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0}]},{"nom":"Rafik Oussama","plateforme":"Valoris","capacite_achat":148.51,"positions":[{"ticker":"RIS","valeur":"Risma","prix_marche":367.0},{"ticker":"HPS","valeur":"HPS","prix_marche":638.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"LBV","valeur":"Label Vie","prix_marche":4150.0}]},{"nom":"Mounir","plateforme":"Valoris","capacite_achat":1311.4,"positions":[{"ticker":"ADI","valeur":"Alliances","prix_marche":450.0},{"ticker":"LBV","valeur":"Label Vie","prix_marche":4150.0}]},{"nom":"ASSIA","plateforme":"Redmed","capacite_achat":1255.83,"positions":[{"ticker":"CFG","valeur":"CFG Bank","prix_marche":219.0},{"ticker":"RIS","valeur":"Risma","prix_marche":367.0},{"ticker":"BCP","valeur":"BCP","prix_marche":245.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"GTM","valeur":"SGTM S.A","prix_marche":785.1},{"ticker":"LBV","valeur":"Label Vie","prix_marche":4150.0},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"CAP","valeur":"Cash Plus","prix_marche":288.0}]},{"nom":"FATIMA","plateforme":"Redmed","capacite_achat":486.43,"positions":[{"ticker":"RIS","valeur":"Risma","prix_marche":367.0},{"ticker":"VCN","valeur":"Vicenne","prix_marche":450.0},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"GTM","valeur":"SGTM S.A","prix_marche":785.1},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"LBV","valeur":"Label Vie","prix_marche":4150.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0}]},{"nom":"TAZI ZINEB","plateforme":"Redmed","capacite_achat":26017.42,"positions":[{"ticker":"GTM","valeur":"SGTM S.A","prix_marche":785.1},{"ticker":"VCN","valeur":"Vicenne","prix_marche":450.0},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"CAP","valeur":"Cash Plus","prix_marche":288.0},{"ticker":"LBV","valeur":"Label Vie","prix_marche":4150.0}]},{"nom":"SALEHDDINE","plateforme":"Redmed","capacite_achat":8414.45,"positions":[{"ticker":"CFG","valeur":"CFG Bank","prix_marche":219.0},{"ticker":"VCN","valeur":"Vicenne","prix_marche":450.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"TMA","valeur":"Total","prix_marche":1501.0},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"LBV","valeur":"Label Vie","prix_marche":4150.0}]},{"nom":"REDA TA","plateforme":"Redmed","capacite_achat":2392.04,"positions":[{"ticker":"IAM","valeur":"Maroc Telecom","prix_marche":95.5},{"ticker":"RIS","valeur":"Risma","prix_marche":367.0},{"ticker":"CFG","valeur":"CFG Bank","prix_marche":219.0},{"ticker":"BCP","valeur":"BCP","prix_marche":245.0},{"ticker":"CAP","valeur":"Cash Plus","prix_marche":288.0},{"ticker":"VCN","valeur":"Vicenne","prix_marche":450.0},{"ticker":"AKT","valeur":"Akdital","prix_marche":1250.0},{"ticker":"ADI","valeur":"Alliances","prix_marche":450.0},{"ticker":"JET","valeur":"Jet Contractors","prix_marche":2379.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"LBV","valeur":"Label Vie","prix_marche":4150.0},{"ticker":"TMA","valeur":"Total","prix_marche":1501.0}]},{"nom":"FAHD ADNANI","plateforme":"Redmed","capacite_achat":1922046.63,"positions":[{"ticker":"ADH","valeur":"Groupe Addoha","prix_marche":35.3},{"ticker":"MSA","valeur":"Marsa Maroc","prix_marche":868.9},{"ticker":"TGC","valeur":"TGCC S.A","prix_marche":795.0},{"ticker":"AKT","valeur":"Akdital","prix_marche":1250.0},{"ticker":"HPS","valeur":"HPS","prix_marche":638.0},{"ticker":"CMA","valeur":"Cimar","prix_marche":1710.0},{"ticker":"MNG","valeur":"Managem","prix_marche":13991.0}]}]};
+function onTickerInput() {
+  const val = document.getElementById('tickerInput').value.trim().toUpperCase();
+  document.getElementById('tickerInput').value = val;
+  acIndex = -1;
+  if (val.length < 1) { fermerAC(); resetPositions(); return; }
+  const tickers = getTickers();
+  const matches = Object.entries(tickers).filter(([t]) => t.startsWith(val)).slice(0, 12);
+  renderAC(matches, val);
+  // Auto-sélect si match exact
+  if (tickers[val]) {
+    document.getElementById('tickerNameInline').textContent = tickers[val];
+    renderPositions(val, tickers[val]);
+  } else {
+    document.getElementById('tickerNameInline').textContent = '';
+  }
+}
 
-function fmt(n){return n.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' MAD';}
-function calcQte(m,c){return(!c||c<=0||!m||m<=0)?0:Math.floor(m/c);}
+function renderAC(matches, query) {
+  const list = document.getElementById('acList');
+  if (!matches.length) { list.classList.remove('open'); return; }
+  list.innerHTML = matches.map(([t, n], i) =>
+    `<div class="ac-item" data-ticker="${t}" data-nom="${n}" onclick="selectTicker('${t}','${escHtml(n)}')">
+      <span class="ac-ticker">${t}</span>
+      <span class="ac-nom">${escHtml(n)}</span>
+    </div>`
+  ).join('');
+  list.classList.add('open');
+}
 
-(function(){
-  document.getElementById('topDate').textContent='Extraction : '+DATA_JSON.date_extraction;
-  (DATA_JSON.portefeuilles||[]).forEach(function(p){
-    comptes.push({nom:p.nom,plat:p.plateforme||'Valoris',cash:p.capacite_achat||0});
-    (p.positions||[]).forEach(function(pos){
-      if(pos.ticker&&pos.prix_marche>0) coursMap[pos.ticker]={cours:pos.prix_marche,nom:pos.valeur||pos.ticker};
+function onTickerKey(e) {
+  const list = document.getElementById('acList');
+  const items = list.querySelectorAll('.ac-item');
+  if (e.key === 'ArrowDown') { acIndex = Math.min(acIndex+1, items.length-1); highlightAC(items); e.preventDefault(); }
+  else if (e.key === 'ArrowUp') { acIndex = Math.max(acIndex-1, 0); highlightAC(items); e.preventDefault(); }
+  else if (e.key === 'Enter' && acIndex >= 0) { items[acIndex]?.click(); e.preventDefault(); }
+  else if (e.key === 'Escape') fermerAC();
+}
+
+function highlightAC(items) {
+  items.forEach((el, i) => el.classList.toggle('selected', i === acIndex));
+  if (items[acIndex]) items[acIndex].scrollIntoView({ block: 'nearest' });
+}
+
+function selectTicker(ticker, nom) {
+  document.getElementById('tickerInput').value = ticker;
+  document.getElementById('tickerNameInline').textContent = nom;
+  fermerAC();
+  renderPositions(ticker, nom);
+}
+
+function fermerAC() { document.getElementById('acList').classList.remove('open'); }
+
+// ══════════════════════════════════════════════
+// SENS
+// ══════════════════════════════════════════════
+function setSens(s) {
+  sensActuel = s;
+  document.getElementById('btnAchat').className = 'sens-btn' + (s === 'A' ? ' active-achat' : '');
+  document.getElementById('btnVente').className = 'sens-btn' + (s === 'V' ? ' active-vente' : '');
+  recalculerLignes();
+}
+
+// ══════════════════════════════════════════════
+// TYPE D'ORDRE
+// ══════════════════════════════════════════════
+function onTypeChange() {
+  const isLimite = document.getElementById('typeOrdre').value === 'L';
+  document.getElementById('prixLimiteField').style.opacity = isLimite ? '1' : '0.4';
+  document.getElementById('prixLimiteField').style.pointerEvents = isLimite ? 'auto' : 'none';
+  // Propager aux lignes
+  positionsActuelles.forEach(row => {
+    const inp = document.getElementById('prix_' + row.idx);
+    if (inp) {
+      inp.disabled = !isLimite;
+      inp.style.opacity = isLimite ? '1' : '0.5';
+    }
+  });
+}
+
+function onPrixGlobalChange() {
+  const prix = parseFloat(document.getElementById('prixLimiteGlobal').value) || 0;
+  positionsActuelles.forEach(row => {
+    const inp = document.getElementById('prix_' + row.idx);
+    if (inp && !inp.disabled) { inp.value = prix; }
+    recalculerLigne(row.idx);
+  });
+  updateSummary();
+}
+
+// ══════════════════════════════════════════════
+// POIDS CIBLE
+// ══════════════════════════════════════════════
+function onPoidsCibleChange() {
+  const pc = parseFloat(document.getElementById('poidsCible').value);
+  const ticker = document.getElementById('tickerInput').value.trim().toUpperCase();
+  if (!isNaN(pc) && ticker) {
+    document.getElementById('poidsHint').textContent = `${pc}% du ptf @ ${getPrixActuel()} MAD — ${positionsActuelles.length} compte(s)`;
+  }
+}
+
+function appliquerPoids() {
+  const pc = parseFloat(document.getElementById('poidsCible').value);
+  if (isNaN(pc)) { showToast('Saisis un poids cible', 'error'); return; }
+  positionsActuelles.forEach(row => {
+    const inp = document.getElementById('pc_' + row.idx);
+    if (inp) {
+      inp.value = pc;
+      calculerQteDelta(row.idx);
+    }
+  });
+  updateSummary();
+  showToast(`${pc}% appliqué à ${positionsActuelles.length} compte(s)`);
+}
+
+function getPrixActuel() {
+  const p = parseFloat(document.getElementById('prixLimiteGlobal').value) || 0;
+  return p;
+}
+
+// ══════════════════════════════════════════════
+// RENDER POSITIONS
+// ══════════════════════════════════════════════
+function resetPositions() {
+  document.getElementById('positionsContainer').innerHTML = `
+    <div class="empty-state">
+      <div class="icon">◈</div>
+      <p>Saisis un ticker pour voir les positions</p>
+      <small>Les données sont chargées depuis le dernier export</small>
+    </div>`;
+  document.getElementById('summaryBar').style.display = 'none';
+  document.getElementById('comptesCount').textContent = '—';
+  document.getElementById('headerSummary').textContent = '';
+  positionsActuelles = [];
+}
+
+function renderPositions(ticker, nom) {
+  if (!DATA_JSON || !DATA_JSON.portefeuilles) { resetPositions(); return; }
+
+  const prix = parseFloat(document.getElementById('prixLimiteGlobal').value) || 0;
+  const type = document.getElementById('typeOrdre').value;
+  const isLimite = type === 'L';
+  positionsActuelles = [];
+
+  DATA_JSON.portefeuilles.forEach((ptf, idx) => {
+    const pos = (ptf.positions || []).find(p => p.ticker === ticker);
+    const valoTicker = pos ? (pos.prix_marche * (pos.quantite || 0)) : 0;
+    const totalPtf = ptf.total || (ptf.capacite_achat + ptf.valorisation);
+    const poidsActuel = totalPtf > 0 ? (valoTicker / totalPtf * 100) : 0;
+
+    positionsActuelles.push({
+      idx,
+      nom: ptf.nom,
+      plateforme: ptf.plateforme || 'Valoris',
+      cash: ptf.capacite_achat || 0,
+      totalPtf,
+      poidsActuel,
+      valoTicker,
+      quantiteActuelle: pos ? (pos.quantite || 0) : 0,
+      prixMarche: pos ? (pos.prix_marche || 0) : 0,
     });
   });
-  renderList();
-})();
 
-function renderList(){
-  var html='';
-  comptes.forEach(function(c,i){
-    var isV=c.plat==='Valoris';
-    var badge='<span style="margin-left:5px;font-size:10px;padding:1px 5px;border-radius:10px;font-weight:600;background:'+(isV?'#E6F0FB':'#FDECEA')+';color:'+(isV?'#1A5DB5':'#C0392B')+'">'+c.plat+'</span>';
-    html+='<div id="row'+i+'" style="padding:8px 10px;border:1px solid #E0E5EF;border-radius:8px;margin-bottom:5px;background:#fff">'
-      // Ligne 1 : checkbox + nom + cash
-      +'<div style="display:flex;align-items:center;gap:8px">'
-        +'<input type="checkbox" id="chk'+i+'" onchange="updateQtes()" style="width:15px;height:15px;flex-shrink:0;accent-color:#2E6BE6">'
-        +'<span style="font-size:13px;font-weight:500;color:#1B2A4A;flex:1">'+c.nom+badge+'</span>'
-        +'<span style="font-size:12px;color:#7A8BA8;flex-shrink:0">'+fmt(c.cash)+'</span>'
-      +'</div>'
-      // Ligne 2 : montant + qté (apparaît quand coché)
-      +'<div id="inp'+i+'" style="display:none;margin-top:6px;margin-left:23px;display:flex;align-items:center;gap:8px">'
-        +'<input type="number" id="mnt'+i+'" placeholder="Montant MAD" min="0" step="100" oninput="updateQtes()" disabled'
-        +' style="flex:1;height:32px;font-size:12px;padding:0 8px;border:1px solid #D5DCE8;border-radius:6px;background:#fff;color:#1B2A4A">'
-        +'<span id="qte'+i+'" style="width:70px;text-align:center;font-size:11px;font-weight:600;padding:5px 4px;border-radius:6px;background:#F4F6FA;border:1px solid #E0E5EF;color:#7A8BA8;flex-shrink:0">—</span>'
-      +'</div>'
-      +'</div>';
+  const prixCours = positionsActuelles.reduce((best, r) => r.prixMarche > best ? r.prixMarche : best, 0);
+  if (prixCours > 0) {
+    document.getElementById('coursDisplay').textContent = fmt2(prixCours);
+    if (!document.getElementById('prixLimiteGlobal').value) {
+      document.getElementById('prixLimiteGlobal').value = prixCours;
+    }
+  }
+
+  document.getElementById('comptesCount').textContent = `${positionsActuelles.length} compte(s)`;
+
+  let html = `
+    <div class="positions-header-row">
+      <span></span>
+      <span style="text-align:left">COMPTE</span>
+      <span>PLT</span>
+      <span>CASH DISPO</span>
+      <span>POIDS ACT.</span>
+      <span>POIDS CIBLE %</span>
+      <span>QTÉ</span>
+      <span>PRIX LIMITE</span>
+      <span>MONTANT</span>
+    </div>
+    <div class="select-all-row" onclick="toggleAll()">
+      <input type="checkbox" id="chkAll"> Sélectionner tous les comptes éligibles
+    </div>
+  `;
+
+  positionsActuelles.forEach(row => {
+    const poidsCibleDefault = parseFloat(document.getElementById('poidsCible').value) || 0;
+    const prixLimite = parseFloat(document.getElementById('prixLimiteGlobal').value) || prixCours || 0;
+
+    // Delta quantité depuis poids cible
+    let qte = 0;
+    if (poidsCibleDefault > 0 && prixLimite > 0 && row.totalPtf > 0) {
+      const valoVoulue = poidsCibleDefault / 100 * row.totalPtf;
+      const delta = (valoVoulue - row.valoTicker) / prixLimite;
+      qte = Math.round(delta);
+      if (qte < 0 && sensActuel === 'A') qte = 0;
+      if (qte > 0 && sensActuel === 'V') qte = Math.abs(qte);
+    }
+
+    const montant = Math.abs(qte) * prixLimite;
+    const cashSuffisant = sensActuel === 'V' || row.cash >= montant;
+    const checked = (qte !== 0) && cashSuffisant ? 'checked' : '';
+    const rowClass = cashSuffisant ? '' : 'insufficient';
+    const montantClass = cashSuffisant ? 'ok' : 'insuf';
+    const poidsClass = row.poidsActuel > 0 ? 'has-position' : 'no-position';
+    const poidsStr = row.poidsActuel > 0 ? fmtPct(row.poidsActuel) + '%' : '—';
+    const plt = row.plateforme;
+    const pltClass = plt === 'Valoris' ? 'plt-val' : 'plt-red';
+    const pltLabel = plt === 'Valoris' ? 'Val' : 'Red';
+
+    html += `
+      <div class="position-row ${rowClass}" id="row_${row.idx}">
+        <input type="checkbox" id="chk_${row.idx}" ${checked} onchange="updateSummary()">
+        <div>
+          <div class="row-compte">${escHtml(row.nom)}</div>
+          ${row.poidsActuel > 0 ? `<div style="font-size:10px;color:var(--text3);font-family:var(--mono)">${fmtN(row.quantiteActuelle)} titres</div>` : ''}
+        </div>
+        <div><span class="plt-badge ${pltClass}">${pltLabel}</span></div>
+        <div class="row-cash">${fmtN(Math.round(row.cash))} MAD</div>
+        <div class="row-poids-actuel ${poidsClass}">${poidsStr}</div>
+        <div class="row-poids-cible-input">
+          <input type="number" id="pc_${row.idx}" value="${poidsCibleDefault || ''}" min="0" max="100" step="0.1"
+            placeholder="%" oninput="calculerQteDelta(${row.idx})" style="${isLimite ? '' : 'opacity:0.5'}">
+        </div>
+        <div class="row-qte-input">
+          <input type="number" id="qte_${row.idx}" value="${qte !== 0 ? Math.abs(qte) : ''}"
+            min="0" step="1" placeholder="0" oninput="recalculerLigne(${row.idx})">
+        </div>
+        <div class="row-prix-input">
+          <input type="number" id="prix_${row.idx}" value="${prixLimite || ''}"
+            min="0" step="0.01" placeholder="0.00" ${!isLimite ? 'disabled style="opacity:0.5"' : ''}
+            oninput="recalculerLigne(${row.idx})">
+        </div>
+        <div>
+          <div class="row-montant ${montantClass}" id="montant_${row.idx}">${montant > 0 ? fmtN(Math.round(montant)) + ' MAD' : '—'}</div>
+          ${!cashSuffisant ? `<div class="no-cash-tag">cash insuf.</div>` : ''}
+        </div>
+      </div>`;
   });
-  document.getElementById('comptesList').innerHTML=html;
+
+  document.getElementById('positionsContainer').innerHTML = html;
+  document.getElementById('summaryBar').style.display = 'flex';
+  document.getElementById('btnAddPanier').disabled = false;
+  updateSummary();
+  updateSelectAll();
 }
 
-// ── Base complète des valeurs Bourse de Casablanca ──
-var CSE_VALEURS = {
-  "AAA":"Afric Industries","ABM":"Alliance Bureau Modern","ADH":"Groupe Addoha",
-  "ADI":"Alliances Darna","AFI":"AFI Leasing","AFM":"Afma","AGM":"Agma Lahlou-Tazi",
-  "AKT":"Akdital","ALM":"Aluminium du Maroc","ARD":"Aradei Capital",
-  "ATH":"Auto Hall","ATL":"Atlanta","ATW":"Attijariwafa Bank",
-  "BAL":"Balima","BCI":"BMCI","BCP":"Banque Centrale Populaire",
-  "BOA":"Bank of Africa","BOM":"Brasseries du Maroc",
-  "CAP":"Cash Plus","CDA":"Crédit du Maroc","CDM":"Crédit du Maroc",
-  "CFG":"CFG Bank","CGI":"Compagnie Générale Immobilière",
-  "CIH":"CIH Bank","CMA":"Cimar","CMG":"CMGP Group",
-  "CMR":"Ciments du Maroc","CMT":"CMT","COL":"Colorado",
-  "CSR":"Cosumar","CTM":"CTM",
-  "DHO":"Delta Holding","DIS":"Disway","DLM":"Delattre Levivier Maroc",
-  "DRI":"Dari Couspate","DWY":"Disway",
-  "EQD":"Eqdom",
-  "FBR":"Fennie Brossette",
-  "GAZ":"Afriquia Gaz","GIF":"SNEP","GTM":"SGTM S.A",
-  "HPS":"HPS","HUT":"Huttes","HWA":"Howa",
-  "IAM":"Maroc Telecom","IBC":"IBC Advanced Alloys","ILV":"Involys",
-  "IMO":"IMMORENTE Invest","INV":"Involys","IRE":"IREP",
-  "JET":"Jet Contractors","JLK":"Julien Lecamus",
-  "LAC":"Lesieur Cristal","LBV":"Label Vie","LES":"Lesieur Cristal",
-  "LQB":"LqB","LYD":"Lydec",
-  "M2M":"M2M Group","MAB":"Maghreb Oxygène","MAN":"Managem",
-  "MED":"Med Paper","MFC":"Microdata","MLE":"Marjane Holding",
-  "MNG":"Managem","MOX":"Mooviz","MSA":"Marsa Maroc","MUT":"Mutandis",
-  "NEJ":"Nejma","NKL":"Nickel Industries",
-  "OAT":"Wafasalaf","OUL":"Oulmès",
-  "PAP":"Med Paper","PEL":"Pelican Migration","PRO":"Promopharm",
-  "RDS":"Résidences Dar Saada","REB":"Rebab Company","RIS":"Risma",
-  "S2M":"S2M","SAH":"Saham Finances","SAM":"Samir","SBM":"SMI",
-  "SCE":"Sothema","SDX":"Sanad","SID":"SONASID","SMI":"SMI",
-  "SNP":"SNEP","SOT":"Sotrec","SRM":"Soread 2M","STK":"Stroc Industrie",
-  "TGC":"TGCC S.A","TIM":"Timar","TMA":"TotalEnergies Marketing Maroc",
-  "TQM":"Totalenergies Marketing Maroc",
-  "UMR":"Union Marocaine de Banques",
-  "VCN":"Vicenne",
-  "WAA":"Wafa Assurance","WFB":"Wafabail",
-  "ZDJ":"Zellidja"
-};
+// ══════════════════════════════════════════════
+// CALCUL DELTA DEPUIS POIDS CIBLE
+// ══════════════════════════════════════════════
+function calculerQteDelta(idx) {
+  const row = positionsActuelles.find(r => r.idx === idx);
+  if (!row) return;
 
-function onTickerChange(){
-  var t=document.getElementById('ticker').value.trim();
+  const pc = parseFloat(document.getElementById('pc_' + idx).value);
+  const prix = parseFloat(document.getElementById('prix_' + idx).value) ||
+               parseFloat(document.getElementById('prixLimiteGlobal').value) ||
+               row.prixMarche;
 
-  // Reset nom et cours si ticker vide ou changé
-  if(!t){
-    document.getElementById('valnom').value='';
-    document.getElementById('cours').value='';
-    document.getElementById('coursChip').style.display='none';
-    hideSuggestions();
-    updateQtes();
+  if (!isNaN(pc) && prix > 0 && row.totalPtf > 0) {
+    const valoVoulue = pc / 100 * row.totalPtf;
+    const delta = (valoVoulue - row.valoTicker) / prix;
+    let qte = Math.round(delta);
+
+    // Ajuster sens auto si delta négatif et sens achat → bascule vente visuellement
+    const qteInput = document.getElementById('qte_' + idx);
+    if (qte < 0) {
+      qteInput.value = Math.abs(qte);
+      // Indication visuelle que c'est une vente
+      qteInput.style.color = 'var(--red)';
+    } else if (qte > 0) {
+      qteInput.value = qte;
+      qteInput.style.color = 'var(--green)';
+    } else {
+      qteInput.value = '';
+      qteInput.style.color = '';
+    }
+  }
+  recalculerLigne(idx);
+}
+
+function recalculerLigne(idx) {
+  const row = positionsActuelles.find(r => r.idx === idx);
+  if (!row) return;
+  const qte = parseInt(document.getElementById('qte_' + idx).value) || 0;
+  const prix = parseFloat(document.getElementById('prix_' + idx).value) || 0;
+  const montant = qte * prix;
+  const cashSuffisant = sensActuel === 'V' || row.cash >= montant;
+  const el = document.getElementById('montant_' + idx);
+  if (el) {
+    el.textContent = montant > 0 ? fmtN(Math.round(montant)) + ' MAD' : '—';
+    el.className = 'row-montant ' + (cashSuffisant ? 'ok' : 'insuf');
+  }
+  const rowEl = document.getElementById('row_' + idx);
+  if (rowEl) rowEl.classList.toggle('insufficient', !cashSuffisant);
+  updateSummary();
+}
+
+function recalculerLignes() {
+  positionsActuelles.forEach(r => recalculerLigne(r.idx));
+}
+
+// ══════════════════════════════════════════════
+// SELECT ALL
+// ══════════════════════════════════════════════
+function toggleAll() {
+  const chkAll = document.getElementById('chkAll');
+  const checked = !chkAll.checked;
+  chkAll.checked = checked;
+  positionsActuelles.forEach(row => {
+    const c = document.getElementById('chk_' + row.idx);
+    if (c) c.checked = checked;
+  });
+  updateSummary();
+}
+
+function updateSelectAll() {
+  const chkAll = document.getElementById('chkAll');
+  if (!chkAll) return;
+  const all = positionsActuelles.every(r => document.getElementById('chk_' + r.idx)?.checked);
+  chkAll.checked = all;
+}
+
+// ══════════════════════════════════════════════
+// SUMMARY BAR
+// ══════════════════════════════════════════════
+function updateSummary() {
+  let comptesSelec = 0, totalQte = 0, totalMontant = 0;
+  positionsActuelles.forEach(row => {
+    const chk = document.getElementById('chk_' + row.idx);
+    if (chk && chk.checked) {
+      const qte = parseInt(document.getElementById('qte_' + row.idx)?.value) || 0;
+      const prix = parseFloat(document.getElementById('prix_' + row.idx)?.value) || 0;
+      comptesSelec++;
+      totalQte += qte;
+      totalMontant += qte * prix;
+    }
+  });
+  document.getElementById('sbComptes').textContent = comptesSelec;
+  document.getElementById('sbQtes').textContent = fmtN(totalQte);
+  const sb = document.getElementById('sbMontant');
+  sb.textContent = fmtN(Math.round(totalMontant)) + ' MAD';
+  sb.className = 'sb-val ' + (sensActuel === 'A' ? 'achat' : 'vente');
+  document.getElementById('btnAddPanier').disabled = comptesSelec === 0 || totalQte === 0;
+  updateSelectAll();
+}
+
+// ══════════════════════════════════════════════
+// PANIER
+// ══════════════════════════════════════════════
+function ajouterPanier() {
+  const ticker = document.getElementById('tickerInput').value.trim().toUpperCase();
+  const nom = document.getElementById('tickerNameInline').textContent || ticker;
+  const type = document.getElementById('typeOrdre').value;
+  const validite = document.getElementById('validite').value;
+
+  if (!ticker) { showToast('Ticker manquant', 'error'); return; }
+
+  const lignes = [];
+  positionsActuelles.forEach(row => {
+    const chk = document.getElementById('chk_' + row.idx);
+    if (chk && chk.checked) {
+      const qte = parseInt(document.getElementById('qte_' + row.idx)?.value) || 0;
+      const prix = parseFloat(document.getElementById('prix_' + row.idx)?.value) || 0;
+      const poids = parseFloat(document.getElementById('pc_' + row.idx)?.value) || 0;
+      if (qte > 0) {
+        lignes.push({
+          compte: row.nom,
+          plateforme: row.plateforme,
+          quantite: qte,
+          prix,
+          montant: Math.round(qte * prix),
+          poids_cible: poids
+        });
+      }
+    }
+  });
+
+  if (!lignes.length) { showToast('Aucun ordre à ajouter', 'error'); return; }
+
+  // Vérifier si ticker déjà dans panier → fusionner ou remplacer
+  const existing = panier.findIndex(p => p.ticker === ticker && p.sens === sensActuel);
+  const prixGlobal = parseFloat(document.getElementById('prixLimiteGlobal').value) || 0;
+  const cours = parseFloat(document.getElementById('coursDisplay').textContent) || prixGlobal;
+
+  const item = { ticker, valeur: nom, sens: sensActuel, type, validite, prix: prixGlobal, cours, ordres: lignes };
+
+  if (existing >= 0) {
+    panier[existing] = item;
+    showToast(`${ticker} mis à jour dans le panier`);
+  } else {
+    panier.push(item);
+    showToast(`${ticker} ajouté au panier`);
+  }
+
+  renderPanier();
+}
+
+function retirerDuPanier(i) {
+  panier.splice(i, 1);
+  renderPanier();
+}
+
+function viderPanier() {
+  if (!panier.length) return;
+  panier = [];
+  renderPanier();
+  showToast('Panier vidé');
+}
+
+function renderPanier() {
+  const count = panier.length;
+  document.getElementById('basketCount').textContent = count;
+  document.getElementById('btnConfirmer').disabled = count === 0;
+
+  if (!count) {
+    document.getElementById('panierBody').innerHTML = `
+      <div class="empty-state" style="padding:32px 16px">
+        <div class="icon">◻</div><p>Panier vide</p>
+        <small>Ajoute des ordres depuis le formulaire</small>
+      </div>`;
+    document.getElementById('panierTotal').textContent = '0 MAD';
     return;
   }
 
-  // Afficher suggestions
-  showSuggestions(t);
+  let totalGlobal = 0;
+  let html = '';
+  panier.forEach((item, i) => {
+    const totalItem = item.ordres.reduce((s, o) => s + o.montant, 0);
+    totalGlobal += totalItem;
+    const sensClass = item.sens === 'A' ? 'achat' : 'vente';
+    const sensLabel = item.sens === 'A' ? 'ACHAT' : 'VENTE';
+    html += `
+      <div class="panier-item">
+        <div class="panier-item-header">
+          <span class="panier-ticker">${item.ticker}</span>
+          <span style="font-size:11px;color:var(--text2);font-family:var(--mono)">${escHtml(item.valeur)}</span>
+          <span class="panier-sens ${sensClass}">${sensLabel}</span>
+          <button class="btn-remove-item" onclick="retirerDuPanier(${i})">✕</button>
+        </div>
+        <div class="panier-item-body">
+          ${item.ordres.map(o => `
+            <div class="panier-ligne">
+              <span class="compte">${escHtml(o.compte)}</span>
+              <span class="details">${fmtN(o.quantite)} × ${fmt2(o.prix)}</span>
+              <span class="montant">${fmtN(o.montant)} MAD</span>
+            </div>`).join('')}
+          <div class="panier-total-row">
+            <span class="label">TOTAL</span>
+            <span class="val">${fmtN(totalItem)} MAD</span>
+          </div>
+        </div>
+      </div>`;
+  });
 
-  // Si ticker exact trouvé dans portefeuilles → cours auto
-  if(coursMap[t]){
-    document.getElementById('cours').value=coursMap[t].cours;
-    document.getElementById('coursChipVal').textContent=coursMap[t].cours.toLocaleString('fr-FR',{minimumFractionDigits:2})+' MAD';
-    document.getElementById('coursChip').style.display='inline-flex';
-    if(!document.getElementById('valnom').value||document.getElementById('valnom').dataset.auto==='1'){
-      document.getElementById('valnom').value=coursMap[t].nom;
-      document.getElementById('valnom').dataset.auto='1';
-    }
-  } else if(CSE_VALEURS[t]){
-    // Ticker CSE connu mais pas dans portefeuilles
-    document.getElementById('coursChip').style.display='none';
-    if(!document.getElementById('valnom').value||document.getElementById('valnom').dataset.auto==='1'){
-      document.getElementById('valnom').value=CSE_VALEURS[t];
-      document.getElementById('valnom').dataset.auto='1';
-    }
-  } else {
-    document.getElementById('coursChip').style.display='none';
+  document.getElementById('panierBody').innerHTML = html;
+  document.getElementById('panierTotal').textContent = fmtN(totalGlobal) + ' MAD';
+}
+
+function togglePanel() {
+  const p = document.getElementById('rightPanel');
+  p.style.display = p.style.display === 'none' ? 'flex' : p.style.display === 'flex' ? 'none' : 'flex';
+  // Reset to flex column
+  if (p.style.display === 'flex') p.style.flexDirection = 'column';
+}
+
+// ══════════════════════════════════════════════
+// RÉCAP & JSON
+// ══════════════════════════════════════════════
+function ouvrirRecap() {
+  if (!panier.length) return;
+  const body = document.getElementById('recapBody');
+  let html = '';
+
+  panier.forEach(item => {
+    const totalItem = item.ordres.reduce((s, o) => s + o.montant, 0);
+    const sensLabel = item.sens === 'A' ? 'Achat' : 'Vente';
+    const typeLabel = item.type === 'L' ? `Limité @ ${fmt2(item.prix)} MAD` : 'Market';
+    html += `
+      <div class="modal-group">
+        <div class="modal-group-title">${item.ticker} — ${escHtml(item.valeur)} · ${sensLabel} · ${typeLabel}</div>
+        ${item.ordres.map(o => `
+          <div class="modal-order-row">
+            <span style="color:var(--text)">${escHtml(o.compte)}</span>
+            <span style="font-family:var(--mono);color:var(--text2)">${o.plateforme}</span>
+            <span style="font-family:var(--mono)">${fmtN(o.quantite)} titres</span>
+            <span style="font-family:var(--mono);color:var(--accent)">${fmtN(o.montant)} MAD</span>
+          </div>`).join('')}
+        <div style="text-align:right;padding:6px 0;font-family:var(--mono);font-size:11px;color:var(--text2)">
+          SOUS-TOTAL : <span style="color:var(--accent)">${fmtN(totalItem)} MAD</span>
+        </div>
+      </div>`;
+  });
+
+  const jsonData = construireJSON();
+  html += `
+    <div class="modal-group">
+      <div class="modal-group-title">JSON — À coller dans ordres.json sur le Bureau</div>
+      <div class="json-block" id="jsonPreview">${escHtml(JSON.stringify(jsonData, null, 2))}</div>
+    </div>`;
+
+  body.innerHTML = html;
+  document.getElementById('recapModal').classList.add('open');
+}
+
+function fermerRecap() { document.getElementById('recapModal').classList.remove('open'); }
+
+function construireJSON() {
+  // Format compatible script_ordres.py — un fichier par item
+  // On retourne un tableau si multi-items
+  if (panier.length === 1) {
+    return buildOrdreJSON(panier[0]);
   }
-  updateQtes();
+  return panier.map(buildOrdreJSON);
 }
 
-function showSuggestions(query){
-  var box=document.getElementById('tickerSuggestions');
-  if(!query||query.length<1){box.style.display='none';return;}
-  var q=query.toUpperCase();
-  var matches=[];
-  // Chercher dans les deux sources
-  Object.keys(CSE_VALEURS).forEach(function(k){
-    if(k.startsWith(q)||CSE_VALEURS[k].toUpperCase().includes(q)) matches.push({ticker:k,nom:CSE_VALEURS[k]});
-  });
-  // Priorité aux cours connus
-  matches.sort(function(a,b){
-    var aK=coursMap[a.ticker]?0:1;
-    var bK=coursMap[b.ticker]?0:1;
-    return aK-bK||a.ticker.localeCompare(b.ticker);
-  });
-  if(!matches.length){box.style.display='none';return;}
-  var html='';
-  matches.slice(0,8).forEach(function(m){
-    var hasCours=coursMap[m.ticker];
-    html+='<div class="sugg-item" onclick="selectTicker(\''+m.ticker+'\',\''+m.nom.replace(/'/g,"\\'")+'\')">'
-      +'<span style="font-weight:700;color:var(--text);min-width:45px">'+m.ticker+'</span>'
-      +'<span style="flex:1;color:var(--sub);font-size:12px">'+m.nom+'</span>'
-      +(hasCours?'<span style="font-size:11px;font-weight:600;color:var(--green)">'+coursMap[m.ticker].cours.toLocaleString('fr-FR',{minimumFractionDigits:2})+'</span>':'')
-      +'</div>';
-  });
-  box.innerHTML=html;
-  box.style.display='block';
+function buildOrdreJSON(item) {
+  return {
+    ticker: item.ticker,
+    valeur: item.valeur,
+    sens: item.sens,
+    type: item.type,
+    prix: item.prix,
+    cours: item.cours,
+    validite: item.validite,
+    ordres: item.ordres.map(o => ({
+      compte: o.compte,
+      quantite: o.quantite,
+      montant: o.montant,
+      poids_cible: o.poids_cible
+    }))
+  };
 }
 
-function selectTicker(ticker,nom){
-  document.getElementById('ticker').value=ticker;
-  document.getElementById('valnom').value=nom;
-  document.getElementById('valnom').dataset.auto='1';
-  hideSuggestions();
-  if(coursMap[ticker]){
-    document.getElementById('cours').value=coursMap[ticker].cours;
-    document.getElementById('coursChipVal').textContent=coursMap[ticker].cours.toLocaleString('fr-FR',{minimumFractionDigits:2})+' MAD';
-    document.getElementById('coursChip').style.display='inline-flex';
-  } else {
-    document.getElementById('cours').value='';
-    document.getElementById('coursChip').style.display='none';
-  }
-  updateQtes();
+function copierJSON() {
+  const txt = JSON.stringify(construireJSON(), null, 2);
+  navigator.clipboard.writeText(txt).then(() => showToast('JSON copié !', 'success'));
 }
 
-function hideSuggestions(){
-  var box=document.getElementById('tickerSuggestions');
-  if(box) box.style.display='none';
+function telechargerJSON() {
+  const txt = JSON.stringify(construireJSON(), null, 2);
+  const blob = new Blob([txt], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ordres.json';
+  a.click();
+  showToast('ordres.json téléchargé', 'success');
 }
 
-// Cacher suggestions si clic ailleurs
-document.addEventListener('click',function(e){
-  if(!e.target.closest('#tickerWrapper')) hideSuggestions();
-});
-
-function setSens(s){
-  sens=s;
-  document.getElementById('btnA').className='sbtn'+(s==='A'?' aA':'');
-  document.getElementById('btnV').className='sbtn'+(s==='V'?' aV':'');
-  updateQtes();
+function confirmerOrdres() {
+  telechargerJSON();
+  fermerRecap();
+  showToast('Ordres confirmés — Lance script_ordres.py', 'success');
 }
 
-function togglePrix(){
-  document.getElementById('prixRow').style.display=document.getElementById('execution').value==='L'?'block':'none';
-}
+// ══════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════
+function fmtN(n) { return new Intl.NumberFormat('fr-FR').format(n); }
+function fmt2(n) { return new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n); }
+function fmtPct(n) { return n.toFixed(1); }
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-function updateQtes(){
-  var cours=parseFloat(document.getElementById('cours').value)||0;
-  var total=0;
-  comptes.forEach(function(c,i){
-    var chk=document.getElementById('chk'+i);
-    var inp=document.getElementById('mnt'+i);
-    var inpRow=document.getElementById('inp'+i);
-    var row=document.getElementById('row'+i);
-    var q=document.getElementById('qte'+i);
-    var checked=chk.checked;
-    inp.disabled=!checked;
-    inpRow.style.display=checked?'flex':'none';
-    if(!checked){
-      inp.value='';
-      row.style.borderColor='#E0E5EF';row.style.background='#fff';
-      q.textContent='—';q.style.color='#7A8BA8';q.style.background='#F4F6FA';q.style.borderColor='#E0E5EF';
-      return;
-    }
-    var m=parseFloat(inp.value)||0; total+=m;
-    var qte=calcQte(m,cours);
-    row.style.borderColor='#2E6BE6';row.style.background='#F0F5FF';
-    if(m>0&&cours>0){
-      q.textContent=qte+' tit.';
-      if(sens==='A'&&m>c.cash){
-        row.style.borderColor='#E8A030';row.style.background='#FEF6EC';
-        q.style.color='#C0392B';q.style.background='#FDECEA';q.style.borderColor='#E88A84';
-      } else {
-        q.style.color='#1E7A35';q.style.background='#EAF4EC';q.style.borderColor='#6EBA7F';
-      }
-    } else {
-      q.textContent=m>0?'cours?':'—';
-      q.style.color='#7A8BA8';q.style.background='#F4F6FA';q.style.borderColor='#E0E5EF';
-    }
-  });
-  document.getElementById('totalEngage').textContent=fmt(total);
-}
-
-function gatherCurrentOrders(){
-  var cours=parseFloat(document.getElementById('cours').value)||0;
-  var orders=[];
-  comptes.forEach(function(c,i){
-    var chk=document.getElementById('chk'+i);
-    var m=parseFloat(document.getElementById('mnt'+i).value)||0;
-    if(chk.checked&&m>0) orders.push({compte:c.nom,montant:m,quantite:calcQte(m,cours)});
-  });
-  return orders;
-}
-
-function ajouterAuPanier(){
-  var ticker=document.getElementById('ticker').value.trim();
-  var valnom=document.getElementById('valnom').value.trim()||ticker;
-  var cours=parseFloat(document.getElementById('cours').value)||0;
-  var exec=document.getElementById('execution').value;
-  var prix=parseFloat(document.getElementById('prixLimite').value)||0;
-  if(!ticker){alert('Saisissez un ticker.');return;}
-  if(!sens){alert('Choisissez Achat ou Vente.');return;}
-  if(!cours){alert('Saisissez le dernier cours.');return;}
-  var orders=gatherCurrentOrders();
-  if(!orders.length){alert('Sélectionnez au moins un compte.');return;}
-  panier.push({ticker:ticker,valeur:valnom,sens:sens,type:exec,prix:exec==='L'?prix:null,cours:cours,ordres:orders});
-  renderPanier();
-  resetForm();
-}
-
-function renderPanier(){
-  var nb=panier.length;
-  document.getElementById('panierCount').textContent=nb;
-  document.getElementById('panierSection').style.display=nb>0?'block':'none';
-  document.getElementById('btnValider').disabled=nb===0;
-  var html='';
-  panier.forEach(function(item,idx){
-    var sL=item.sens==='A'?'Achat':'Vente';
-    var sC=item.sens==='A'?'#1E7A35':'#C0392B';
-    var sB=item.sens==='A'?'#EAF4EC':'#FDECEA';
-    var tL=item.type==='M'?'Market':'Limite '+item.prix+' MAD';
-    var totalMnt=item.ordres.reduce(function(s,o){return s+o.montant;},0);
-    var totalQte=item.ordres.reduce(function(s,o){return s+o.quantite;},0);
-
-    html+='<div style="border:1px solid #E0E5EF;border-radius:10px;overflow:hidden;margin-bottom:8px">'
-      // Header valeur
-      +'<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#F4F6FA;border-bottom:1px solid #E0E5EF">'
-        +'<div style="display:flex;align-items:center;gap:8px">'
-          +'<span style="font-size:14px;font-weight:700;color:#1B2A4A">'+item.ticker+'</span>'
-          +'<span style="font-size:12px;color:#7A8BA8">'+item.valeur+'</span>'
-          +'<span style="font-size:11px;padding:2px 8px;border-radius:20px;font-weight:600;background:'+sB+';color:'+sC+'">'+sL+'</span>'
-          +'<span style="font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500;background:#E6F0FB;color:#1A5DB5">'+tL+'</span>'
-          +'<span style="font-size:11px;color:#7A8BA8">cours : '+item.cours.toLocaleString('fr-FR',{minimumFractionDigits:2})+' MAD</span>'
-        +'</div>'
-        +'<div style="display:flex;align-items:center;gap:10px">'
-          +'<span style="font-size:12px;color:#7A8BA8">'+item.ordres.length+' client(s) | '+totalQte+' titres | '+fmt(totalMnt)+'</span>'
-          +'<button class="del-btn" onclick="supprimerDuPanier('+idx+')" title="Supprimer">×</button>'
-        +'</div>'
-      +'</div>'
-      // Tableau des clients
-      +'<div style="background:#fff">'
-      // En-tête colonnes
-      +'<div style="display:flex;gap:8px;padding:5px 14px;font-size:11px;font-weight:600;color:#7A8BA8;border-bottom:1px solid #EEF1F7;background:#FAFBFC">'
-        +'<span style="flex:1">Client</span>'
-        +'<span style="width:80px;text-align:right">Montant</span>'
-        +'<span style="width:70px;text-align:right">Quantité</span>'
-        +'<span style="width:80px;text-align:right">Montant réel</span>'
-      +'</div>';
-
-    item.ordres.forEach(function(o){
-      var reel=o.quantite*item.cours;
-      html+='<div style="display:flex;align-items:center;gap:8px;padding:7px 14px;border-bottom:1px solid #EEF1F7;font-size:12px">'
-        +'<span style="flex:1;font-weight:500;color:#1B2A4A">'+o.compte+'</span>'
-        +'<span style="width:80px;text-align:right;color:#7A8BA8">'+o.montant.toLocaleString('fr-FR',{minimumFractionDigits:0})+' MAD</span>'
-        +'<span style="width:70px;text-align:right;font-weight:700;color:'+sC+'">'+o.quantite+' tit.</span>'
-        +'<span style="width:80px;text-align:right;color:#1B2A4A;font-weight:500">'+reel.toLocaleString('fr-FR',{minimumFractionDigits:0})+' MAD</span>'
-        +'</div>';
-    });
-
-    // Ligne total
-    html+='<div style="display:flex;align-items:center;gap:8px;padding:7px 14px;font-size:12px;background:#F4F6FA;font-weight:600">'
-      +'<span style="flex:1;color:#1B2A4A">TOTAL</span>'
-      +'<span style="width:80px;text-align:right;color:#7A8BA8">'+totalMnt.toLocaleString('fr-FR',{minimumFractionDigits:0})+' MAD</span>'
-      +'<span style="width:70px;text-align:right;color:'+sC+'">'+totalQte+' tit.</span>'
-      +'<span style="width:80px;text-align:right;color:#1B2A4A">'+(totalQte*item.cours).toLocaleString('fr-FR',{minimumFractionDigits:0})+' MAD</span>'
-      +'</div>'
-      +'</div></div>';
-  });
-  document.getElementById('panierList').innerHTML=html;
-}
-
-function supprimerDuPanier(idx){panier.splice(idx,1);renderPanier();}
-
-function resetForm(){
-  sens='';
-  document.getElementById('btnA').className='sbtn';
-  document.getElementById('btnV').className='sbtn';
-  document.getElementById('ticker').value='';
-  document.getElementById('valnom').value='';
-  document.getElementById('valnom').dataset.auto='';
-  document.getElementById('cours').value='';
-  document.getElementById('execution').value='M';
-  document.getElementById('prixRow').style.display='none';
-  document.getElementById('coursChip').style.display='none';
-  hideSuggestions();
-  renderList();
-  document.getElementById('totalEngage').textContent='0,00 MAD';
-}
-
-function showConfirm(){
-  if(!panier.length){alert('Ajoutez au moins une valeur.');return;}
-  var totalC=0,totalM=0;
-  panier.forEach(function(item){totalC+=item.ordres.length;item.ordres.forEach(function(o){totalM+=o.montant;});});
-  document.getElementById('confirmSub').textContent=panier.length+' valeur(s) | '+totalC+' ordre(s) | Total engagé : '+fmt(totalM);
-  var html='';
-  panier.forEach(function(item){
-    var sL=item.sens==='A'?'Achat':'Vente';
-    var sC=item.sens==='A'?'#1E7A35':'#C0392B';
-    var sB=item.sens==='A'?'#EAF4EC':'#FDECEA';
-    var tL=item.type==='M'?'Market':'Limite '+item.prix+' MAD';
-    html+='<div class="valeur-block"><div class="valeur-title">'+item.ticker+' — '+item.valeur
-      +'<span style="font-size:11px;padding:2px 7px;border-radius:20px;font-weight:500;background:'+sB+';color:'+sC+'">'+sL+'</span>'
-      +'<span style="font-size:11px;padding:2px 7px;border-radius:20px;font-weight:500;background:#E6F0FB;color:#1A5DB5">'+tL+'</span>'
-      +'</div>';
-    item.ordres.forEach(function(o){
-      html+='<div class="crow"><div><div class="crow-nom">'+o.compte+'</div>'
-        +'<div class="crow-detail">'+fmt(o.montant)+' → '+o.quantite+' titres × '+item.cours.toLocaleString('fr-FR',{minimumFractionDigits:2})+' MAD</div>'
-        +'</div><div class="crow-right"><div class="crow-qte" style="color:'+sC+'">'+o.quantite+' titres</div>'
-        +'<span class="pill '+(item.type==='M'?'pM':'pL')+'">'+tL+'</span></div></div>';
-    });
-    html+='</div>';
-  });
-  document.getElementById('confirmRows').innerHTML=html;
-  var jsonData={ordres_globaux:panier.map(function(item){return {ticker:item.ticker,valeur:item.valeur,sens:item.sens,type:item.type,prix:item.prix,cours:item.cours,ordres:item.ordres};})};
-  document.getElementById('jsonBox').textContent=JSON.stringify(jsonData,null,2);
-  document.getElementById('formView').style.display='none';
-  document.getElementById('confirmView').style.display='block';
-  window.scrollTo(0,0);
-}
-
-function copyJson(){
-  navigator.clipboard.writeText(document.getElementById('jsonBox').textContent).then(function(){
-    var b=document.querySelector('.copy-btn');b.textContent='✅ Copié !';
-    setTimeout(function(){b.textContent='📋 Copier le JSON';},2000);
-  });
-}
-
-function backForm(){document.getElementById('confirmView').style.display='none';document.getElementById('formView').style.display='block';window.scrollTo(0,0);}
-
-function executer(){
-  var nb=panier.length,totalC=0;
-  panier.forEach(function(item){totalC+=item.ordres.length;});
-  document.getElementById('successTitle').textContent=nb+' valeur(s) | '+totalC+' ordre(s) confirmé(s)';
-  document.getElementById('successDetail').textContent='ordres.json copié — collez dans le bloc-notes sur le bureau puis lancez :';
-  document.getElementById('confirmView').style.display='none';
-  document.getElementById('successView').style.display='block';
-  window.scrollTo(0,0);
-}
-
-function reset(){
-  panier=[];resetForm();renderPanier();
-  document.getElementById('successView').style.display='none';
-  document.getElementById('confirmView').style.display='none';
-  document.getElementById('formView').style.display='block';
-  window.scrollTo(0,0);
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' ' + type : '');
+  setTimeout(() => t.className = 'toast', 2800);
 }
 </script>
 </body>
