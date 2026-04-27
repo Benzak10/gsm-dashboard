@@ -62,8 +62,11 @@ input:disabled{opacity:.4;cursor:not-allowed;background:var(--bg);}
 /* LIGNE 1 : ticker + sens + type + validité — 4 colonnes égales */
 .row-form-1{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:10px;padding:14px;}
 
-/* LIGNE 2 : cours (fixe) + prix limite + poids + appliquer */
-.row-form-2{display:grid;grid-template-columns:180px 1fr 140px 120px;gap:10px;padding:0 14px 14px;align-items:end;}
+/* LIGNE 2 : cours + prix limite + poids + appliquer */
+.row-form-2{display:flex;flex-wrap:wrap;gap:10px;padding:0 14px 14px;align-items:end;}
+.row-form-2 .field{flex:1;min-width:140px;}
+.row-form-2 .field:first-child{flex:0 0 155px;}
+.row-form-2 .field:last-child{flex:0 0 auto;}
 
 /* Consolidé bar */
 .consol-bar{display:flex;align-items:center;gap:16px;padding:8px 14px;background:var(--bg3);border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-family:var(--mono);font-size:11px;}
@@ -560,14 +563,15 @@ function renderConsol(ticker) {
     const pos = (p.positions||[]).find(x => x.ticker === ticker);
     const totalPtf = p.total || ((p.capacite_achat||0) + (p.valorisation||0));
     totalGlobal += totalPtf;
-    if (pos) {
-      const qte = pos.quantite || 0;
-      const px = pos.prix_marche || 0;
-      totalTitres += qte;
-      totalValo += qte * px;
-      if (qte > 0) nbPtfDet++;
+    if (pos && (pos.quantite||0) > 0) {
+      // valori_ptf = valorisation réelle du titre dans ce PTF (calculée par le script)
+      const valo = pos.valori_ptf || (pos.quantite * pos.prix_marche) || 0;
+      totalTitres += pos.quantite || 0;
+      totalValo += valo;
+      nbPtfDet++;
     }
   });
+  // % global = valo totale du titre / somme de tous les totaux PTF
   const poidsCons = totalGlobal > 0 ? (totalValo / totalGlobal * 100) : 0;
   document.getElementById('cTitres').textContent = fmtN(totalTitres);
   document.getElementById('cValo').textContent = fmtN(Math.round(totalValo));
@@ -657,7 +661,8 @@ function renderPos(ticker) {
     const pos = (ptf.positions||[]).find(p => p.ticker === ticker);
     const qteA = pos ? (pos.quantite||0) : 0;
     const pxM = pos ? (pos.prix_marche||0) : 0;
-    const valoTk = qteA * pxM;
+    // Utiliser valori_ptf si dispo (plus précis), sinon qte × prix
+    const valoTk = pos ? (pos.valori_ptf || qteA * pxM) : 0;
     const totalPtf = ptf.total || ((ptf.capacite_achat||0)+(ptf.valorisation||0));
     const poidsA = totalPtf > 0 ? (valoTk/totalPtf*100) : 0;
     posRows.push({ idx, nom:ptf.nom, plt:ptf.plateforme||'Valoris',
