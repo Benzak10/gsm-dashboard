@@ -246,7 +246,8 @@ select option{background:var(--bg3);}
             <div class="ticker-zone">
               <div class="ticker-input-wrap">
                 <input type="text" id="tickerInput" placeholder="ex: ATW" autocomplete="off"
-                  oninput="onTickerInput()" onkeydown="onTickerKey(event)">
+                  oninput="onTickerInput()" onkeydown="onTickerKey(event)"
+                  onfocus="onTickerFocus()">
                 <span class="ticker-name-inline" id="tickerNameInline"></span>
               </div>
               <div class="autocomplete-list" id="acList"></div>
@@ -275,8 +276,8 @@ select option{background:var(--bg3);}
           </div>
         </div>
 
-        <!-- Ligne 2 : Cours / Prix limite / Poids cible — VISIBLE SEULEMENT APRÈS SÉLECTION TICKER -->
-        <div id="paramsRow" style="display:none;">
+        <!-- Ligne 2 : Cours / Prix limite / Poids cible — TOUJOURS VISIBLE -->
+        <div id="paramsRow">
           <div class="form-row fr3">
             <div class="field">
               <label class="field-label">Dernier cours (MAD)</label>
@@ -313,7 +314,7 @@ select option{background:var(--bg3);}
         <span id="comptesCount" style="font-family:var(--mono);font-size:11px;color:var(--text3)">—</span>
       </div>
 
-      <div id="positionsContainer">
+      <div id="positionsContainer" style="max-height:420px;overflow-y:auto;">
         <div class="empty-state">
           <div class="icon">◈</div>
           <p>Saisis un ticker pour voir les positions</p>
@@ -377,8 +378,8 @@ select option{background:var(--bg3);}
 // ══════════════════════════════════════════
 // DATA — injectée par script_v11.py
 // ══════════════════════════════════════════
-var DATA_JSON = {"date_extraction": "27/04/2026 23:41", "portefeuilles": [{"nom": "Aniss", "plateforme": "Valoris", "capacite_achat": 3805.45, "positions": [{"ticker": "ADH", "valeur": "Groupe Addoha", "prix_marche": 35.2}, {"ticker": "DHO", "valeur": "Delta Holding", "prix_marche": 62.0}, {"ticker": "RIS", "valeur": "Risma", "prix_marche": 360.0}, {"ticker": "GTM", "valeur": "SGTM S.A", "prix_marche": 779.9}, {"ticker": "BCI", "valeur": "BMCI", "prix_marche": 595.0}, {"ticker": "CAP", "valeur": "Cash Plus", "prix_marche": 286.0}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "VCN", "valeur": "Vicenne", "prix_marche": 441.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "LBV", "valeur": "Label Vie", "prix_marche": 4111.0}]}, {"nom": "Elali Riyad", "plateforme": "Valoris", "capacite_achat": 4926.11, "positions": [{"ticker": "CIH", "valeur": "CIH", "prix_marche": 365.0}, {"ticker": "SCIHD", "valeur": "DS CIH 3/12 2025", "prix_marche": 6.19}, {"ticker": "GTM", "valeur": "SGTM S.A", "prix_marche": 779.9}, {"ticker": "VCN", "valeur": "Vicenne", "prix_marche": 441.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "LBV", "valeur": "Label Vie", "prix_marche": 4111.0}]}, {"nom": "ADNANI", "plateforme": "Valoris", "capacite_achat": 80330.25, "positions": [{"ticker": "ADH", "valeur": "Groupe Addoha", "prix_marche": 35.2}, {"ticker": "DHO", "valeur": "Delta Holding", "prix_marche": 62.0}, {"ticker": "HPS", "valeur": "HPS", "prix_marche": 649.0}, {"ticker": "ADI", "valeur": "Alliances", "prix_marche": 449.9}, {"ticker": "VCN", "valeur": "Vicenne", "prix_marche": 441.0}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "TMA", "valeur": "Total", "prix_marche": 1500.0}]}, {"nom": "Majid", "plateforme": "Valoris", "capacite_achat": 863.44, "positions": [{"ticker": "DHO", "valeur": "Delta Holding", "prix_marche": 62.0}, {"ticker": "ATL", "valeur": "Atlanta", "prix_marche": 132.0}, {"ticker": "CFG", "valeur": "CFG Bank", "prix_marche": 215.0}, {"ticker": "BCP", "valeur": "BCP", "prix_marche": 244.0}, {"ticker": "CIH", "valeur": "CIH", "prix_marche": 365.0}, {"ticker": "SCIHD", "valeur": "DS CIH 3/12 2025", "prix_marche": 6.19}, {"ticker": "GTM", "valeur": "SGTM S.A", "prix_marche": 779.9}, {"ticker": "VCN", "valeur": "Vicenne", "prix_marche": 441.0}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "LBV", "valeur": "Label Vie", "prix_marche": 4111.0}]}, {"nom": "Larbi", "plateforme": "Valoris", "capacite_achat": 13505.53, "positions": [{"ticker": "DHO", "valeur": "Delta Holding", "prix_marche": 62.0}, {"ticker": "CFG", "valeur": "CFG Bank", "prix_marche": 215.0}, {"ticker": "BCP", "valeur": "BCP", "prix_marche": 244.0}, {"ticker": "VCN", "valeur": "Vicenne", "prix_marche": 441.0}, {"ticker": "BOA", "valeur": "BMCE Bank", "prix_marche": 207.9}, {"ticker": "BCI", "valeur": "BMCI", "prix_marche": 595.0}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "TMA", "valeur": "Total", "prix_marche": 1500.0}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "ABOAF", "valeur": "DA BOA 1/48 2025", "prix_marche": 4.08}]}, {"nom": "Hakima", "plateforme": "Valoris", "capacite_achat": 5546.09, "positions": [{"ticker": "DHO", "valeur": "Delta Holding", "prix_marche": 62.0}, {"ticker": "CMG", "valeur": "CMGP GROUP", "prix_marche": 360.0}, {"ticker": "VCN", "valeur": "Vicenne", "prix_marche": 441.0}, {"ticker": "HPS", "valeur": "HPS", "prix_marche": 649.0}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "TMA", "valeur": "Total", "prix_marche": 1500.0}]}, {"nom": "Anass", "plateforme": "Valoris", "capacite_achat": 37301.28, "positions": [{"ticker": "CFG", "valeur": "CFG Bank", "prix_marche": 215.0}, {"ticker": "GTM", "valeur": "SGTM S.A", "prix_marche": 779.9}, {"ticker": "VCN", "valeur": "Vicenne", "prix_marche": 441.0}, {"ticker": "CAP", "valeur": "Cash Plus", "prix_marche": 286.0}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "ATW", "valeur": "Attijariwafa", "prix_marche": 691.8}]}, {"nom": "Brahim", "plateforme": "Valoris", "capacite_achat": 5143.64, "positions": [{"ticker": "VCN", "valeur": "Vicenne", "prix_marche": 441.0}, {"ticker": "GTM", "valeur": "SGTM S.A", "prix_marche": 779.9}, {"ticker": "BCI", "valeur": "BMCI", "prix_marche": 595.0}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "LBV", "valeur": "Label Vie", "prix_marche": 4111.0}, {"ticker": "ABOAF", "valeur": "DA BOA 1/48 2025", "prix_marche": 4.08}]}, {"nom": "Oumaima", "plateforme": "Valoris", "capacite_achat": 918.52, "positions": [{"ticker": "ADH", "valeur": "Groupe Addoha", "prix_marche": 35.2}, {"ticker": "RIS", "valeur": "Risma", "prix_marche": 360.0}, {"ticker": "GTM", "valeur": "SGTM S.A", "prix_marche": 779.9}, {"ticker": "VCN", "valeur": "Vicenne", "prix_marche": 441.0}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "LBV", "valeur": "Label Vie", "prix_marche": 4111.0}]}, {"nom": "Ghita Berrada", "plateforme": "Valoris", "capacite_achat": 1366.2, "positions": [{"ticker": "RIS", "valeur": "Risma", "prix_marche": 360.0}, {"ticker": "GTM", "valeur": "SGTM S.A", "prix_marche": 779.9}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}]}, {"nom": "Rafik Oussama", "plateforme": "Valoris", "capacite_achat": 148.51, "positions": [{"ticker": "RIS", "valeur": "Risma", "prix_marche": 360.0}, {"ticker": "HPS", "valeur": "HPS", "prix_marche": 649.0}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "LBV", "valeur": "Label Vie", "prix_marche": 4111.0}]}, {"nom": "Mounir", "plateforme": "Valoris", "capacite_achat": 1311.4, "positions": [{"ticker": "ADI", "valeur": "Alliances", "prix_marche": 449.9}, {"ticker": "LBV", "valeur": "Label Vie", "prix_marche": 4111.0}]}, {"nom": "ASSIA", "plateforme": "Redmed", "capacite_achat": 551.93, "positions": [{"ticker": "CFG", "valeur": "CFG Bank", "prix_marche": 215.0}, {"ticker": "RIS", "valeur": "Risma", "prix_marche": 360.0}, {"ticker": "BCP", "valeur": "BCP", "prix_marche": 244.0}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "GTM", "valeur": "SGTM S.A", "prix_marche": 779.9}, {"ticker": "LBV", "valeur": "Label Vie", "prix_marche": 4111.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "CAP", "valeur": "Cash Plus", "prix_marche": 286.0}, {"ticker": "ATW", "valeur": "Attijariwafa", "prix_marche": 691.8}]}, {"nom": "FATIMA", "plateforme": "Redmed", "capacite_achat": 486.43, "positions": [{"ticker": "RIS", "valeur": "Risma", "prix_marche": 360.0}, {"ticker": "VCN", "valeur": "Vicenne", "prix_marche": 441.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "GTM", "valeur": "SGTM S.A", "prix_marche": 779.9}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "LBV", "valeur": "Label Vie", "prix_marche": 4111.0}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}]}, {"nom": "TAZI ZINEB", "plateforme": "Redmed", "capacite_achat": 26017.42, "positions": [{"ticker": "GTM", "valeur": "SGTM S.A", "prix_marche": 779.9}, {"ticker": "VCN", "valeur": "Vicenne", "prix_marche": 441.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "CAP", "valeur": "Cash Plus", "prix_marche": 286.0}, {"ticker": "LBV", "valeur": "Label Vie", "prix_marche": 4111.0}]}, {"nom": "SALEHDDINE", "plateforme": "Redmed", "capacite_achat": 8414.45, "positions": [{"ticker": "CFG", "valeur": "CFG Bank", "prix_marche": 215.0}, {"ticker": "VCN", "valeur": "Vicenne", "prix_marche": 441.0}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "TMA", "valeur": "Total", "prix_marche": 1500.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "LBV", "valeur": "Label Vie", "prix_marche": 4111.0}]}, {"nom": "REDA TA", "plateforme": "Redmed", "capacite_achat": 2392.04, "positions": [{"ticker": "IAM", "valeur": "Maroc Telecom", "prix_marche": 96.0}, {"ticker": "RIS", "valeur": "Risma", "prix_marche": 360.0}, {"ticker": "CFG", "valeur": "CFG Bank", "prix_marche": 215.0}, {"ticker": "BCP", "valeur": "BCP", "prix_marche": 244.0}, {"ticker": "CAP", "valeur": "Cash Plus", "prix_marche": 286.0}, {"ticker": "VCN", "valeur": "Vicenne", "prix_marche": 441.0}, {"ticker": "AKT", "valeur": "Akdital", "prix_marche": 1250.0}, {"ticker": "ADI", "valeur": "Alliances", "prix_marche": 449.9}, {"ticker": "JET", "valeur": "Jet Contractors", "prix_marche": 2350.0}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "LBV", "valeur": "Label Vie", "prix_marche": 4111.0}, {"ticker": "TMA", "valeur": "Total", "prix_marche": 1500.0}]}, {"nom": "FAHD ADNANI", "plateforme": "Redmed", "capacite_achat": 1922046.63, "positions": [{"ticker": "ADH", "valeur": "Groupe Addoha", "prix_marche": 35.2}, {"ticker": "MSA", "valeur": "Marsa Maroc", "prix_marche": 860.0}, {"ticker": "TGC", "valeur": "TGCC S.A", "prix_marche": 790.1}, {"ticker": "AKT", "valeur": "Akdital", "prix_marche": 1250.0}, {"ticker": "HPS", "valeur": "HPS", "prix_marche": 649.0}, {"ticker": "CMA", "valeur": "Cimar", "prix_marche": 1700.0}, {"ticker": "MNG", "valeur": "Managem", "prix_marche": 14000.0}]}]};
-var CSE_VALEURS = {"MASI": "18 819.61"};
+var DATA_JSON = {};
+var CSE_VALEURS = {};
 
 // ══════════════════════════════════════════
 // STATE
@@ -450,13 +451,45 @@ function reinitialiser() {
 }
 
 // ══════════════════════════════════════════
+// TICKERS CSE FALLBACK (bourse Casablanca)
+// ══════════════════════════════════════════
+var CSE_FALLBACK = {
+  "ATW":"Attijariwafa Bank","BCP":"Banque Centrale Populaire","BOA":"Bank Of Africa",
+  "CIH":"CIH Bank","CDM":"Crédit Du Maroc","BMCE":"Bank Of Africa","BMCI":"BMCI",
+  "IAM":"Maroc Telecom","MNG":"Managem","HPS":"HPS","M2M":"M2M Group",
+  "MASI":"MASI","NEXT":"Nextprotect","ADI":"Alliances","ADH":"Douja Prom Addoha",
+  "RDS":"Résidences Dar Saada","IBC":"Immorente","MFC":"Maghreb Oxygène",
+  "AFM":"Afma","AFI":"Alliance Foncière Immobilier","ALM":"Aluminium du Maroc",
+  "ARO":"Saham Assurance","ATL":"Auto Nejma","AUTO":"Auto Hall","BAL":"Balima",
+  "BCI":"BCI","CASH":"Cash Plus","CBM":"Ciments du Maroc","CDG":"CDG",
+  "CNIA":"CNIA Assurance","CO":"Colorado","CMA":"Compagnie Minière","CMT":"CMT",
+  "COSUMAR":"Cosumar","CRS":"Cartier Saada","CTM":"CTM","DHO":"Delta Holding",
+  "DLM":"Dari Couspate","DWY":"Disway","EQDOM":"Eqdom","FBR":"Fenie Brossette",
+  "GAZ":"Afriquia Gaz","GBP":"Gulf Bridgea Partners","GCMH":"Groupe Crédit Mutuel",
+  "GFC":"Ghana Financial Corp","HOLCIM":"Holcim Maroc","HPS":"HPS",
+  "IMRL":"Immobilia","ITISSALAT":"IAM","JET":"Jet Contractors","LBV":"Label Vie",
+  "LESIEUR":"Lesieur Cristal","LHM":"Les Hôpitaux du Maroc","LYDEC":"Lydec",
+  "M2M":"M2M Group","MAB":"Maghreb Arabe Presse","MATEL":"Matel","MDP":"Med Paper",
+  "MEDZ":"Medz","MIC":"Microdata","MNG":"Managem","MINIERE":"CMT",
+  "MOROCOTOUR":"Risma","NEJ":"Nejma","NKL":"Nakhlat","OFPT":"OFPT",
+  "ONEE":"ONEE","OPL":"Optorg","OULMES":"Eaux Minérales d'Oulmès",
+  "PAP":"Papelera de Tetuan","PART":"Parttech","PGH":"Palmeraie Groupe Hôtels",
+  "PRO":"Promopharm","RDS":"Résidences Dar Saada","REAA":"Réassurance Atlanta",
+  "REB":"Rebab","RISMA":"Risma","SAMIR":"Samir","SBM":"SBM","SCE":"Stroc Industrie",
+  "SGMB":"Société Générale Maroc","SID":"Sonasid","SLF":"Salafin","SMI":"SMI",
+  "SNP":"Snep","SOFAC":"Sofac","SOPRIAM":"Sopriam","STROC":"Stroc Industrie",
+  "TIM":"Timar","TMA":"Taqa Morocco","TMAR":"Taqa Morocco","UNIM":"Unimer",
+  "WAA":"Wafa Assurance","WAFABAIL":"Wafabail","WAFACASH":"Wafacash","ZDJ":"Zellidja"
+};
+
+// ══════════════════════════════════════════
 // AUTOCOMPLETE
 // ══════════════════════════════════════════
 function getTickers() {
-  const map = {};
-  // 1. CSE_VALEURS (tous les titres cotés — ~80 valeurs)
-  Object.entries(CSE_VALEURS).forEach(([t, n]) => { map[t] = n; });
-  // 2. Positions PTF (enrichit / override avec noms connus)
+  const map = Object.assign({}, CSE_FALLBACK);
+  // Override avec CSE_VALEURS injectés par le script (plus complets)
+  Object.entries(CSE_VALEURS).forEach(([t, n]) => { if(t && n) map[t] = n; });
+  // Override avec positions PTF (noms certifiés)
   if (DATA_JSON && DATA_JSON.portefeuilles) {
     DATA_JSON.portefeuilles.forEach(p => {
       (p.positions || []).forEach(pos => {
@@ -465,6 +498,20 @@ function getTickers() {
     });
   }
   return map;
+}
+
+function onTickerFocus() {
+  const raw = document.getElementById('tickerInput').value.trim().toUpperCase();
+  if (raw.length === 0) {
+    // Afficher les tickers présents dans les PTF en priorité
+    const map = getTickers();
+    const ptfTickers = new Set();
+    if (DATA_JSON && DATA_JSON.portefeuilles) {
+      DATA_JSON.portefeuilles.forEach(p => (p.positions||[]).forEach(pos => ptfTickers.add(pos.ticker)));
+    }
+    const matches = [...ptfTickers].map(t => [t, map[t]||t]).slice(0, 12);
+    if (matches.length) renderAC(matches);
+  }
 }
 
 function onTickerInput() {
@@ -477,8 +524,7 @@ function onTickerInput() {
     tickerSelectionne = '';
     nomSelectionne = '';
     document.getElementById('tickerNameInline').textContent = '';
-    document.getElementById('paramsRow').style.display = 'none';
-    resetPositions();
+      resetPositions();
   }
 
   if (raw.length < 1) { fermerAC(); return; }
@@ -531,8 +577,7 @@ function selectTicker(ticker, nom) {
   document.getElementById('tickerNameInline').textContent = nom;
   fermerAC();
 
-  // Afficher la ligne paramètres
-  document.getElementById('paramsRow').style.display = 'block';
+  // Afficher la ligne paramètres — toujours visible, rien à faire
 
   // Charger le cours depuis les positions
   chargerCours(ticker);
