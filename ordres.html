@@ -833,9 +833,27 @@ function recalcAll() { posRows.forEach(r=>recalcRow(r.idx)); }
 function togAll(e) {
   const ca = document.getElementById('chkAll'); if(!ca) return;
   const nv = !ca.checked; ca.checked = nv;
-  posRows.forEach(r => { const c=document.getElementById('chk_'+r.idx); if(c) c.checked=nv; });
+  posRows.forEach(r => {
+    const c = document.getElementById('chk_'+r.idx);
+    if (!c) return;
+    if (nv) {
+      // Ne cocher que les éligibles
+      const qteInp = document.getElementById('qte_'+r.idx);
+      const dsign = qteInp ? parseInt(qteInp.dataset.deltaSign||'0') : 0;
+      const q = parseInt(qteInp?.value)||0;
+      const p = parseFloat(document.getElementById('px_'+r.idx)?.value)||0;
+      const mont = q * p;
+      const estVente = dsign < 0;
+      const cashOk = estVente ? true : r.cash >= mont || mont === 0;
+      const aTitres = estVente ? r.qteA >= q : true;
+      c.checked = cashOk && aTitres && q > 0;
+    } else {
+      c.checked = false;
+    }
+  });
   updateSum();
 }
+
 function updChkAll() {
   const ca = document.getElementById('chkAll'); if(!ca||!posRows.length) return;
   ca.checked = posRows.every(r => document.getElementById('chk_'+r.idx)?.checked);
@@ -845,20 +863,35 @@ function updChkAll() {
 // SUMMARY
 // ══════════════════════════════════════════
 function updateSum() {
-  let nc=0,tq=0,tm=0;
+  let nc=0, tqA=0, tqV=0, tmA=0, tmV=0;
   posRows.forEach(row => {
     const c=document.getElementById('chk_'+row.idx);
     if(c?.checked){
       const q=parseInt(document.getElementById('qte_'+row.idx)?.value)||0;
       const p=parseFloat(document.getElementById('px_'+row.idx)?.value)||0;
-      nc++; tq+=q; tm+=q*p;
+      const qteInp=document.getElementById('qte_'+row.idx);
+      const dsign=qteInp ? parseInt(qteInp.dataset.deltaSign||'0') : 0;
+      nc++;
+      if (dsign < 0) { tqV+=q; tmV+=q*p; }
+      else { tqA+=q; tmA+=q*p; }
     }
   });
   document.getElementById('sCpt').textContent = nc;
+  // Afficher achats et ventes séparément
+  const tq = tqA + tqV;
+  const tm = tmA + tmV;
   document.getElementById('sQte').textContent = fmtN(tq);
   const sm=document.getElementById('sMont');
-  sm.textContent = fmtN(Math.round(tm))+' MAD';
-  sm.className = 's-val '+(sens==='A'?'ga':'ve');
+  if (tqA > 0 && tqV > 0) {
+    sm.textContent = `↑${fmtN(Math.round(tmA))} / ↓${fmtN(Math.round(tmV))} MAD`;
+    sm.className = 'sb-val';
+    sm.style.color = 'var(--text)';
+  } else {
+    sm.textContent = fmtN(Math.round(tm))+' MAD';
+    sm.className = 'sb-val '+(tqV>0?'ve':'ga');
+    sm.style.color = '';
+  }
+  sm.className = 's-val';
   document.getElementById('bAdd').disabled = nc===0||tq===0;
   updChkAll();
 }
@@ -873,28 +906,41 @@ function addPanier() {
   const pxG=parseFloat(document.getElementById('pxGlob').value)||0;
   const coursText=document.getElementById('coursV').textContent;
   const cours=parseFloat(coursText.replace(/\s/g,'').replace(',','.'))||pxG;
-  const lignes=[];
+
+  const lignesAchat=[], lignesVente=[];
   posRows.forEach(row=>{
     const c=document.getElementById('chk_'+row.idx);
     if(c?.checked){
       const q=parseInt(document.getElementById('qte_'+row.idx)?.value)||0;
       const p=parseFloat(document.getElementById('px_'+row.idx)?.value)||0;
       const pc=parseFloat(document.getElementById('pc_'+row.idx)?.value)||0;
-      // Détecter si cette ligne est une vente (delta négatif)
       const qteInp=document.getElementById('qte_'+row.idx);
       const dsign=qteInp ? parseInt(qteInp.dataset.deltaSign||'0') : 0;
-      const sensLigne = dsign < 0 ? 'V' : sens;
-      if(q>0) lignes.push({compte:row.nom,plateforme:row.plt,quantite:q,prix:p,montant:Math.round(q*p),poids_cible:pc,sens:sensLigne});
+      if(q>0){
+        const ligne={compte:row.nom,plateforme:row.plt,quantite:q,prix:p,montant:Math.round(q*p),poids_cible:pc};
+        if(dsign < 0) lignesVente.push(ligne); else lignesAchat.push(ligne);
+      }
     }
   });
-  if(!lignes.length){showToast('Aucun ordre sélectionné','err');return;}
-  const ex=panier.findIndex(p=>p.ticker===tkSel&&p.sens===sens);
-  const item={ticker:tkSel,valeur:nomSel,sens,type,valid,prix:pxG,cours,ordres:lignes};
-  if(ex>=0){panier[ex]=item;showToast(tkSel+' mis à jour');}
-  else{panier.push(item);showToast(tkSel+' ajouté au panier','ok');}
+
+  if(!lignesAchat.length && !lignesVente.length){showToast('Aucun ordre sélectionné','err');return;}
+
+  if(lignesAchat.length){
+    const ex=panier.findIndex(p=>p.ticker===tkSel&&p.sens==='A');
+    const item={ticker:tkSel,valeur:nomSel,sens:'A',type,valid,prix:pxG,cours,ordres:lignesAchat};
+    if(ex>=0) panier[ex]=item; else panier.push(item);
+  }
+  if(lignesVente.length){
+    const ex=panier.findIndex(p=>p.ticker===tkSel&&p.sens==='V');
+    const item={ticker:tkSel,valeur:nomSel,sens:'V',type,valid,prix:pxG,cours,ordres:lignesVente};
+    if(ex>=0) panier[ex]=item; else panier.push(item);
+  }
+
+  const msg=[lignesAchat.length?`${lignesAchat.length} achat(s)`:'',lignesVente.length?`${lignesVente.length} vente(s)`:''].filter(Boolean).join(' + ');
+  showToast(`${tkSel} — ${msg}`,'ok');
   renderPanier();
-  // Ouvrir le panier automatiquement
   document.getElementById('rightPanel').classList.add('open');
+}
 }
 
 function rmPanier(i){panier.splice(i,1);renderPanier();}
