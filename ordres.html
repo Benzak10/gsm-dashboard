@@ -709,21 +709,35 @@ function renderPos(ticker) {
     </div>`;
 
   posRows.forEach(row => {
-    let qteC = 0;
+    let qteC = 0, deltaSign = 0;
     if (pcG > 0 && pxG > 0 && row.totalPtf > 0) {
       const delta = Math.round(((pcG/100*row.totalPtf) - row.valoTk) / pxG);
       qteC = Math.abs(delta);
+      deltaSign = delta > 0 ? 1 : delta < 0 ? -1 : 0; // +1=achat, -1=vente, 0=rien
     }
     const mont = qteC * pxG;
-    const cashOk = sens==='V' || row.cash>=mont || mont===0;
-    const chkd = qteC>0 && cashOk ? 'checked' : '';
+    // Éligible = a assez de cash si achat, ou a des titres si vente
+    const estAchat = deltaSign >= 0; // si pas de poids cible, on suppose achat
+    const estVente = deltaSign < 0;
+    const cashOk = estVente ? true : row.cash >= mont || mont === 0;
+    const aTitres = estVente ? row.qteA >= qteC : true;
+    const eligible = cashOk && aTitres && qteC > 0;
+    // Bug fix 1 : cocher UNIQUEMENT si éligible
+    const chkd = eligible ? 'checked' : '';
     const pltC = row.plt==='Valoris' ? 'plt-v' : 'plt-r';
     const pltL = row.plt==='Valoris' ? 'Val' : 'Red';
     const poidsStr = row.poidsA > 0 ? row.poidsA.toFixed(1)+'%' : '—';
     const poidsCls = row.poidsA > 0 ? 'has' : 'no';
     const montStr = mont > 0 ? fmtN(Math.round(mont))+' MAD' : '—';
-    const montCls = cashOk ? 'ok' : 'bad';
-    const qteColor = qteC>0 ? (cashOk?'color:var(--green)':'color:var(--red)') : '';
+    const montCls = eligible ? 'ok' : 'bad';
+    // Bug fix 2 : couleur qté selon sens du delta
+    const qteColor = qteC > 0 ? (estVente ? 'color:var(--red)' : (cashOk ? 'color:var(--green)' : 'color:var(--red)')) : '';
+    // Indicateur sens par ligne
+    const sensTag = qteC > 0 && estVente
+      ? `<span style="font-family:var(--mono);font-size:9px;color:var(--red);margin-left:4px">VENTE</span>`
+      : qteC > 0 && !cashOk
+      ? `<span style="font-family:var(--mono);font-size:9px;color:var(--red);margin-left:4px">insuf.</span>`
+      : '';
 
     html += `
       <div class="tbl-row" id="row_${row.idx}">
@@ -739,9 +753,10 @@ function renderPos(ticker) {
           <input type="number" id="pc_${row.idx}" value="${pcG>0?pcG:''}"
             min="0" max="100" step="0.1" placeholder="%" oninput="calcDelta(${row.idx})">
         </div>
-        <div class="cinp">
+        <div class="cinp" style="align-items:center;gap:2px;">
           <input type="number" id="qte_${row.idx}" value="${qteC>0?qteC:''}"
             min="0" step="1" placeholder="0" style="${qteColor}" oninput="recalcRow(${row.idx})">
+          ${sensTag}
         </div>
         <div class="cinp">
           <input type="number" id="px_${row.idx}" value="${pxG>0&&isL?pxG:''}"
@@ -749,7 +764,7 @@ function renderPos(ticker) {
         </div>
         <div>
           <div class="r-mont ${montCls}" id="mont_${row.idx}">${montStr}</div>
-          ${!cashOk&&mont>0?'<div class="no-cash">cash insuf.</div>':''}
+          ${!eligible&&mont>0&&!estVente?'<div class="no-cash">cash insuf.</div>':''}
         </div>
       </div>`;
   });
@@ -773,6 +788,15 @@ function calcDelta(idx) {
     if (inp) {
       inp.value = delta!==0 ? Math.abs(delta) : '';
       inp.style.color = delta<0 ? 'var(--red)' : delta>0 ? 'var(--green)' : '';
+      // Stocker le sens dans un attribut data
+      inp.dataset.deltaSign = delta < 0 ? '-1' : delta > 0 ? '1' : '0';
+    }
+    // Mettre à jour le tag VENTE/insuf visible
+    const sensTag = document.getElementById('stag_'+idx);
+    if (sensTag) {
+      if (delta < 0) { sensTag.textContent = 'VENTE'; sensTag.style.color = 'var(--red)'; }
+      else if (delta > 0 && row.cash < Math.abs(delta)*px) { sensTag.textContent = 'insuf.'; sensTag.style.color = 'var(--red)'; }
+      else { sensTag.textContent = ''; }
     }
   }
   recalcRow(idx);
@@ -850,7 +874,11 @@ function addPanier() {
       const q=parseInt(document.getElementById('qte_'+row.idx)?.value)||0;
       const p=parseFloat(document.getElementById('px_'+row.idx)?.value)||0;
       const pc=parseFloat(document.getElementById('pc_'+row.idx)?.value)||0;
-      if(q>0) lignes.push({compte:row.nom,plateforme:row.plt,quantite:q,prix:p,montant:Math.round(q*p),poids_cible:pc});
+      // Détecter si cette ligne est une vente (delta négatif)
+      const qteInp=document.getElementById('qte_'+row.idx);
+      const dsign=qteInp ? parseInt(qteInp.dataset.deltaSign||'0') : 0;
+      const sensLigne = dsign < 0 ? 'V' : sens;
+      if(q>0) lignes.push({compte:row.nom,plateforme:row.plt,quantite:q,prix:p,montant:Math.round(q*p),poids_cible:pc,sens:sensLigne});
     }
   });
   if(!lignes.length){showToast('Aucun ordre sélectionné','err');return;}
