@@ -31,12 +31,16 @@
   #app { display: none; }
 
   /* HEADER */
-  .header { background: linear-gradient(135deg, #1e293b, #0f172a); border-bottom: 1px solid var(--border2); padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10; }
+  .header { background: linear-gradient(135deg, #1e293b, #0f172a); border-bottom: 1px solid var(--border2); padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
   .header-left .sub { font-size: 10px; letter-spacing: 3px; color: var(--text3); text-transform: uppercase; font-weight: 600; }
   .header-left .title { font-size: 20px; font-weight: 700; color: #f8fafc; margin-top: 2px; }
   .header-right { text-align: right; }
   .header-right .label { font-size: 11px; color: var(--text3); }
   .header-right .date { font-size: 13px; color: var(--text2); font-family: 'JetBrains Mono', monospace; }
+
+  /* BOUTON OMS */
+  .btn-oms { display: inline-flex; align-items: center; gap: 8px; padding: 9px 20px; background: #f59e0b; border: none; border-radius: 8px; color: #000; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; transition: background 0.15s; letter-spacing: 0.02em; white-space: nowrap; }
+  .btn-oms:hover { background: #d97706; }
 
   /* KPI */
   .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; padding: 14px 24px; }
@@ -102,7 +106,6 @@
 </head>
 <body>
 
-<!-- HEADER -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">GSM Capital</div>
@@ -112,15 +115,19 @@
     <div class="login-error" id="login-error">Mot de passe incorrect</div>
   </div>
 </div>
+
 <div id="app">
 <div class="header">
   <div class="header-left">
     <div class="sub">GSM Capital</div>
     <div class="title">Portefeuilles Consolidés</div>
   </div>
-  <div class="header-right">
-    <div class="label">Dernière extraction</div>
-    <div class="date" id="dateExtraction">—</div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <a href="ordres.html" class="btn-oms">📋 Ordres</a>
+    <div class="header-right">
+      <div class="label">Dernière extraction</div>
+      <div class="date" id="dateExtraction">—</div>
+    </div>
   </div>
 </div>
 
@@ -167,7 +174,6 @@ async function loadData() {
     if (!r.ok) throw new Error('HTTP ' + r.status);
     DATA = await r.json();
   } catch(e) {
-    // Fallback : données embarquées
     DATA = EMBEDDED_DATA;
   }
   init();
@@ -275,7 +281,6 @@ function renderMatrice() {
   const ptfs = getFilteredPtfs().sort((a,b) => b.total - a.total);
   const totalGlobalValo = ptfs.reduce((s,p) => s+p.valorisation, 0);
 
-  // Construire la map des tickers
   const tickerMap = {};
   ptfs.forEach(p => {
     p.positions.filter(pos => pos.quantite > 0).forEach(pos => {
@@ -285,16 +290,13 @@ function renderMatrice() {
     });
   });
   const rows = Object.values(tickerMap).sort((a,b) => b.totalValo - a.totalValo);
-
   const pctGlobal = t => totalGlobalValo > 0 ? (t.totalValo / totalGlobalValo * 100) : 0;
 
-  // Headers clients
   const clientHeaders = ptfs.map(p => `
     <th class="text-center" style="max-width:70px;overflow:hidden;cursor:pointer;font-size:9px" onclick="goDetail('${esc(p.nom)}')" title="${esc(p.nom)}">
       ${esc(p.nom.substring(0,8))}
     </th>`).join('');
 
-  // Lignes
   const dataRows = rows.map((row, ri) => {
     const bg = ri % 2 === 0 ? '#0f172a' : '#111827';
     const pctG = pctGlobal(row);
@@ -318,7 +320,6 @@ function renderMatrice() {
     </tr>`;
   }).join('');
 
-  // Ligne totaux % par client
   const totalRow = ptfs.map(p => {
     const pctSum = rows.reduce((s, row) => {
       const pos = row.clients[p.nom];
@@ -429,7 +430,6 @@ function goDetail(nom) {
   renderContent();
 }
 
-// Données embarquées en fallback (mises à jour par le script)
 const EMBEDDED_DATA = {"date_extraction":"18/04/2026 14:21","portefeuilles":[]};
 
 function checkPwd() {
@@ -445,11 +445,7 @@ function checkPwd() {
   }
 }
 
-// Focus auto sur le champ
 window.onload = () => document.getElementById('pwd-input').focus();
-
-// Ne pas appeler loadData() au démarrage
-// loadData();
 </script>
 </body>
 </html>
