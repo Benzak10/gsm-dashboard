@@ -451,22 +451,14 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function loadData() {
-  // Si DATA_JSON déjà injecté par le script (portefeuilles non vides), l'utiliser directement
+  // Utiliser DATA_JSON injecté par script_v11.py
   if (DATA_JSON && DATA_JSON.portefeuilles && DATA_JSON.portefeuilles.length > 0) {
     document.getElementById('dataDate').textContent = DATA_JSON.date_extraction || '—';
     document.getElementById('dot').style.background = 'var(--green)';
-    return;
+  } else {
+    document.getElementById('dataDate').textContent = 'Aucune donnée';
+    document.getElementById('dot').style.background = 'var(--red)';
   }
-  // Sinon tenter le fetch
-  fetch('data.json?t=' + Date.now())
-    .then(r => r.json()).then(d => {
-      DATA_JSON = d;
-      document.getElementById('dataDate').textContent = d.date_extraction || '—';
-      document.getElementById('dot').style.background = 'var(--green)';
-    }).catch(() => {
-      document.getElementById('dataDate').textContent = DATA_JSON.date_extraction || 'Données locales';
-      document.getElementById('dot').style.background = DATA_JSON.date_extraction ? 'var(--accent)' : 'var(--red)';
-    });
 }
 
 // ══════════════════════════════════════════
@@ -820,7 +812,10 @@ function recalcRow(idx) {
   const q = parseInt(document.getElementById('qte_'+idx)?.value)||0;
   const p = parseFloat(document.getElementById('px_'+idx)?.value)||0;
   const mont = q * p;
-  const cashOk = sens==='V' || row.cash>=mont || mont===0;
+  const qteInpR = document.getElementById('qte_'+idx);
+  const dsignR = qteInpR ? parseInt(qteInpR.dataset.deltaSign||'0') : 0;
+  const estVenteR = dsignR < 0;
+  const cashOk = estVenteR || row.cash>=mont || mont===0;
   const mEl = document.getElementById('mont_'+idx);
   if (mEl) { mEl.textContent = mont>0 ? fmtN(Math.round(mont))+' MAD' : '—'; mEl.className='r-mont '+(cashOk?'ok':'bad'); }
   const rowEl = document.getElementById('row_'+idx);
@@ -898,7 +893,6 @@ function updateSum() {
     sm.className = 'sb-val '+(tqV>0?'ve':'ga');
     sm.style.color = '';
   }
-  sm.className = 's-val';
   document.getElementById('bAdd').disabled = nc===0||tq===0;
   updChkAll();
 }
