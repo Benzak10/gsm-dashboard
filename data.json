@@ -1,22 +1,22 @@
 {
-  "date_extraction": "29/04/2026 10:38",
+  "date_extraction": "29/04/2026 11:16",
   "portefeuilles": [
     {
       "nom": "Aniss",
       "plateforme": "Valoris",
       "capacite_achat": 3805.45,
-      "valorisation": 574507.9,
-      "plus_moins_value": 18116.2,
-      "total": 578313.35,
+      "valorisation": 573166.7,
+      "plus_moins_value": 16775.0,
+      "total": 576972.1499999999,
       "positions": [
         {
           "ticker": "ADH",
           "valeur": "Groupe Addoha",
           "quantite": 1500,
-          "prix_marche": 34.93,
+          "prix_marche": 34.52,
           "cmp": 35.95,
-          "valori_ptf": 52395.0,
-          "plus_moins_value": -1530.0
+          "valori_ptf": 51780.0,
+          "plus_moins_value": -2145.0
         },
         {
           "ticker": "DHO",
@@ -31,19 +31,19 @@
           "ticker": "RIS",
           "valeur": "Risma",
           "quantite": 150,
-          "prix_marche": 347.15,
+          "prix_marche": 346.7,
           "cmp": 352.36,
-          "valori_ptf": 52072.5,
-          "plus_moins_value": -781.5
+          "valori_ptf": 52005.0,
+          "plus_moins_value": -849.0
         },
         {
           "ticker": "GTM",
           "valeur": "SGTM S.A",
           "quantite": 96,
-          "prix_marche": 771.0,
+          "prix_marche": 766.0,
           "cmp": 383.76,
-          "valori_ptf": 74016.0,
-          "plus_moins_value": 37175.04
+          "valori_ptf": 73536.0,
+          "plus_moins_value": 36695.04
         },
         {
           "ticker": "BCI",
@@ -58,10 +58,10 @@
           "ticker": "CAP",
           "valeur": "Cash Plus",
           "quantite": 57,
-          "prix_marche": 285.1,
+          "prix_marche": 290.0,
           "cmp": 202.1,
-          "valori_ptf": 16250.7,
-          "plus_moins_value": 4731.0
+          "valori_ptf": 16530.0,
+          "plus_moins_value": 5010.3
         },
         {
           "ticker": "CMA",
@@ -76,28 +76,28 @@
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 38,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2426.15,
-          "valori_ptf": 90706.0,
-          "plus_moins_value": -1487.7
+          "valori_ptf": 90554.0,
+          "plus_moins_value": -1639.7
         },
         {
           "ticker": "VCN",
           "valeur": "Vicenne",
           "quantite": 34,
-          "prix_marche": 438.0,
+          "prix_marche": 432.0,
           "cmp": 238.43,
-          "valori_ptf": 14892.0,
-          "plus_moins_value": 6785.38
+          "valori_ptf": 14688.0,
+          "plus_moins_value": 6581.38
         },
         {
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 30,
-          "prix_marche": 794.4,
+          "prix_marche": 791.0,
           "cmp": 805.78,
-          "valori_ptf": 23832.0,
-          "plus_moins_value": -341.4
+          "valori_ptf": 23730.0,
+          "plus_moins_value": -443.4
         },
         {
           "ticker": "LBV",
@@ -115,9 +115,9 @@
       "nom": "Elali Riyad",
       "plateforme": "Valoris",
       "capacite_achat": 4926.11,
-      "valorisation": 183221.7,
-      "plus_moins_value": 8449.640000000001,
-      "total": 188147.81,
+      "valorisation": 182881.7,
+      "plus_moins_value": 8109.64,
+      "total": 187807.81,
       "positions": [
         {
           "ticker": "CIH",
@@ -141,28 +141,28 @@
           "ticker": "GTM",
           "valeur": "SGTM S.A",
           "quantite": 32,
-          "prix_marche": 771.0,
+          "prix_marche": 769.0,
           "cmp": 383.76,
-          "valori_ptf": 24672.0,
-          "plus_moins_value": 12391.68
+          "valori_ptf": 24608.0,
+          "plus_moins_value": 12327.68
         },
         {
           "ticker": "VCN",
           "valeur": "Vicenne",
           "quantite": 24,
-          "prix_marche": 438.0,
+          "prix_marche": 432.0,
           "cmp": 238.43,
-          "valori_ptf": 10512.0,
-          "plus_moins_value": 4789.68
+          "valori_ptf": 10368.0,
+          "plus_moins_value": 4645.68
         },
         {
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 20,
-          "prix_marche": 794.4,
+          "prix_marche": 791.0,
           "cmp": 835.19,
-          "valori_ptf": 15888.0,
-          "plus_moins_value": -815.8
+          "valori_ptf": 15820.0,
+          "plus_moins_value": -883.8
         },
         {
           "ticker": "CMA",
@@ -177,10 +177,10 @@
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 16,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2418.77,
-          "valori_ptf": 38192.0,
-          "plus_moins_value": -508.32
+          "valori_ptf": 38128.0,
+          "plus_moins_value": -572.32
         },
         {
           "ticker": "LBV",
@@ -198,18 +198,18 @@
       "nom": "ADNANI",
       "plateforme": "Valoris",
       "capacite_achat": 80330.25,
-      "valorisation": 1089009.81,
-      "plus_moins_value": -50379.509999999995,
-      "total": 1169340.06,
+      "valorisation": 1084939.81,
+      "plus_moins_value": -54449.509999999995,
+      "total": 1165270.06,
       "positions": [
         {
           "ticker": "ADH",
           "valeur": "Groupe Addoha",
           "quantite": 4000,
-          "prix_marche": 34.93,
+          "prix_marche": 34.52,
           "cmp": 28.14,
-          "valori_ptf": 139720.0,
-          "plus_moins_value": 27160.0
+          "valori_ptf": 138080.0,
+          "plus_moins_value": 25520.0
         },
         {
           "ticker": "DHO",
@@ -224,28 +224,28 @@
           "ticker": "HPS",
           "valeur": "HPS",
           "quantite": 370,
-          "prix_marche": 612.0,
+          "prix_marche": 619.0,
           "cmp": 563.78,
-          "valori_ptf": 226440.0,
-          "plus_moins_value": 17841.4
+          "valori_ptf": 229030.0,
+          "plus_moins_value": 20431.4
         },
         {
           "ticker": "ADI",
           "valeur": "Alliances",
           "quantite": 250,
-          "prix_marche": 455.0,
+          "prix_marche": 440.5,
           "cmp": 493.75,
-          "valori_ptf": 113750.0,
-          "plus_moins_value": -9687.5
+          "valori_ptf": 110125.0,
+          "plus_moins_value": -13312.5
         },
         {
           "ticker": "VCN",
           "valeur": "Vicenne",
           "quantite": 220,
-          "prix_marche": 438.0,
+          "prix_marche": 432.0,
           "cmp": 538.54,
-          "valori_ptf": 96360.0,
-          "plus_moins_value": -22118.8
+          "valori_ptf": 95040.0,
+          "plus_moins_value": -23438.8
         },
         {
           "ticker": "CMA",
@@ -260,28 +260,28 @@
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 80,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2430.7,
-          "valori_ptf": 190960.0,
-          "plus_moins_value": -3496.0
+          "valori_ptf": 190640.0,
+          "plus_moins_value": -3816.0
         },
         {
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 75,
-          "prix_marche": 794.4,
+          "prix_marche": 791.0,
           "cmp": 852.31,
-          "valori_ptf": 59580.0,
-          "plus_moins_value": -4343.25
+          "valori_ptf": 59325.0,
+          "plus_moins_value": -4598.25
         },
         {
           "ticker": "TMA",
           "valeur": "Total",
           "quantite": 50,
-          "prix_marche": 1515.0,
+          "prix_marche": 1525.0,
           "cmp": 1796.75,
-          "valori_ptf": 75750.0,
-          "plus_moins_value": -14087.5
+          "valori_ptf": 76250.0,
+          "plus_moins_value": -13587.5
         }
       ],
       "anomalies": []
@@ -290,9 +290,9 @@
       "nom": "Majid",
       "plateforme": "Valoris",
       "capacite_achat": 863.44,
-      "valorisation": 265196.88,
-      "plus_moins_value": -5503.71,
-      "total": 266060.32,
+      "valorisation": 264770.08,
+      "plus_moins_value": -5930.51,
+      "total": 265633.52,
       "positions": [
         {
           "ticker": "DHO",
@@ -307,28 +307,28 @@
           "ticker": "ATL",
           "valeur": "Atlanta",
           "quantite": 145,
-          "prix_marche": 132.0,
+          "prix_marche": 132.4,
           "cmp": 150.89,
-          "valori_ptf": 19140.0,
-          "plus_moins_value": -2739.05
+          "valori_ptf": 19198.0,
+          "plus_moins_value": -2681.05
         },
         {
           "ticker": "CFG",
           "valeur": "CFG Bank",
           "quantite": 100,
-          "prix_marche": 216.9,
+          "prix_marche": 213.4,
           "cmp": 229.32,
-          "valori_ptf": 21690.0,
-          "plus_moins_value": -1242.0
+          "valori_ptf": 21340.0,
+          "plus_moins_value": -1592.0
         },
         {
           "ticker": "BCP",
           "valeur": "BCP",
           "quantite": 70,
-          "prix_marche": 245.15,
+          "prix_marche": 247.95,
           "cmp": 304.69,
-          "valori_ptf": 17160.5,
-          "plus_moins_value": -4167.8
+          "valori_ptf": 17356.5,
+          "plus_moins_value": -3971.8
         },
         {
           "ticker": "CIH",
@@ -352,19 +352,19 @@
           "ticker": "GTM",
           "valeur": "SGTM S.A",
           "quantite": 32,
-          "prix_marche": 770.0,
+          "prix_marche": 769.0,
           "cmp": 383.76,
-          "valori_ptf": 24640.0,
-          "plus_moins_value": 12359.68
+          "valori_ptf": 24608.0,
+          "plus_moins_value": 12327.68
         },
         {
           "ticker": "VCN",
           "valeur": "Vicenne",
           "quantite": 24,
-          "prix_marche": 438.0,
+          "prix_marche": 432.0,
           "cmp": 238.43,
-          "valori_ptf": 10512.0,
-          "plus_moins_value": 4789.68
+          "valori_ptf": 10368.0,
+          "plus_moins_value": 4645.68
         },
         {
           "ticker": "CMA",
@@ -379,19 +379,19 @@
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 22,
-          "prix_marche": 794.4,
+          "prix_marche": 791.0,
           "cmp": 835.77,
-          "valori_ptf": 17476.8,
-          "plus_moins_value": -910.14
+          "valori_ptf": 17402.0,
+          "plus_moins_value": -984.94
         },
         {
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 20,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2423.37,
-          "valori_ptf": 47740.0,
-          "plus_moins_value": -727.4
+          "valori_ptf": 47660.0,
+          "plus_moins_value": -807.4
         },
         {
           "ticker": "LBV",
@@ -409,9 +409,9 @@
       "nom": "Larbi",
       "plateforme": "Valoris",
       "capacite_achat": 13505.53,
-      "valorisation": 698619.62,
-      "plus_moins_value": -100242.22,
-      "total": 712125.15,
+      "valorisation": 697066.22,
+      "plus_moins_value": -101795.62,
+      "total": 710571.75,
       "positions": [
         {
           "ticker": "DHO",
@@ -426,37 +426,37 @@
           "ticker": "CFG",
           "valeur": "CFG Bank",
           "quantite": 350,
-          "prix_marche": 216.9,
+          "prix_marche": 213.4,
           "cmp": 230.31,
-          "valori_ptf": 75915.0,
-          "plus_moins_value": -4693.5
+          "valori_ptf": 74690.0,
+          "plus_moins_value": -5918.5
         },
         {
           "ticker": "BCP",
           "valeur": "BCP",
           "quantite": 300,
-          "prix_marche": 245.15,
+          "prix_marche": 247.95,
           "cmp": 304.0,
-          "valori_ptf": 73545.0,
-          "plus_moins_value": -17655.0
+          "valori_ptf": 74385.0,
+          "plus_moins_value": -16815.0
         },
         {
           "ticker": "VCN",
           "valeur": "Vicenne",
           "quantite": 200,
-          "prix_marche": 438.0,
+          "prix_marche": 432.0,
           "cmp": 527.93,
-          "valori_ptf": 87600.0,
-          "plus_moins_value": -17986.0
+          "valori_ptf": 86400.0,
+          "plus_moins_value": -19186.0
         },
         {
           "ticker": "BOA",
           "valeur": "BMCE Bank",
           "quantite": 132,
-          "prix_marche": 209.0,
+          "prix_marche": 210.0,
           "cmp": 262.72,
-          "valori_ptf": 27588.0,
-          "plus_moins_value": -7091.04
+          "valori_ptf": 27720.0,
+          "plus_moins_value": -6959.04
         },
         {
           "ticker": "BCI",
@@ -471,19 +471,19 @@
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 59,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2420.91,
-          "valori_ptf": 140833.0,
-          "plus_moins_value": -2000.69
+          "valori_ptf": 140597.0,
+          "plus_moins_value": -2236.69
         },
         {
           "ticker": "TMA",
           "valeur": "Total",
           "quantite": 55,
-          "prix_marche": 1515.0,
+          "prix_marche": 1520.0,
           "cmp": 1832.05,
-          "valori_ptf": 83325.0,
-          "plus_moins_value": -17437.75
+          "valori_ptf": 83600.0,
+          "plus_moins_value": -17162.75
         },
         {
           "ticker": "CMA",
@@ -498,10 +498,10 @@
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 41,
-          "prix_marche": 794.4,
+          "prix_marche": 791.0,
           "cmp": 841.54,
-          "valori_ptf": 32570.4,
-          "plus_moins_value": -1932.74
+          "valori_ptf": 32431.0,
+          "plus_moins_value": -2072.14
         },
         {
           "ticker": "ABOAF",
@@ -519,9 +519,9 @@
       "nom": "Hakima",
       "plateforme": "Valoris",
       "capacite_achat": 5546.09,
-      "valorisation": 553665.8,
-      "plus_moins_value": -49469.95,
-      "total": 559211.89,
+      "valorisation": 553211.0,
+      "plus_moins_value": -49924.75,
+      "total": 558757.09,
       "positions": [
         {
           "ticker": "DHO",
@@ -545,28 +545,28 @@
           "ticker": "VCN",
           "valeur": "Vicenne",
           "quantite": 150,
-          "prix_marche": 438.0,
+          "prix_marche": 432.0,
           "cmp": 538.55,
-          "valori_ptf": 65700.0,
-          "plus_moins_value": -15082.5
+          "valori_ptf": 64800.0,
+          "plus_moins_value": -15982.5
         },
         {
           "ticker": "HPS",
           "valeur": "HPS",
           "quantite": 95,
-          "prix_marche": 612.0,
+          "prix_marche": 619.0,
           "cmp": 554.31,
-          "valori_ptf": 58140.0,
-          "plus_moins_value": 5480.55
+          "valori_ptf": 58805.0,
+          "plus_moins_value": 6145.55
         },
         {
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 50,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2428.96,
-          "valori_ptf": 119350.0,
-          "plus_moins_value": -2098.0
+          "valori_ptf": 119150.0,
+          "plus_moins_value": -2298.0
         },
         {
           "ticker": "CMA",
@@ -581,19 +581,19 @@
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 42,
-          "prix_marche": 794.4,
+          "prix_marche": 790.0,
           "cmp": 851.74,
-          "valori_ptf": 33364.8,
-          "plus_moins_value": -2408.28
+          "valori_ptf": 33180.0,
+          "plus_moins_value": -2593.08
         },
         {
           "ticker": "TMA",
           "valeur": "Total",
           "quantite": 33,
-          "prix_marche": 1515.0,
+          "prix_marche": 1520.0,
           "cmp": 1791.24,
-          "valori_ptf": 49995.0,
-          "plus_moins_value": -9115.92
+          "valori_ptf": 50160.0,
+          "plus_moins_value": -8950.92
         }
       ],
       "anomalies": []
@@ -602,45 +602,45 @@
       "nom": "Anass",
       "plateforme": "Valoris",
       "capacite_achat": 37301.28,
-      "valorisation": 197141.6,
-      "plus_moins_value": 31100.52,
-      "total": 234442.88,
+      "valorisation": 196508.0,
+      "plus_moins_value": 30466.92,
+      "total": 233809.28,
       "positions": [
         {
           "ticker": "CFG",
           "valeur": "CFG Bank",
           "quantite": 90,
-          "prix_marche": 216.9,
+          "prix_marche": 213.4,
           "cmp": 230.02,
-          "valori_ptf": 19521.0,
-          "plus_moins_value": -1180.8
+          "valori_ptf": 19206.0,
+          "plus_moins_value": -1495.8
         },
         {
           "ticker": "GTM",
           "valeur": "SGTM S.A",
           "quantite": 64,
-          "prix_marche": 770.0,
+          "prix_marche": 769.0,
           "cmp": 383.76,
-          "valori_ptf": 49280.0,
-          "plus_moins_value": 24719.36
+          "valori_ptf": 49216.0,
+          "plus_moins_value": 24655.36
         },
         {
           "ticker": "VCN",
           "valeur": "Vicenne",
           "quantite": 46,
-          "prix_marche": 438.0,
+          "prix_marche": 432.0,
           "cmp": 238.43,
-          "valori_ptf": 20148.0,
-          "plus_moins_value": 9180.22
+          "valori_ptf": 19872.0,
+          "plus_moins_value": 8904.22
         },
         {
           "ticker": "CAP",
           "valeur": "Cash Plus",
           "quantite": 38,
-          "prix_marche": 285.1,
+          "prix_marche": 290.0,
           "cmp": 202.1,
-          "valori_ptf": 10833.8,
-          "plus_moins_value": 3154.0
+          "valori_ptf": 11020.0,
+          "plus_moins_value": 3340.2
         },
         {
           "ticker": "CMA",
@@ -655,28 +655,28 @@
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 20,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2427.55,
-          "valori_ptf": 47740.0,
-          "plus_moins_value": -811.0
+          "valori_ptf": 47660.0,
+          "plus_moins_value": -891.0
         },
         {
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 18,
-          "prix_marche": 794.4,
+          "prix_marche": 790.0,
           "cmp": 647.69,
-          "valori_ptf": 14299.2,
-          "plus_moins_value": 2640.78
+          "valori_ptf": 14220.0,
+          "plus_moins_value": 2561.58
         },
         {
           "ticker": "ATW",
           "valeur": "Attijariwafa",
           "quantite": 2,
-          "prix_marche": 699.8,
+          "prix_marche": 697.0,
           "cmp": 548.02,
-          "valori_ptf": 1399.6,
-          "plus_moins_value": 303.56
+          "valori_ptf": 1394.0,
+          "plus_moins_value": 297.96
         }
       ],
       "anomalies": []
@@ -685,27 +685,27 @@
       "nom": "Brahim",
       "plateforme": "Valoris",
       "capacite_achat": 5143.64,
-      "valorisation": 628887.48,
-      "plus_moins_value": -51792.02,
-      "total": 634031.12,
+      "valorisation": 627272.48,
+      "plus_moins_value": -53407.02,
+      "total": 632416.12,
       "positions": [
         {
           "ticker": "VCN",
           "valeur": "Vicenne",
           "quantite": 200,
-          "prix_marche": 438.0,
+          "prix_marche": 432.0,
           "cmp": 528.34,
-          "valori_ptf": 87600.0,
-          "plus_moins_value": -18068.0
+          "valori_ptf": 86400.0,
+          "plus_moins_value": -19268.0
         },
         {
           "ticker": "GTM",
           "valeur": "SGTM S.A",
           "quantite": 147,
-          "prix_marche": 770.0,
+          "prix_marche": 769.0,
           "cmp": 862.79,
-          "valori_ptf": 113190.0,
-          "plus_moins_value": -13640.13
+          "valori_ptf": 113043.0,
+          "plus_moins_value": -13787.13
         },
         {
           "ticker": "BCI",
@@ -720,10 +720,10 @@
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 67,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2427.72,
-          "valori_ptf": 159929.0,
-          "plus_moins_value": -2728.24
+          "valori_ptf": 159661.0,
+          "plus_moins_value": -2996.24
         },
         {
           "ticker": "CMA",
@@ -759,54 +759,54 @@
       "nom": "Oumaima",
       "plateforme": "Valoris",
       "capacite_achat": 918.52,
-      "valorisation": 190600.0,
-      "plus_moins_value": 9733.000000000002,
-      "total": 191518.52,
+      "valorisation": 190194.0,
+      "plus_moins_value": 9327.000000000002,
+      "total": 191112.52,
       "positions": [
         {
           "ticker": "ADH",
           "valeur": "Groupe Addoha",
           "quantite": 900,
-          "prix_marche": 34.93,
+          "prix_marche": 34.52,
           "cmp": 35.93,
-          "valori_ptf": 31437.0,
-          "plus_moins_value": -900.0
+          "valori_ptf": 31068.0,
+          "plus_moins_value": -1269.0
         },
         {
           "ticker": "RIS",
           "valeur": "Risma",
           "quantite": 100,
-          "prix_marche": 347.15,
+          "prix_marche": 350.0,
           "cmp": 352.4,
-          "valori_ptf": 34715.0,
-          "plus_moins_value": -525.0
+          "valori_ptf": 35000.0,
+          "plus_moins_value": -240.0
         },
         {
           "ticker": "GTM",
           "valeur": "SGTM S.A",
           "quantite": 32,
-          "prix_marche": 770.0,
+          "prix_marche": 769.0,
           "cmp": 383.76,
-          "valori_ptf": 24640.0,
-          "plus_moins_value": 12359.68
+          "valori_ptf": 24608.0,
+          "plus_moins_value": 12327.68
         },
         {
           "ticker": "VCN",
           "valeur": "Vicenne",
           "quantite": 24,
-          "prix_marche": 438.0,
+          "prix_marche": 432.0,
           "cmp": 238.43,
-          "valori_ptf": 10512.0,
-          "plus_moins_value": 4789.68
+          "valori_ptf": 10368.0,
+          "plus_moins_value": 4645.68
         },
         {
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 20,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2424.69,
-          "valori_ptf": 47740.0,
-          "plus_moins_value": -753.8
+          "valori_ptf": 47660.0,
+          "plus_moins_value": -833.8
         },
         {
           "ticker": "CMA",
@@ -821,10 +821,10 @@
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 15,
-          "prix_marche": 794.4,
+          "prix_marche": 790.0,
           "cmp": 818.14,
-          "valori_ptf": 11916.0,
-          "plus_moins_value": -356.1
+          "valori_ptf": 11850.0,
+          "plus_moins_value": -422.1
         },
         {
           "ticker": "LBV",
@@ -842,45 +842,45 @@
       "nom": "Ghita Berrada",
       "plateforme": "Valoris",
       "capacite_achat": 1366.2,
-      "valorisation": 216882.35,
-      "plus_moins_value": 31523.93,
-      "total": 218248.55000000002,
+      "valorisation": 217108.0,
+      "plus_moins_value": 31749.58,
+      "total": 218474.2,
       "positions": [
         {
           "ticker": "RIS",
           "valeur": "Risma",
           "quantite": 169,
-          "prix_marche": 347.15,
+          "prix_marche": 350.0,
           "cmp": 352.38,
-          "valori_ptf": 58668.35,
-          "plus_moins_value": -883.87
+          "valori_ptf": 59150.0,
+          "plus_moins_value": -402.22
         },
         {
           "ticker": "GTM",
           "valeur": "SGTM S.A",
           "quantite": 96,
-          "prix_marche": 770.0,
+          "prix_marche": 769.0,
           "cmp": 383.76,
-          "valori_ptf": 73920.0,
-          "plus_moins_value": 37079.04
+          "valori_ptf": 73824.0,
+          "plus_moins_value": 36983.04
         },
         {
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 20,
-          "prix_marche": 794.4,
+          "prix_marche": 790.0,
           "cmp": 732.18,
-          "valori_ptf": 15888.0,
-          "plus_moins_value": 1244.4
+          "valori_ptf": 15800.0,
+          "plus_moins_value": 1156.4
         },
         {
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 18,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2426.03,
-          "valori_ptf": 42966.0,
-          "plus_moins_value": -702.54
+          "valori_ptf": 42894.0,
+          "plus_moins_value": -774.54
         },
         {
           "ticker": "CMA",
@@ -898,27 +898,27 @@
       "nom": "Rafik Oussama",
       "plateforme": "Valoris",
       "capacite_achat": 148.51,
-      "valorisation": 268791.0,
-      "plus_moins_value": -10600.35,
-      "total": 268939.51,
+      "valorisation": 269185.0,
+      "plus_moins_value": -10206.35,
+      "total": 269333.51,
       "positions": [
         {
           "ticker": "RIS",
           "valeur": "Risma",
           "quantite": 128,
-          "prix_marche": 347.15,
+          "prix_marche": 350.0,
           "cmp": 352.33,
-          "valori_ptf": 44435.2,
-          "plus_moins_value": -663.04
+          "valori_ptf": 44800.0,
+          "plus_moins_value": -298.24
         },
         {
           "ticker": "HPS",
           "valeur": "HPS",
           "quantite": 59,
-          "prix_marche": 615.0,
+          "prix_marche": 619.0,
           "cmp": 581.69,
-          "valori_ptf": 36285.0,
-          "plus_moins_value": 1965.29
+          "valori_ptf": 36521.0,
+          "plus_moins_value": 2201.29
         },
         {
           "ticker": "CMA",
@@ -933,19 +933,19 @@
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 22,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2426.01,
-          "valori_ptf": 52514.0,
-          "plus_moins_value": -858.22
+          "valori_ptf": 52426.0,
+          "plus_moins_value": -946.22
         },
         {
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 22,
-          "prix_marche": 794.4,
+          "prix_marche": 789.0,
           "cmp": 855.71,
-          "valori_ptf": 17476.8,
-          "plus_moins_value": -1348.82
+          "valori_ptf": 17358.0,
+          "plus_moins_value": -1467.62
         },
         {
           "ticker": "LBV",
@@ -963,18 +963,18 @@
       "nom": "Mounir",
       "plateforme": "Valoris",
       "capacite_achat": 1311.4,
-      "valorisation": 85750.0,
-      "plus_moins_value": -2883.8,
-      "total": 87061.4,
+      "valorisation": 85025.0,
+      "plus_moins_value": -3608.8,
+      "total": 86336.4,
       "positions": [
         {
           "ticker": "ADI",
           "valeur": "Alliances",
           "quantite": 50,
-          "prix_marche": 455.0,
+          "prix_marche": 440.5,
           "cmp": 518.73,
-          "valori_ptf": 22750.0,
-          "plus_moins_value": -3186.5
+          "valori_ptf": 22025.0,
+          "plus_moins_value": -3911.5
         },
         {
           "ticker": "LBV",
@@ -992,45 +992,45 @@
       "nom": "ASSIA",
       "plateforme": "Redmed",
       "capacite_achat": 555.77,
-      "valorisation": 382212.4,
-      "plus_moins_value": -5604.550000000001,
-      "total": 382768.17000000004,
+      "valorisation": 382156.7,
+      "plus_moins_value": -5660.25,
+      "total": 382712.47000000003,
       "positions": [
         {
           "ticker": "CFG",
           "valeur": "CFG Bank",
           "quantite": 248,
-          "prix_marche": 214.5,
+          "prix_marche": 213.4,
           "cmp": 229.39,
-          "valori_ptf": 53196.0,
-          "plus_moins_value": -3692.72
+          "valori_ptf": 52923.2,
+          "plus_moins_value": -3965.52
         },
         {
           "ticker": "RIS",
           "valeur": "Risma",
           "quantite": 65,
-          "prix_marche": 347.2,
+          "prix_marche": 350.0,
           "cmp": 358.57,
-          "valori_ptf": 22568.0,
-          "plus_moins_value": -739.05
+          "valori_ptf": 22750.0,
+          "plus_moins_value": -557.05
         },
         {
           "ticker": "BCP",
           "valeur": "BCP",
           "quantite": 50,
-          "prix_marche": 245.15,
+          "prix_marche": 247.95,
           "cmp": 301.32,
-          "valori_ptf": 12257.5,
-          "plus_moins_value": -2808.5
+          "valori_ptf": 12397.5,
+          "plus_moins_value": -2668.5
         },
         {
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 37,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2414.58,
-          "valori_ptf": 88319.0,
-          "plus_moins_value": -1020.46
+          "valori_ptf": 88171.0,
+          "plus_moins_value": -1168.46
         },
         {
           "ticker": "CMA",
@@ -1045,10 +1045,10 @@
           "ticker": "GTM",
           "valeur": "SGTM S.A",
           "quantite": 32,
-          "prix_marche": 766.1,
+          "prix_marche": 768.0,
           "cmp": 383.76,
-          "valori_ptf": 24515.2,
-          "plus_moins_value": 12234.88
+          "valori_ptf": 24576.0,
+          "plus_moins_value": 12295.68
         },
         {
           "ticker": "LBV",
@@ -1063,28 +1063,28 @@
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 20,
-          "prix_marche": 794.4,
+          "prix_marche": 789.0,
           "cmp": 828.66,
-          "valori_ptf": 15888.0,
-          "plus_moins_value": -685.2
+          "valori_ptf": 15780.0,
+          "plus_moins_value": -793.2
         },
         {
           "ticker": "CAP",
           "valeur": "Cash Plus",
           "quantite": 19,
-          "prix_marche": 285.1,
+          "prix_marche": 290.0,
           "cmp": 201.98,
-          "valori_ptf": 5416.9,
-          "plus_moins_value": 1579.28
+          "valori_ptf": 5510.0,
+          "plus_moins_value": 1672.38
         },
         {
           "ticker": "ATW",
           "valeur": "Attijariwafa",
           "quantite": 1,
-          "prix_marche": 699.8,
+          "prix_marche": 697.0,
           "cmp": 700.06,
-          "valori_ptf": 699.8,
-          "plus_moins_value": -0.26
+          "valori_ptf": 697.0,
+          "plus_moins_value": -3.06
         }
       ],
       "anomalies": []
@@ -1093,45 +1093,45 @@
       "nom": "FATIMA",
       "plateforme": "Redmed",
       "capacite_achat": 486.43,
-      "valorisation": 269506.4,
-      "plus_moins_value": 1547.6299999999987,
-      "total": 269992.83,
+      "valorisation": 269254.0,
+      "plus_moins_value": 1295.23,
+      "total": 269740.43,
       "positions": [
         {
           "ticker": "RIS",
           "valeur": "Risma",
           "quantite": 143,
-          "prix_marche": 347.2,
+          "prix_marche": 350.0,
           "cmp": 351.93,
-          "valori_ptf": 49649.6,
-          "plus_moins_value": -676.39
+          "valori_ptf": 50050.0,
+          "plus_moins_value": -275.99
         },
         {
           "ticker": "VCN",
           "valeur": "Vicenne",
           "quantite": 79,
-          "prix_marche": 438.0,
+          "prix_marche": 432.0,
           "cmp": 456.93,
-          "valori_ptf": 34602.0,
-          "plus_moins_value": -1495.47
+          "valori_ptf": 34128.0,
+          "plus_moins_value": -1969.47
         },
         {
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 34,
-          "prix_marche": 794.4,
+          "prix_marche": 789.0,
           "cmp": 829.79,
-          "valori_ptf": 27009.6,
-          "plus_moins_value": -1203.26
+          "valori_ptf": 26826.0,
+          "plus_moins_value": -1386.86
         },
         {
           "ticker": "GTM",
           "valeur": "SGTM S.A",
           "quantite": 32,
-          "prix_marche": 766.1,
+          "prix_marche": 768.0,
           "cmp": 383.76,
-          "valori_ptf": 24515.2,
-          "plus_moins_value": 12234.88
+          "valori_ptf": 24576.0,
+          "plus_moins_value": 12295.68
         },
         {
           "ticker": "CMA",
@@ -1155,10 +1155,10 @@
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 14,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2417.22,
-          "valori_ptf": 33418.0,
-          "plus_moins_value": -423.08
+          "valori_ptf": 33362.0,
+          "plus_moins_value": -479.08
         }
       ],
       "anomalies": []
@@ -1167,36 +1167,36 @@
       "nom": "TAZI ZINEB",
       "plateforme": "Redmed",
       "capacite_achat": 26017.42,
-      "valorisation": 228562.3,
-      "plus_moins_value": 14103.279999999999,
-      "total": 254579.71999999997,
+      "valorisation": 228303.0,
+      "plus_moins_value": 13843.980000000001,
+      "total": 254320.41999999998,
       "positions": [
         {
           "ticker": "GTM",
           "valeur": "SGTM S.A",
           "quantite": 64,
-          "prix_marche": 766.1,
+          "prix_marche": 768.0,
           "cmp": 383.76,
-          "valori_ptf": 49030.4,
-          "plus_moins_value": 24469.76
+          "valori_ptf": 49152.0,
+          "plus_moins_value": 24591.36
         },
         {
           "ticker": "VCN",
           "valeur": "Vicenne",
           "quantite": 38,
-          "prix_marche": 438.0,
+          "prix_marche": 432.0,
           "cmp": 526.88,
-          "valori_ptf": 16644.0,
-          "plus_moins_value": -3377.44
+          "valori_ptf": 16416.0,
+          "plus_moins_value": -3605.44
         },
         {
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 30,
-          "prix_marche": 794.4,
+          "prix_marche": 789.0,
           "cmp": 810.0,
-          "valori_ptf": 23832.0,
-          "plus_moins_value": -468.0
+          "valori_ptf": 23670.0,
+          "plus_moins_value": -630.0
         },
         {
           "ticker": "CMA",
@@ -1211,19 +1211,19 @@
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 21,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2417.22,
-          "valori_ptf": 50127.0,
-          "plus_moins_value": -634.62
+          "valori_ptf": 50043.0,
+          "plus_moins_value": -718.62
         },
         {
           "ticker": "CAP",
           "valeur": "Cash Plus",
           "quantite": 19,
-          "prix_marche": 285.1,
+          "prix_marche": 290.0,
           "cmp": 201.98,
-          "valori_ptf": 5416.9,
-          "plus_moins_value": 1579.28
+          "valori_ptf": 5510.0,
+          "plus_moins_value": 1672.38
         },
         {
           "ticker": "LBV",
@@ -1241,36 +1241,36 @@
       "nom": "SALEHDDINE",
       "plateforme": "Redmed",
       "capacite_achat": 8414.45,
-      "valorisation": 330378.4,
-      "plus_moins_value": -24939.8,
-      "total": 338792.85000000003,
+      "valorisation": 329668.0,
+      "plus_moins_value": -25650.2,
+      "total": 338082.45,
       "positions": [
         {
           "ticker": "CFG",
           "valeur": "CFG Bank",
           "quantite": 300,
-          "prix_marche": 214.5,
+          "prix_marche": 213.4,
           "cmp": 230.66,
-          "valori_ptf": 64350.0,
-          "plus_moins_value": -4848.0
+          "valori_ptf": 64020.0,
+          "plus_moins_value": -5178.0
         },
         {
           "ticker": "VCN",
           "valeur": "Vicenne",
           "quantite": 50,
-          "prix_marche": 437.0,
+          "prix_marche": 432.0,
           "cmp": 528.61,
-          "valori_ptf": 21850.0,
-          "plus_moins_value": -4580.5
+          "valori_ptf": 21600.0,
+          "plus_moins_value": -4830.5
         },
         {
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 33,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2425.16,
-          "valori_ptf": 78771.0,
-          "plus_moins_value": -1259.28
+          "valori_ptf": 78639.0,
+          "plus_moins_value": -1391.28
         },
         {
           "ticker": "CMA",
@@ -1285,19 +1285,19 @@
           "ticker": "TMA",
           "valeur": "Total",
           "quantite": 23,
-          "prix_marche": 1515.0,
+          "prix_marche": 1520.0,
           "cmp": 1614.08,
-          "valori_ptf": 34845.0,
-          "plus_moins_value": -2278.84
+          "valori_ptf": 34960.0,
+          "plus_moins_value": -2163.84
         },
         {
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 21,
-          "prix_marche": 794.4,
+          "prix_marche": 789.0,
           "cmp": 857.48,
-          "valori_ptf": 16682.4,
-          "plus_moins_value": -1324.68
+          "valori_ptf": 16569.0,
+          "plus_moins_value": -1438.08
         },
         {
           "ticker": "LBV",
@@ -1315,90 +1315,90 @@
       "nom": "REDA TA",
       "plateforme": "Redmed",
       "capacite_achat": 2392.04,
-      "valorisation": 653224.2,
-      "plus_moins_value": -54753.38,
-      "total": 655616.24,
+      "valorisation": 652898.4,
+      "plus_moins_value": -55079.18,
+      "total": 655290.4400000001,
       "positions": [
         {
           "ticker": "IAM",
           "valeur": "Maroc Telecom",
           "quantite": 300,
-          "prix_marche": 95.5,
+          "prix_marche": 95.36,
           "cmp": 127.7,
-          "valori_ptf": 28650.0,
-          "plus_moins_value": -9660.0
+          "valori_ptf": 28608.0,
+          "plus_moins_value": -9702.0
         },
         {
           "ticker": "RIS",
           "valeur": "Risma",
           "quantite": 275,
-          "prix_marche": 348.0,
+          "prix_marche": 350.0,
           "cmp": 354.94,
-          "valori_ptf": 95700.0,
-          "plus_moins_value": -1908.5
+          "valori_ptf": 96250.0,
+          "plus_moins_value": -1358.5
         },
         {
           "ticker": "CFG",
           "valeur": "CFG Bank",
           "quantite": 211,
-          "prix_marche": 214.5,
+          "prix_marche": 213.4,
           "cmp": 231.26,
-          "valori_ptf": 45259.5,
-          "plus_moins_value": -3536.36
+          "valori_ptf": 45027.4,
+          "plus_moins_value": -3768.46
         },
         {
           "ticker": "BCP",
           "valeur": "BCP",
           "quantite": 120,
-          "prix_marche": 245.15,
+          "prix_marche": 246.0,
           "cmp": 301.45,
-          "valori_ptf": 29418.0,
-          "plus_moins_value": -6756.0
+          "valori_ptf": 29520.0,
+          "plus_moins_value": -6654.0
         },
         {
           "ticker": "CAP",
           "valeur": "Cash Plus",
           "quantite": 57,
-          "prix_marche": 285.1,
+          "prix_marche": 290.0,
           "cmp": 201.98,
-          "valori_ptf": 16250.7,
-          "plus_moins_value": 4737.84
+          "valori_ptf": 16530.0,
+          "plus_moins_value": 5017.14
         },
         {
           "ticker": "VCN",
           "valeur": "Vicenne",
           "quantite": 52,
-          "prix_marche": 437.0,
+          "prix_marche": 432.0,
           "cmp": 238.34,
-          "valori_ptf": 22724.0,
-          "plus_moins_value": 10330.32
+          "valori_ptf": 22464.0,
+          "plus_moins_value": 10070.32
         },
         {
           "ticker": "AKT",
           "valeur": "Akdital",
           "quantite": 50,
-          "prix_marche": 1239.0,
+          "prix_marche": 1240.0,
           "cmp": 1432.64,
-          "valori_ptf": 61950.0,
-          "plus_moins_value": -9682.0
+          "valori_ptf": 62000.0,
+          "plus_moins_value": -9632.0
         },
         {
           "ticker": "ADI",
           "valeur": "Alliances",
           "quantite": 40,
-          "prix_marche": 455.0,
+          "prix_marche": 440.5,
           "cmp": 486.66,
-          "valori_ptf": 18200.0,
-          "plus_moins_value": -1266.4
+          "valori_ptf": 17620.0,
+          "plus_moins_value": -1846.4
         },
         {
           "ticker": "JET",
           "valeur": "Jet Contractors",
           "quantite": 39,
-          "prix_marche": 2387.0,
+          "prix_marche": 2383.0,
           "cmp": 2434.01,
-          "valori_ptf": 93093.0,
-          "plus_moins_value": -1833.39
+          "valori_ptf": 92937.0,
+          "plus_moins_value": -1989.39
         },
         {
           "ticker": "CMA",
@@ -1413,10 +1413,10 @@
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 30,
-          "prix_marche": 794.4,
+          "prix_marche": 789.0,
           "cmp": 810.49,
-          "valori_ptf": 23832.0,
-          "plus_moins_value": -482.7
+          "valori_ptf": 23670.0,
+          "plus_moins_value": -644.7
         },
         {
           "ticker": "LBV",
@@ -1431,10 +1431,10 @@
           "ticker": "TMA",
           "valeur": "Total",
           "quantite": 25,
-          "prix_marche": 1515.0,
+          "prix_marche": 1520.0,
           "cmp": 1830.01,
-          "valori_ptf": 37875.0,
-          "plus_moins_value": -7875.25
+          "valori_ptf": 38000.0,
+          "plus_moins_value": -7750.25
         }
       ],
       "anomalies": []
@@ -1443,54 +1443,54 @@
       "nom": "FAHD ADNANI",
       "plateforme": "Redmed",
       "capacite_achat": 2183458.01,
-      "valorisation": 1465860.01,
-      "plus_moins_value": 58008.81,
-      "total": 3649318.0199999996,
+      "valorisation": 1458770.0,
+      "plus_moins_value": 50918.8,
+      "total": 3642228.01,
       "positions": [
         {
           "ticker": "ADH",
           "valeur": "Groupe Addoha",
           "quantite": 10000,
-          "prix_marche": 34.93,
+          "prix_marche": 34.52,
           "cmp": 31.75,
-          "valori_ptf": 349300.0,
-          "plus_moins_value": 31800.0
+          "valori_ptf": 345200.0,
+          "plus_moins_value": 27700.0
         },
         {
           "ticker": "MSA",
           "valeur": "Marsa Maroc",
           "quantite": 300,
-          "prix_marche": 862.8,
+          "prix_marche": 858.0,
           "cmp": 806.85,
-          "valori_ptf": 258840.0,
-          "plus_moins_value": 16785.0
+          "valori_ptf": 257400.0,
+          "plus_moins_value": 15345.0
         },
         {
           "ticker": "TGC",
           "valeur": "TGCC S.A",
           "quantite": 250,
-          "prix_marche": 794.4,
+          "prix_marche": 789.0,
           "cmp": 837.54,
-          "valori_ptf": 198600.01,
-          "plus_moins_value": -10784.99
+          "valori_ptf": 197250.0,
+          "plus_moins_value": -12135.0
         },
         {
           "ticker": "AKT",
           "valeur": "Akdital",
           "quantite": 200,
-          "prix_marche": 1239.0,
+          "prix_marche": 1240.0,
           "cmp": 1190.46,
-          "valori_ptf": 247800.0,
-          "plus_moins_value": 9708.0
+          "valori_ptf": 248000.0,
+          "plus_moins_value": 9908.0
         },
         {
           "ticker": "HPS",
           "valeur": "HPS",
           "quantite": 200,
-          "prix_marche": 615.0,
+          "prix_marche": 613.0,
           "cmp": 539.24,
-          "valori_ptf": 123000.0,
-          "plus_moins_value": 15152.0
+          "valori_ptf": 122600.0,
+          "plus_moins_value": 14752.0
         },
         {
           "ticker": "CMA",
