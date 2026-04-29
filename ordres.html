@@ -729,13 +729,14 @@ function renderPos(ticker) {
       deltaSign = delta > 0 ? 1 : delta < 0 ? -1 : 0; // +1=achat, -1=vente, 0=rien
     }
     const mont = qteC * pxG;
-    // Éligible = a assez de cash si achat, ou a des titres si vente
-    const estAchat = deltaSign >= 0; // si pas de poids cible, on suppose achat
-    const estVente = deltaSign < 0;
-    const cashOk = estVente ? true : row.cash >= mont || mont === 0;
-    const aTitres = estVente ? row.qteA >= qteC : true;
-    const eligible = cashOk && aTitres && qteC > 0;
-    // Bug fix 1 : cocher UNIQUEMENT si éligible
+    // Éligibilité stricte selon le sens du bouton
+    const modeVente = sens === 'V';
+    // VENTE : éligible = a des titres ET delta négatif
+    // ACHAT : éligible = a assez de cash ET delta positif
+    const aTitres = row.qteA >= qteC && qteC > 0;
+    const cashOk = row.cash >= mont && mont > 0;
+    const eligible = modeVente ? (deltaSign < 0 && aTitres) : (deltaSign > 0 && cashOk);
+    // Cocher UNIQUEMENT si éligible
     const chkd = eligible ? 'checked' : '';
     const pltC = row.plt==='Valoris' ? 'plt-v' : 'plt-r';
     const pltL = row.plt==='Valoris' ? 'Val' : 'Red';
@@ -925,8 +926,11 @@ function addPanier() {
       const dsign=qteInp ? parseInt(qteInp.dataset.deltaSign||'0') : 0;
       if(q>0){
         const ligne={compte:row.nom,plateforme:row.plt,quantite:q,prix:p,montant:Math.round(q*p),poids_cible:pc};
-        const estV = dsign < 0 || (dsign === 0 && sens === 'V');
-    if(estV) lignesVente.push(ligne); else lignesAchat.push(ligne);
+        // Ne prendre que les lignes correspondant au sens du bouton
+    if(sens === 'V' && dsign < 0) lignesVente.push(ligne);
+    else if(sens === 'A' && dsign > 0) lignesAchat.push(ligne);
+    else if(sens === 'V' && dsign === 0) lignesVente.push(ligne);
+    else if(sens === 'A' && dsign === 0) lignesAchat.push(ligne);
       }
     }
   });
