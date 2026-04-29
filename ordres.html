@@ -666,8 +666,11 @@ function onPcChange() {
 function appliquer() {
   const pc = parseFloat(document.getElementById('pcGlob').value);
   if (isNaN(pc)||pc<0){showToast('Poids cible invalide','err');return;}
-  // Re-rendre complètement les positions avec le nouveau poids cible
-  // pour que les coches et tags soient recalculés correctement
+  // Si prix limite vide, utiliser le cours actuel comme fallback
+  const pxEl = document.getElementById('pxGlob');
+  if ((!pxEl.value || parseFloat(pxEl.value)===0) && coursActuel > 0) {
+    pxEl.value = fmt2(coursActuel);
+  }
   if (tkSel) {
     renderPos(tkSel);
   } else {
