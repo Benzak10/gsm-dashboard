@@ -695,7 +695,8 @@ function resetPos() {
 function renderPos(ticker) {
   if (!DATA_JSON || !DATA_JSON.portefeuilles) { resetPos(); return; }
   const isL = document.getElementById('typeOrd').value === 'L';
-  const pxG = parseFloat(document.getElementById('pxGlob').value) || 0;
+  let pxG = parseFloat(document.getElementById('pxGlob').value) || 0;
+  if (!pxG && coursActuel > 0) pxG = coursActuel; // fallback cours actuel
   const pcG = parseFloat(document.getElementById('pcGlob').value) || 0;
   posRows = [];
 
